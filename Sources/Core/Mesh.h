@@ -71,7 +71,7 @@ public:
 
 	/* Returns true if depth test enabled */
 	bool IsDepthTestEnabled() const;
-	/* Enable depth test. If disabled geometry will be allowed to draw each on eachother */
+	/* Enable depth test. If disabled geometry will be allowed to draw each on each other */
 	void EnableDepthTest(bool enable);
 
 	/* Returns true if face culling enabled */
@@ -92,7 +92,7 @@ public:
 	String GetModelFileName() const;
 	/* Sets filename from which current Mesh was loaded */
 	void SetModelFileName(const String& filename);
-	/* Returns filename of material assosiated with current Mesh */
+	/* Returns filename of material associated with current Mesh */
 	String GetMaterialFileName() const;
 	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;

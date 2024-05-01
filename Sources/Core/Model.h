@@ -24,7 +24,7 @@ struct aiScene;
 namespace cross{
 
 /*	Model is a hierarchy of Entities with Mesh Components. Hierarchy and Mesh data usually loaded from model file.
-	Model life time managed by Scene. To load Model you need to use Scene::GetModel(). Dublicated models won't be loaded */
+	Model life time managed by Scene. To load Model you need to use Scene::GetModel(). Duplicated models won't be loaded */
 class Model {
 public:
 	/* Primitives model. Can be loaded by engine without a file */
@@ -41,7 +41,7 @@ public:
 	bool Load(const String& filename);
 	/* Loads Model from file and provides tangents data for model if needed */
 	bool Load(const String& filename, bool calcTangents);
-	/* Loads Model, provides tangents data for model and can tasnfer model data to video memory */
+	/* Loads Model, provides tangents data for model and can transfer model data to video memory */
 	bool Load(const String& filename, bool calcTangents, bool initializeVideoData);
 	/* Returns model's filename if was loaded from file */
 	const String& GetFilename() const;
