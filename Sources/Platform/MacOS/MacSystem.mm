@@ -73,7 +73,7 @@ Array<String> MacSystem::GetSubDirectories(const String& filepath) {
 	while(dir && (dr = readdir(dir))) {
 		String name = dr->d_name;
 		if(dr->d_type == DT_DIR && name != "." && name != "..") {
-			files.push_back(name);
+			files.Add(name);
 		}
 	}
 	closedir(dir);
@@ -91,7 +91,7 @@ Array<String> MacSystem::GetFilesInDirectory(const String& filepath) {
 	dirent* dr = nullptr;
 	while(dir && (dr = readdir(dir))) {
 		if(dr->d_type != DT_DIR) {
-			files.push_back(dr->d_name);
+			files.Add(dr->d_name);
 		}
 	}
 	closedir(dir);

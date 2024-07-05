@@ -20,7 +20,7 @@ void GLFWErrorCallback(int error, const char* description) {
 }
 
 void GLFWResizeCallback(GLFWwindow* win, int width, int height) {
-    system->SetWindowSize(width, height);
+    cross::os->SetWindowSize(width, height);
 }
 
 void GLFWMouseMoveCallback(GLFWwindow* win, double xPos, double yPos) {
@@ -94,7 +94,7 @@ void GLFWCharCallback(GLFWwindow* window, unsigned int codepoint) {
 }
 
 int main(int c,char **args) {
-    system = new MacSystem(args[0]);
+    cross::os = new MacSystem(args[0]);
 
     if(!glfwInit()) {
         cout<<"Failed to initialize GLFW"<<endl;
@@ -139,7 +139,7 @@ int main(int c,char **args) {
 	int posY = config->GetInt("WindowPosY", 100);
 	glfwSetWindowPos(window, posX, posY);
 	glfwGetFramebufferSize(window, &width, &height);
-	system->SetWindowSize(width, height);
+	cross::os->SetWindowSize(width, height);
 
     game->Start();
     
@@ -149,8 +149,8 @@ int main(int c,char **args) {
         glfwSwapBuffers(window);
     }
 
-	config->SetInt("WindowWidth", system->GetWindowWidth());
-	config->SetInt("WindowHeight", system->GetWindowHeight());
+	config->SetInt("WindowWidth", cross::os->GetWindowWidth());
+	config->SetInt("WindowHeight", cross::os->GetWindowHeight());
 	glfwGetWindowPos(window, &posX, &posY);
 	config->SetInt("WindowPosX", posX);
 	config->SetInt("WindowPosY", posY);
@@ -163,5 +163,5 @@ int main(int c,char **args) {
     delete game;
     delete gfxGL;
     delete audio;
-    delete system;
+    delete cross::os;
 }

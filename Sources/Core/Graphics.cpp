@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics.h"
-#include "Factory.h"
 #include "System.h"
+#include "Factory.h"
 #include "File.h"
 #include "Shaders/Shader.h"
 #include "Shaders/SingleLightShader.h"
