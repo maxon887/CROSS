@@ -269,9 +269,9 @@ float ArrayTestView::FindingStdFunc(const std::vector<S32>& integers) {
 
 	for(S32 i = 0; i < 10000; i++) {
 		if(i % 2 == 0) {
-			std::find(integers.begin(), integers.end(), Random(-100000, 100000));
+			auto found = std::find(integers.begin(), integers.end(), Random(-100000, 100000));
 		} else {
-			std::find(integers.begin(), integers.end(), integers[Random(0, integers.size())]);
+			auto found = std::find(integers.begin(), integers.end(), integers[Random(0, integers.size())]);
 		}	
 	}
 
