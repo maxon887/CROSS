@@ -123,7 +123,7 @@ int main(int c,char **args) {
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
     glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
     float dpi = mode->width * 2.f / (widthMM / 25.4);
-    MacSystem* macSystem = (MacSystem*)system;
+    MacSystem* macSystem = (MacSystem*)cross::os;
     macSystem->SetScreenDPI(dpi);
     
     glfwMakeContextCurrent(window);
