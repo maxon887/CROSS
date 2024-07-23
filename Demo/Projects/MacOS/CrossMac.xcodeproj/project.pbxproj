@@ -1327,15 +1327,16 @@
 					"$(SRCROOT)/../../../Sources/Libs/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
-					/usr/local/include,
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = CrossMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "	";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../Binaries/MacOS",
-					/usr/local/Cellar/glew/2.2.0_1/lib,
-					/usr/local/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
 					"-lGLEW",
 					"-lGLFW",
@@ -1365,15 +1366,16 @@
 					"$(SRCROOT)/../../../Sources/Libs/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
-					/usr/local/include,
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = CrossMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Resources";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../Binaries/MacOS",
-					/usr/local/Cellar/glew/2.2.0_1/lib,
-					/usr/local/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
 					"-lGLEW",
 					"-lGLFW",
