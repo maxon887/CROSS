@@ -98,10 +98,8 @@
 		9D33C12C20D02B47007EF97F /* ImGuiScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C12B20D02B47007EF97F /* ImGuiScreen.cpp */; };
 		9D60344F20B41C1A0054EEF0 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = 9D60344E20B41C1A0054EEF0 /* Assets */; };
 		9D6D8AD620B4189100119C74 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6D8AD520B4189100119C74 /* libfmod.dylib */; };
-		9D6D8AD820B4189B00119C74 /* libassimpMAC.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6D8AD720B4189B00119C74 /* libassimpMAC.dylib */; };
 		9D6D8ADA20B41A4200119C74 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6D8AD920B41A3B00119C74 /* Cocoa.framework */; };
 		9D6D8ADB20B41A7D00119C74 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D01320B40E27004A4D7E /* Screen.cpp */; };
-		9D6D8ADC20B41B4500119C74 /* libassimpMAC.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 9D6D8AD720B4189B00119C74 /* libassimpMAC.dylib */; };
 		9D6D8ADD20B41BCD00119C74 /* libfmod.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 9D6D8AD520B4189100119C74 /* libfmod.dylib */; };
 /* End PBXBuildFile section */
 
@@ -416,7 +414,6 @@
 		9D33C12B20D02B47007EF97F /* ImGuiScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiScreen.cpp; sourceTree = "<group>"; };
 		9D60344E20B41C1A0054EEF0 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Assets; path = ../../../Assets; sourceTree = "<group>"; };
 		9D6D8AD520B4189100119C74 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = ../../../Binaries/MacOS/libfmod.dylib; sourceTree = "<group>"; };
-		9D6D8AD720B4189B00119C74 /* libassimpMAC.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimpMAC.dylib; path = ../../../Binaries/MacOS/libassimpMAC.dylib; sourceTree = "<group>"; };
 		9D6D8AD920B41A3B00119C74 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -426,7 +423,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D6D8ADA20B41A4200119C74 /* Cocoa.framework in Frameworks */,
-				9D6D8AD820B4189B00119C74 /* libassimpMAC.dylib in Frameworks */,
 				9D6D8AD620B4189100119C74 /* libfmod.dylib in Frameworks */,
 				9D32D1FE20B40F2F004A4D7E /* OpenGL.framework in Frameworks */,
 			);
@@ -959,7 +955,6 @@
 			isa = PBXGroup;
 			children = (
 				9D6D8AD920B41A3B00119C74 /* Cocoa.framework */,
-				9D6D8AD720B4189B00119C74 /* libassimpMAC.dylib */,
 				9D6D8AD520B4189100119C74 /* libfmod.dylib */,
 				9D32D1FD20B40ECE004A4D7E /* OpenGL.framework */,
 			);
@@ -1095,7 +1090,6 @@
 			files = (
 				9D6D8ADD20B41BCD00119C74 /* libfmod.dylib in Resources */,
 				9D60344F20B41C1A0054EEF0 /* Assets in Resources */,
-				9D6D8ADC20B41B4500119C74 /* libassimpMAC.dylib in Resources */,
 				9D32CDDD20B40B12004A4D7E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1327,18 +1321,21 @@
 					"$(SRCROOT)/../../../Sources/Libs/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
-					/usr/local/include,
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = CrossMac/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "	";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Resources";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../Binaries/MacOS",
-					/usr/local/Cellar/glew/2.2.0_1/lib,
-					/usr/local/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
+					/opt/homebrew/Cellar/assimp/5.4.2/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
 					"-lGLEW",
 					"-lGLFW",
+					"-lassimp",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = littleman.CrossMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1365,18 +1362,21 @@
 					"$(SRCROOT)/../../../Sources/Libs/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/",
 					"$(SRCROOT)/../../../Sources/Libs/FreeType/freetype2/",
-					/usr/local/include,
+					/opt/homebrew/include,
 				);
 				INFOPLIST_FILE = CrossMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Resources";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../../Binaries/MacOS",
-					/usr/local/Cellar/glew/2.2.0_1/lib,
-					/usr/local/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
+					/opt/homebrew/Cellar/assimp/5.4.2/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
 					"-lGLEW",
 					"-lGLFW",
+					"-lassimp",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = littleman.CrossMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
