@@ -19,6 +19,16 @@ add_definitions(-DOPENGL)
 
 add_executable(${PROJECT_NAME} ${GLOBAL_SRC} ${WINDOWS_SRC})
 
-find_package(GLEW REQUIRED)
+find_library(GLEW_LIB NAMES glew32
+	PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
+find_library(FMOD_LIB NAMES fmod fmod_vc
+	PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
+
+find_package(OpenGL REQUIRED)
+
+target_link_libraries (${PROJECT_NAME} PRIVATE
+	${GLEW_LIB}
+	${OPENGL_gl_LIBRARY}
+	${FMOD_LIB})
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Sources" FILES ${GLOBAL_SRC})
