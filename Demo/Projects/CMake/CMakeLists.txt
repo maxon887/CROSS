@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.9.1)
 
 project(Demo)
+set (CMAKE_CXX_STANDARD 11)
 
 include_directories(../../../Sources)
 include_directories(../../../Sources/Core)
@@ -25,32 +26,36 @@ add_definitions(-DOPENGL)
 
 add_executable(${PROJECT_NAME} WIN32 ${CROSS_SRC} ${DEMO_SRC} ${IMGUI_SRC} ${WINDOWS_SRC})
 
-find_library(GLEW_LIB NAMES glew32
-	PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
-find_library(FMOD_LIB NAMES fmod fmod_vc
-	PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
-find_library(ASSIMP_LIB NAMES assimp
-	PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
-
-find_package(OpenGL REQUIRED)
-
-target_link_libraries (${PROJECT_NAME} PRIVATE
-	${GLEW_LIB}	${OPENGL_gl_LIBRARY} ${FMOD_LIB} ${ASSIMP_LIB})
-
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Sources" FILES ${CROSS_SRC})
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Sources" FILES ${DEMO_SRC})
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/assimp.dll"
-	"${CMAKE_CURRENT_BINARY_DIR}/Debug/assimp.dll")
+if (WIN32)
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/fmod.dll"
-	"${CMAKE_CURRENT_BINARY_DIR}/Debug/fmod.dll")
+	find_library(GLEW_LIB NAMES glew32
+		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
+	find_library(FMOD_LIB NAMES fmod fmod_vc
+		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
+	find_library(ASSIMP_LIB NAMES assimp
+		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/glew32.dll"
-	"${CMAKE_CURRENT_BINARY_DIR}/Debug/glew32.dll")
+	find_package(OpenGL REQUIRED)
+
+	target_link_libraries (${PROJECT_NAME} PRIVATE
+		${GLEW_LIB}	${OPENGL_gl_LIBRARY} ${FMOD_LIB} ${ASSIMP_LIB})
+
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/assimp.dll"
+		"${CMAKE_CURRENT_BINARY_DIR}/Debug/assimp.dll")
+
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/fmod.dll"
+		"${CMAKE_CURRENT_BINARY_DIR}/Debug/fmod.dll")
+
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/glew32.dll"
+		"${CMAKE_CURRENT_BINARY_DIR}/Debug/glew32.dll")
+
+endif (WIN32)
