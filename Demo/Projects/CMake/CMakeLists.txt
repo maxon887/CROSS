@@ -18,18 +18,35 @@ list(FILTER DEMO_SRC EXCLUDE REGEX "../../../Demo/Sources/ThirdParty/ImGui/.*" )
 
 file(GLOB IMGUI_SRC ../../../Demo/Sources/ThirdParty/ImGui/*.cpp)
 
-#windows specific
-include_directories(../../../Sources/Platform/Windows)
-file(GLOB WINDOWS_SRC ../../../Sources/Platform/Windows/*.cpp)
-add_definitions(-DWIN)
-add_definitions(-DOPENGL)
-
 add_executable(${PROJECT_NAME} WIN32 ${CROSS_SRC} ${DEMO_SRC} ${IMGUI_SRC} ${WINDOWS_SRC})
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Sources" FILES ${CROSS_SRC})
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Sources" FILES ${DEMO_SRC})
 
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIR})
+
+if (APPLE)
+    add_definitions(-DMACOS)
+    
+    find_package(GLEW REQUIRED)
+    include_directories(${GLEW_INCLUDE_DIRS})
+    
+    find_package(ASSIMP REQUIRED)
+    find_package(GLEW REQUIRED)
+    
+    target_link_libraries (${PROJECT_NAME} PRIVATE
+        ${OPENGL_gl_LIBRARY}
+        ${ASSIMP_LIBRARIES}
+        GLEW::GLEW
+        "${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libfmod.dylib")
+endif (APPLE)
+
 if (WIN32)
+    include_directories(../../../Sources/Platform/Windows)
+    file(GLOB WINDOWS_SRC ../../../Sources/Platform/Windows/*.cpp)
+    add_definitions(-DWIN)
+    add_definitions(-DOPENGL)
 
 	find_library(GLEW_LIB NAMES glew32
 		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
@@ -37,8 +54,6 @@ if (WIN32)
 		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
 	find_library(ASSIMP_LIB NAMES assimp
 		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
-
-	find_package(OpenGL REQUIRED)
 
 	target_link_libraries (${PROJECT_NAME} PRIVATE
 		${GLEW_LIB}	${OPENGL_gl_LIBRARY} ${FMOD_LIB} ${ASSIMP_LIB})
