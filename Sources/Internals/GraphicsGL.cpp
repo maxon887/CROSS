@@ -62,7 +62,7 @@ void GraphicsGL::ClearGLErrorBuffer() {
 GraphicsGL::GraphicsGL() {
 	os->LogIt("GraphicsGL::GraphicsGL()");
 
-#if defined(OPENGL) || (defined(WIN) && defined(EDITOR))
+#ifdef OPENGL
 	CROSS_ASSERT(!glewInit(), "Unable to initialize GLEW");
 #endif
 

@@ -213,6 +213,7 @@ ModelManifest.xml
 # Cross custom ignore rules
 Demo/Projects/Windows/.vs
 Demo/Projects/Windows/Data
+Demo/Projects/CMake/Generated
 DebugOpenGL
 *.DS_Store
 

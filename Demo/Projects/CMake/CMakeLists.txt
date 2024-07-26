@@ -26,12 +26,15 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Sources" FILES ${DE
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 
+add_definitions(-DOPENGL)
+
 if (APPLE)
     include_directories(../../../Sources/Platform/MacOS)
     file(GLOB MACOS_SRC ../../../Sources/Platform/MacOS/*.*)
     target_sources(${PROJECT_NAME} PRIVATE ${MACOS_SRC})
     
     add_definitions(-DMACOS)
+    add_definitions(-DCROSS_DEBUG)
     
     find_package(ASSIMP REQUIRED)
     find_package(GLEW REQUIRED)
@@ -54,7 +57,6 @@ if (WIN32)
 	target_sources(${PROJECT_NAME} PRIVATE ${WINDOWS_SRC})
 
     add_definitions(-DWIN)
-    add_definitions(-DOPENGL)
 
 	find_library(GLEW_LIB NAMES glew32
 		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
