@@ -27,19 +27,25 @@ find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 
 if (APPLE)
-    add_definitions(-DMACOS)
+    include_directories(../../../Sources/Platform/MacOS)
+    file(GLOB MACOS_SRC ../../../Sources/Platform/MacOS/*.*)
+    target_sources(${PROJECT_NAME} PRIVATE ${MACOS_SRC})
     
-    find_package(GLEW REQUIRED)
-    include_directories(${GLEW_INCLUDE_DIRS})
+    add_definitions(-DMACOS)
     
     find_package(ASSIMP REQUIRED)
     find_package(GLEW REQUIRED)
+    find_package(GLFW3 REQUIRED)
+    find_library(COCOA_LIBRARY Cocoa)
     
     target_link_libraries (${PROJECT_NAME} PRIVATE
         ${OPENGL_gl_LIBRARY}
+        glfw
         ${ASSIMP_LIBRARIES}
+        ${COCOA_LIBRARY}
         GLEW::GLEW
         "${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libfmod.dylib")
+
 endif (APPLE)
 
 if (WIN32)
@@ -58,7 +64,10 @@ if (WIN32)
 		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
 
 	target_link_libraries (${PROJECT_NAME} PRIVATE
-		${GLEW_LIB}	${OPENGL_gl_LIBRARY} ${FMOD_LIB} ${ASSIMP_LIB})
+		${GLEW_LIB}
+		${OPENGL_gl_LIBRARY}
+		${FMOD_LIB}
+		${ASSIMP_LIB})
 
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
