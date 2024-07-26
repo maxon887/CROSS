@@ -18,7 +18,7 @@ list(FILTER DEMO_SRC EXCLUDE REGEX "../../../Demo/Sources/ThirdParty/ImGui/.*" )
 
 file(GLOB IMGUI_SRC ../../../Demo/Sources/ThirdParty/ImGui/*.cpp)
 
-add_executable(${PROJECT_NAME} WIN32 ${CROSS_SRC} ${DEMO_SRC} ${IMGUI_SRC} ${WINDOWS_SRC})
+add_executable(${PROJECT_NAME} WIN32 ${CROSS_SRC} ${DEMO_SRC} ${IMGUI_SRC})
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Sources" FILES ${CROSS_SRC})
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Sources" FILES ${DEMO_SRC})
@@ -45,6 +45,8 @@ endif (APPLE)
 if (WIN32)
     include_directories(../../../Sources/Platform/Windows)
     file(GLOB WINDOWS_SRC ../../../Sources/Platform/Windows/*.cpp)
+	target_sources(${PROJECT_NAME} PRIVATE ${WINDOWS_SRC})
+
     add_definitions(-DWIN)
     add_definitions(-DOPENGL)
 
