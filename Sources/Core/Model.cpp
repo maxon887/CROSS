@@ -79,7 +79,7 @@ Mesh* Model::GetMesh(S32 id) {
 }
 
 U32 Model::GetMeshesCount() const {
-	return meshes.size();
+	return (U32)meshes.size();
 }
 
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {

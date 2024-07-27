@@ -18,6 +18,8 @@ MacSystem::MacSystem(const String& workingDir) {
         assets_path = "../Resources/Assets/";
     } else if(IsDirectoryExists("../../../../Assets/")) {
         assets_path = "../../../../Assets/";
+    } else if(IsDirectoryExists("../../../../../Assets/")) {
+        assets_path = "../../../../../Assets/";
     } else {
         CROSS_ASSERT(false, "Can not find Assets directory");
     }

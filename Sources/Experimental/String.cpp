@@ -40,7 +40,7 @@ String::String() :
 
 String::String(const char* cstr) {
 	CROSS_ASSERT(cstr, "Attempt to create a String from null pointer");
-	length = strlen(cstr);
+	length = (S32)strlen(cstr);
 	capacity = length;
 	data = (char*)CROSS_ALLOC(capacity + 1);
 	memcpy(data, cstr, (Size)length + 1);
@@ -162,7 +162,7 @@ S32 String::FindFirstOf(const char* sequence) const {
 }
 
 S32 String::FindFirstOf(const char* sequence, S32 startPos) const {
-	S32 occurrence = strcspn(data + startPos, sequence);
+	S32 occurrence = (S32)strcspn(data + startPos, sequence);
 	if(occurrence == length) {
 		return -1;
 	}
@@ -174,7 +174,7 @@ S32 String::FindNonFirstOf(const char* sequence) const {
 }
 
 S32 String::FindNonFirstOf(const char* sequence, S32 startPos) const {
-	U32 occurence = strspn(data + startPos, sequence);
+	S32 occurence = (S32)strspn(data + startPos, sequence);
 	if(occurence == length) {
 		return -1;
 	}
@@ -204,8 +204,8 @@ bool String::Remove(const char* subStr) {
 bool String::Remove(const char* subStr, S32 startPos) {
 	char* begin = strstr(data + startPos, subStr);
 	if(begin) {
-		U32 cLen = strlen(subStr);
-		U32 size = length - (begin - data);
+		U32 cLen = (U32)strlen(subStr);
+		U32 size = length - (S32)(begin - data);
 		memcpy(begin, begin + cLen, size + 1);
 		length -= cLen;
 		return true;
@@ -275,7 +275,7 @@ S32 String::ToInt() const {
 
 S32 String::ToInt(U32 base) const {
 	char* endp;
-	S32 value = strtol(data, &endp, base);
+	S32 value = (S32)strtol(data, &endp, base);
 	CROSS_RETURN(endp != data, 0, "Conversion from string '#' to integer failed", data);
 	CROSS_ASSERT(*endp == '\0', "String '#' contains unrecognized symbols. Conversion result may be unexpected", data);
 	return value;
@@ -290,7 +290,7 @@ float String::ToFloat() const {
 }
 
 String& String::operator = (const char* cstr) {
-	S32 cLen = strlen(cstr);
+	S32 cLen = (S32)strlen(cstr);
 	if(capacity < cLen) {
 		data = (char*)CROSS_REALLOC(data, cLen + 1);
 		capacity = cLen;
@@ -338,7 +338,7 @@ bool String::operator != (const String& other) const {
 }
 
 void String::operator += (const char* other) {
-	S32 otherLen = strlen(other);
+	S32 otherLen = (S32)strlen(other);
 	S32 requiredLen = length + otherLen;
 	if(requiredLen > capacity) {
 		data = (char*)CROSS_REALLOC(data, requiredLen + 1);
@@ -369,7 +369,7 @@ String::operator const char * () const {
 namespace cross {
 
 String operator + (const String& left, const char* right) {
-	U32 cstrLen = strlen(right);
+	U32 cstrLen = (U32)strlen(right);
 	U32 capacity = cstrLen + left.length;
 	String result(left.ToCStr(), left.length, capacity);
 	result += right;
@@ -377,7 +377,7 @@ String operator + (const String& left, const char* right) {
 }
 
 String operator + (const char* left, const String& right) {
-	U32 cstrLen = strlen(left);
+	U32 cstrLen = (U32)strlen(left);
 	U32 capacity = cstrLen + right.length;
 	String result(left, cstrLen, capacity);
 	result += right;
