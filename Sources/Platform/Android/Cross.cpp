@@ -83,7 +83,7 @@ void Main() {
             }
             case APP_PAUSED: {
                 pause_mutex.lock();
-                system->Sleep(16);
+                cross::os->Sleep(16);
                 pause_mutex.unlock();
                 break;
             }
@@ -100,7 +100,7 @@ void Main() {
                     if (success) {
                         LOGI("Window create success");
                         wnd_state = WND_ACTIVE;
-                        system->SetWindowSize(screen_width, screen_height);
+                        cross::os->SetWindowSize(screen_width, screen_height);
                     } else {
                         LOGI("Can not create native window");
                         app_state = APP_EXIT;
@@ -114,7 +114,7 @@ void Main() {
                         LOGI("Window recreated");
                         wnd_state = WND_ACTIVE;
                         app_state = APP_RUNNING;
-                        system->SetWindowSize(screen_width, screen_height);
+                        cross::os->SetWindowSize(screen_width, screen_height);
                     } else {
                         LOGI("Can not recreate native window");
                         app_state = APP_EXIT;
@@ -130,7 +130,7 @@ void Main() {
                 break;
         }
     }
-	system->LogIt("OnExit");
+	cross::os->LogIt("OnExit");
 
     //exit application
     game->GetCurrentScreen()->Stop();
@@ -142,7 +142,7 @@ void Main() {
         ((AndroidSystem *) system)->Exit();
     }else {
         ((AndroidSystem *) system)->DetachFromJVM();
-		delete system;
+		delete cross::os;
     }
 }
 
@@ -156,7 +156,7 @@ extern "C"{
             }
             String stdDataPath = env->GetStringUTFChars(dataPath, NULL);
             crossActivity = env->NewGlobalRef(crossActivity);
-            system = new AndroidSystem(env, crossActivity, mng, stdDataPath);
+            cross::os = new AndroidSystem(env, crossActivity, mng, stdDataPath);
             audio = new Audio();
             gl_thread = std::thread(Main);
         }else{
