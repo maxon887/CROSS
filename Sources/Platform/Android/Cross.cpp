@@ -139,9 +139,11 @@ void Main() {
     delete gfxGL;
     delete game;
     if(app_state == APP_EXIT){
-        ((AndroidSystem *) system)->Exit();
+        AndroidSystem* AndroidSystem = dynamic_cast<cross::AndroidSystem*>(cross::os);
+        AndroidSystem->Exit();
     }else {
-        ((AndroidSystem *) system)->DetachFromJVM();
+        AndroidSystem* AndroidSystem = dynamic_cast<cross::AndroidSystem*>(cross::os);
+        AndroidSystem->DetachFromJVM();
 		delete cross::os;
     }
 }
@@ -149,7 +151,7 @@ void Main() {
 extern "C"{
 	void Java_com_cross_Cross_OnCreate(JNIEnv *env, jobject thiz, jobject crossActivity, jobject assManager, jstring dataPath){
 		LOGI("Cross_OnCreate");
-        if(!system) {
+        if(!cross::os) {
             AAssetManager *mng = AAssetManager_fromJava(env, assManager);
             if (!mng) {
                 LOGI("Error loading asset manager");
