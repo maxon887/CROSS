@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */; };
 		9D01239E20D1439D00885945 /* ShaderVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D01239C20D1439D00885945 /* ShaderVisualBox.cpp */; };
 		9D0123A120D143AD00885945 /* PropertiesView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D0123A020D143AD00885945 /* PropertiesView.cpp */; };
 		9D1261382111E121005F9990 /* MaterialVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D1261372111E121005F9990 /* MaterialVisualBox.cpp */; };
@@ -19,9 +20,7 @@
 		9D33C15C20D02B9F007EF97F /* TransparencyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13D20D02B9F007EF97F /* TransparencyScene.cpp */; };
 		9D33C15D20D02B9F007EF97F /* DepthScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13E20D02B9F007EF97F /* DepthScene.cpp */; };
 		9D33C15E20D02B9F007EF97F /* SkyboxScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13F20D02B9F007EF97F /* SkyboxScene.cpp */; };
-		9D33C15F20D02B9F007EF97F /* ApocalypseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14320D02B9F007EF97F /* ApocalypseScene.cpp */; };
 		9D33C16020D02B9F007EF97F /* DemoScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14520D02B9F007EF97F /* DemoScene.cpp */; };
-		9D33C16120D02B9F007EF97F /* TexturedModelScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14820D02B9F007EF97F /* TexturedModelScene.cpp */; };
 		9D33C16220D02B9F007EF97F /* TriangleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14A20D02B9F007EF97F /* TriangleScene.cpp */; };
 		9D33C16320D02B9F007EF97F /* MultiLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14D20D02B9F007EF97F /* MultiLightScene.cpp */; };
 		9D33C16420D02B9F007EF97F /* DirectionalLightScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C14E20D02B9F007EF97F /* DirectionalLightScene.cpp */; };
@@ -64,7 +63,6 @@
 		9D54BBCD1FBC435B009E8469 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D54BBC71FBC435B009E8469 /* Skybox.cpp */; };
 		9D5884DB20236236002820F2 /* GraphicsGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5884D720236236002820F2 /* GraphicsGL.cpp */; };
 		9D5884DC20236236002820F2 /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5884D920236236002820F2 /* Audio.cpp */; };
-		9D5884DF20236621002820F2 /* ComponentFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5884DD20236620002820F2 /* ComponentFactory.cpp */; };
 		9D6DDCF41FF63B6B009DD71C /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDB1FF63B6B009DD71C /* imgui.cpp */; };
 		9D6DDCF51FF63B6B009DD71C /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDD1FF63B6B009DD71C /* imgui_demo.cpp */; };
 		9D6DDCF61FF63B6B009DD71C /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DDCDE1FF63B6B009DD71C /* imgui_draw.cpp */; };
@@ -105,6 +103,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
+		50F0BA7D2C56D0E0005832F5 /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
+		50F0BA7F2C56D130005832F5 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
 		9D01239C20D1439D00885945 /* ShaderVisualBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderVisualBox.cpp; sourceTree = "<group>"; };
 		9D01239D20D1439D00885945 /* ShaderVisualBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderVisualBox.h; sourceTree = "<group>"; };
 		9D01239F20D143AC00885945 /* PropertiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertiesView.h; sourceTree = "<group>"; };
@@ -127,14 +128,10 @@
 		9D33C13E20D02B9F007EF97F /* DepthScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DepthScene.cpp; sourceTree = "<group>"; };
 		9D33C13F20D02B9F007EF97F /* SkyboxScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyboxScene.cpp; sourceTree = "<group>"; };
 		9D33C14020D02B9F007EF97F /* DepthScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthScene.h; sourceTree = "<group>"; };
-		9D33C14120D02B9F007EF97F /* ApocalypseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApocalypseScene.h; sourceTree = "<group>"; };
 		9D33C14220D02B9F007EF97F /* SkyboxScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyboxScene.h; sourceTree = "<group>"; };
-		9D33C14320D02B9F007EF97F /* ApocalypseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ApocalypseScene.cpp; sourceTree = "<group>"; };
 		9D33C14420D02B9F007EF97F /* TransparencyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparencyScene.h; sourceTree = "<group>"; };
 		9D33C14520D02B9F007EF97F /* DemoScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoScene.cpp; sourceTree = "<group>"; };
 		9D33C14620D02B9F007EF97F /* DemoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoScene.h; sourceTree = "<group>"; };
-		9D33C14820D02B9F007EF97F /* TexturedModelScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TexturedModelScene.cpp; sourceTree = "<group>"; };
-		9D33C14920D02B9F007EF97F /* TexturedModelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturedModelScene.h; sourceTree = "<group>"; };
 		9D33C14A20D02B9F007EF97F /* TriangleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleScene.cpp; sourceTree = "<group>"; };
 		9D33C14B20D02B9F007EF97F /* TriangleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleScene.h; sourceTree = "<group>"; };
 		9D33C14D20D02B9F007EF97F /* MultiLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightScene.cpp; sourceTree = "<group>"; };
@@ -222,8 +219,6 @@
 		9D5884D820236236002820F2 /* GraphicsGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsGL.h; sourceTree = "<group>"; };
 		9D5884D920236236002820F2 /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		9D5884DA20236236002820F2 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
-		9D5884DD20236620002820F2 /* ComponentFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentFactory.cpp; sourceTree = "<group>"; };
-		9D5884DE20236620002820F2 /* ComponentFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentFactory.h; sourceTree = "<group>"; };
 		9D6DDCDA1FF63B6B009DD71C /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
 		9D6DDCDB1FF63B6B009DD71C /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
 		9D6DDCDC1FF63B6B009DD71C /* imgui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui.h; sourceTree = "<group>"; };
@@ -470,9 +465,7 @@
 				9D33C13E20D02B9F007EF97F /* DepthScene.cpp */,
 				9D33C13F20D02B9F007EF97F /* SkyboxScene.cpp */,
 				9D33C14020D02B9F007EF97F /* DepthScene.h */,
-				9D33C14120D02B9F007EF97F /* ApocalypseScene.h */,
 				9D33C14220D02B9F007EF97F /* SkyboxScene.h */,
-				9D33C14320D02B9F007EF97F /* ApocalypseScene.cpp */,
 				9D33C14420D02B9F007EF97F /* TransparencyScene.h */,
 			);
 			path = Misc;
@@ -481,8 +474,6 @@
 		9D33C14720D02B9F007EF97F /* Simple */ = {
 			isa = PBXGroup;
 			children = (
-				9D33C14820D02B9F007EF97F /* TexturedModelScene.cpp */,
-				9D33C14920D02B9F007EF97F /* TexturedModelScene.h */,
 				9D33C14A20D02B9F007EF97F /* TriangleScene.cpp */,
 				9D33C14B20D02B9F007EF97F /* TriangleScene.h */,
 			);
@@ -563,8 +554,8 @@
 		9D54BB7C1FBC433C009E8469 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				9D5884DD20236620002820F2 /* ComponentFactory.cpp */,
-				9D5884DE20236620002820F2 /* ComponentFactory.h */,
+				50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */,
+				50F0BA7D2C56D0E0005832F5 /* Graphics.h */,
 				9D54BB7F1FBC433C009E8469 /* Camera.cpp */,
 				9DBEB34C20C5770100D3E8C6 /* Property.cpp */,
 				9DBEB34D20C5770100D3E8C6 /* Property.h */,
@@ -581,6 +572,7 @@
 				9D54BB8A1FBC433C009E8469 /* Event.h */,
 				9D54BB8B1FBC433C009E8469 /* File.cpp */,
 				9D54BB8C1FBC433C009E8469 /* File.h */,
+				50F0BA7F2C56D130005832F5 /* Factory.h */,
 				9D54BB8D1FBC433C009E8469 /* Game.cpp */,
 				9D54BB8E1FBC433C009E8469 /* Game.h */,
 				9D54BB911FBC433C009E8469 /* Input.cpp */,
@@ -1033,7 +1025,7 @@
 				TargetAttributes = {
 					D46A23471AF9EF8400B77AC8 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = AQNAZWX3GB;
+						DevelopmentTeam = X89X578Y93;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1043,6 +1035,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1085,10 +1078,10 @@
 				9D33C12F20D02B92007EF97F /* ImGuiScreen.cpp in Sources */,
 				9D54BBBD1FBC433C009E8469 /* VertexBuffer.cpp in Sources */,
 				9D33C15A20D02B9F007EF97F /* DiffuseScene.cpp in Sources */,
-				9D33C16120D02B9F007EF97F /* TexturedModelScene.cpp in Sources */,
 				9D54BBB41FBC433C009E8469 /* Material.cpp in Sources */,
 				9D54BBCD1FBC435B009E8469 /* Skybox.cpp in Sources */,
 				9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */,
+				50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */,
 				9D40A87F2099E8F000F6902F /* CameraController.cpp in Sources */,
 				9DDFFF161F46EF1700A6E782 /* iRate.m in Sources */,
 				9D33C16A20D02BC6007EF97F /* LaunchView.cpp in Sources */,
@@ -1121,7 +1114,6 @@
 				9D54BBBC1FBC433C009E8469 /* Transform.cpp in Sources */,
 				9DDFFF021F46EF1700A6E782 /* image_helper.c in Sources */,
 				9DDFFF1E1F46EF1700A6E782 /* Shader.cpp in Sources */,
-				9D33C15F20D02B9F007EF97F /* ApocalypseScene.cpp in Sources */,
 				9DDFFF071F46EF1700A6E782 /* Matrix.cpp in Sources */,
 				9D54BBAA1FBC433C009E8469 /* Camera.cpp in Sources */,
 				9DDFFF051F46EF1700A6E782 /* tinyxml2.cpp in Sources */,
@@ -1146,7 +1138,6 @@
 				9DDFFF061F46EF1700A6E782 /* All.cpp in Sources */,
 				9DDFFF141F46EF1700A6E782 /* CrossViewController.mm in Sources */,
 				9D54BBAD1FBC433C009E8469 /* Config.cpp in Sources */,
-				9D5884DF20236621002820F2 /* ComponentFactory.cpp in Sources */,
 				9D54BBAF1FBC433C009E8469 /* File.cpp in Sources */,
 				9D54BBB61FBC433C009E8469 /* Model.cpp in Sources */,
 				9D54BBB01FBC433C009E8469 /* Game.cpp in Sources */,
@@ -1272,7 +1263,7 @@
 				CLANG_ANALYZER_NONNULL = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AQNAZWX3GB;
+				DEVELOPMENT_TEAM = X89X578Y93;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1309,7 +1300,7 @@
 				CLANG_ANALYZER_NONNULL = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AQNAZWX3GB;
+				DEVELOPMENT_TEAM = X89X578Y93;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = IOS;
 				HEADER_SEARCH_PATHS = (
