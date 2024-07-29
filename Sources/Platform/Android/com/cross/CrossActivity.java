@@ -10,6 +10,7 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -176,27 +177,33 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 	public void MessageBox(String title, String msg) throws InterruptedException {
 		final String thrTitle = title;
 		final String thrMsg = msg;
-		synchronized (lock) {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					AlertDialog.Builder builder = new AlertDialog.Builder(CrossActivity.this);
-					builder.setIcon(android.R.drawable.ic_dialog_alert);
-					builder.setMessage(thrMsg);
-					builder.setTitle(thrTitle);
-					builder.setCancelable(false);
-					builder.setPositiveButton("Ok",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									synchronized (lock) {
-										lock.notify();
-									}
-								}
-							});
-					builder.create().show();
-				}
-			});
-			lock.wait();
+		Runnable AlertRunnable = new Runnable() {
+			@Override
+			public void run() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(CrossActivity.this);
+				builder.setIcon(android.R.drawable.ic_dialog_alert);
+				builder.setMessage(thrMsg);
+				builder.setTitle(thrTitle);
+				builder.setCancelable(false);
+				builder.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							synchronized (lock) {
+								lock.notify();
+							}
+						}
+					});
+				builder.create().show();
+			}
+		};
+
+		if(Looper.getMainLooper().getThread() == Thread.currentThread()){
+			AlertRunnable.run();
+		} else {
+			synchronized (lock) {
+				runOnUiThread(AlertRunnable);
+				lock.wait();
+			}
 		}
 	}
 
