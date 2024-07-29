@@ -68,8 +68,8 @@ CrossViewController* instance = nil;
 
 - (void)update{
     if(!CrossPaused){
-        if(!system){
-            system = new IOSSystem();
+        if(!cross::os){
+            cross::os = new IOSSystem();
             game = CrossMain();
             audio = new Audio();
             gfxGL = new GraphicsGL();
@@ -80,11 +80,11 @@ CrossViewController* instance = nil;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    if(system){
+    if(cross::os){
         CGFloat screenScale = [[UIScreen mainScreen] scale];
         S32 width = size.width * screenScale;
         S32 height = size.height * screenScale;
-        system->SetWindowSize(width, height);
+        cross::os->SetWindowSize(width, height);
     }
 }
 
