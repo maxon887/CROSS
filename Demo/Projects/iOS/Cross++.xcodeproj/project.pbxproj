@@ -190,7 +190,6 @@
 		9D33C15420D02B9F007EF97F /* PointLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLightScene.cpp; sourceTree = "<group>"; };
 		9D33C15520D02B9F007EF97F /* MultiLightScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiLightScene.h; sourceTree = "<group>"; };
 		9D33C15620D02B9F007EF97F /* SpotLightScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpotLightScene.cpp; sourceTree = "<group>"; };
-		9D4A56CD1F51A89800CCC09D /* libassimp_iphoneosimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneosimulator.a; sourceTree = "<group>"; };
 		9D54BB321FBC4316009E8469 /* AudioScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioScreen.cpp; sourceTree = "<group>"; };
 		9D54BB331FBC4316009E8469 /* AudioScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioScreen.h; sourceTree = "<group>"; };
 		9D54BB341FBC4316009E8469 /* Demo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Demo.cpp; sourceTree = "<group>"; };
@@ -392,25 +391,16 @@
 		9DDFFECB1F46EF1700A6E782 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		9DDFFECC1F46EF1700A6E782 /* SingleLightShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleLightShader.cpp; sourceTree = "<group>"; };
 		9DDFFECD1F46EF1700A6E782 /* SingleLightShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleLightShader.h; sourceTree = "<group>"; };
-		9DDFFF281F46F37300A6E782 /* libassimp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp.a; sourceTree = "<group>"; };
 		9DDFFF291F46F37300A6E782 /* libfmod_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmod_iphoneos.a; sourceTree = "<group>"; };
 		9DDFFF2A1F46F37300A6E782 /* libfmod_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmod_iphonesimulator.a; sourceTree = "<group>"; };
 		9DDFFF2B1F46F37300A6E782 /* libfmodL_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphoneos.a; sourceTree = "<group>"; };
 		9DDFFF2C1F46F37300A6E782 /* libfmodL_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphonesimulator.a; sourceTree = "<group>"; };
 		9DDFFF2D1F46F37300A6E782 /* libFreetype2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFreetype2.a; sourceTree = "<group>"; };
-		9DDFFF341F46F4ED00A6E782 /* libassimp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp.a; sourceTree = "<group>"; };
-		9DDFFF361F46F4F400A6E782 /* libassimp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp.a; sourceTree = "<group>"; };
-		9DDFFF381F46F5C900A6E782 /* libassimp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp.a; sourceTree = "<group>"; };
 		9DDFFF3A1F46F5CF00A6E782 /* libfmod_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmod_iphoneos.a; sourceTree = "<group>"; };
 		9DDFFF3B1F46F5CF00A6E782 /* libfmod_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmod_iphonesimulator.a; sourceTree = "<group>"; };
 		9DDFFF3C1F46F5CF00A6E782 /* libfmodL_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphoneos.a; sourceTree = "<group>"; };
 		9DDFFF3D1F46F5CF00A6E782 /* libfmodL_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfmodL_iphonesimulator.a; sourceTree = "<group>"; };
 		9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFreetype2.a; sourceTree = "<group>"; };
-		9DFE616C1F4C363D00418EC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9DFE616D1F4C363D00418EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9DFE616E1F4C363D00418EC2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9DFE616F1F4C364600418EC2 /* libassimpIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimpIOS.a; sourceTree = "<group>"; };
-		9DFE61711F4C3A2200418EC2 /* libassimp_iphones.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphones.a; sourceTree = "<group>"; };
 		9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphonesimulator.a; sourceTree = "<group>"; };
 		9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libassimp_iphoneos.a; sourceTree = "<group>"; };
 		D46920931DD68C4F00CF949F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -948,34 +938,16 @@
 			path = Shaders;
 			sourceTree = "<group>";
 		};
-		9DFE616B1F4C363D00418EC2 /* Cross++ */ = {
-			isa = PBXGroup;
-			children = (
-				9DFE616C1F4C363D00418EC2 /* Images.xcassets */,
-				9DFE616D1F4C363D00418EC2 /* Info.plist */,
-				9DFE616E1F4C363D00418EC2 /* main.m */,
-			);
-			path = "Cross++";
-			sourceTree = "<group>";
-		};
 		D46920921DD68C4F00CF949F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9D4A56CD1F51A89800CCC09D /* libassimp_iphoneosimulator.a */,
 				9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */,
 				9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */,
-				9DFE61711F4C3A2200418EC2 /* libassimp_iphones.a */,
-				9DFE616F1F4C364600418EC2 /* libassimpIOS.a */,
-				9DFE616B1F4C363D00418EC2 /* Cross++ */,
 				9DDFFF3A1F46F5CF00A6E782 /* libfmod_iphoneos.a */,
 				9DDFFF3B1F46F5CF00A6E782 /* libfmod_iphonesimulator.a */,
 				9DDFFF3C1F46F5CF00A6E782 /* libfmodL_iphoneos.a */,
 				9DDFFF3D1F46F5CF00A6E782 /* libfmodL_iphonesimulator.a */,
 				9DDFFF3E1F46F5CF00A6E782 /* libFreetype2.a */,
-				9DDFFF381F46F5C900A6E782 /* libassimp.a */,
-				9DDFFF361F46F4F400A6E782 /* libassimp.a */,
-				9DDFFF341F46F4ED00A6E782 /* libassimp.a */,
-				9DDFFF281F46F37300A6E782 /* libassimp.a */,
 				9DDFFF291F46F37300A6E782 /* libfmod_iphoneos.a */,
 				9DDFFF2A1F46F37300A6E782 /* libfmod_iphonesimulator.a */,
 				9DDFFF2B1F46F37300A6E782 /* libfmodL_iphoneos.a */,
@@ -992,16 +964,16 @@
 			isa = PBXGroup;
 			children = (
 				D4FB9D5E1DE395CB000A8C15 /* Assets */,
+				9DDFFDD41F46EF1600A6E782 /* Cross */,
+				9D54BB311FBC4316009E8469 /* Sources */,
 				D46A24041AF9F56300B77AC8 /* AudioToolbox.framework */,
 				D46A24081AF9F77400B77AC8 /* GLKit.framework */,
 				D46A24061AF9F71E00B77AC8 /* OpenGLES.framework */,
 				D46A23491AF9EF8400B77AC8 /* Products */,
+				D46920921DD68C4F00CF949F /* Frameworks */,
 				D46A234D1AF9EF8400B77AC8 /* main.m */,
 				D46A234C1AF9EF8400B77AC8 /* Info.plist */,
 				D46A23581AF9EF8400B77AC8 /* Images.xcassets */,
-				9D54BB311FBC4316009E8469 /* Sources */,
-				9DDFFDD41F46EF1600A6E782 /* Cross */,
-				D46920921DD68C4F00CF949F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
