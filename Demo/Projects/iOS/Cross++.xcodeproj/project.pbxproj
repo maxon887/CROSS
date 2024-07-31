@@ -30,6 +30,7 @@
 		50424D5A2C57BDC300CE0055 /* Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D4B2C57BDC300CE0055 /* Stats.cpp */; };
 		50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */; };
 		50424D602C57BEE500CE0055 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */; };
+		50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D4DB782C5A6615007E066E /* AVFoundation.framework */; };
 		50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */; };
 		9D33C12F20D02B92007EF97F /* ImGuiScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C12E20D02B92007EF97F /* ImGuiScreen.cpp */; };
 		9D33C15720D02B9F007EF97F /* NakedScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C13220D02B9F007EF97F /* NakedScene.cpp */; };
@@ -155,6 +156,7 @@
 		50424D5C2C57BEBD00CE0055 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
 		50424D5F2C57BEE500CE0055 /* ArrayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
+		50D4DB782C5A6615007E066E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
 		50F0BA7D2C56D0E0005832F5 /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
 		50F0BA7F2C56D130005832F5 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */,
 				D47823B11DD7C5BE00685A9B /* libz.tbd in Frameworks */,
 				D46A24091AF9F77400B77AC8 /* GLKit.framework in Frameworks */,
 				D46A24071AF9F71E00B77AC8 /* OpenGLES.framework in Frameworks */,
@@ -941,6 +944,7 @@
 		D46920921DD68C4F00CF949F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50D4DB782C5A6615007E066E /* AVFoundation.framework */,
 				9DFE61791F4C3E7C00418EC2 /* libassimp_iphoneos.a */,
 				9DFE61731F4C3B2900418EC2 /* libassimp_iphonesimulator.a */,
 				9DDFFF3A1F46F5CF00A6E782 /* libfmod_iphoneos.a */,
@@ -1262,6 +1266,7 @@
 				DEVELOPMENT_TEAM = X89X578Y93;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1300,6 +1305,7 @@
 				DEVELOPMENT_TEAM = X89X578Y93;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_PREPROCESSOR_DEFINITIONS = IOS;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",
