@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYu-9o-Amz">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
                                 <connections>
                                     <segue destination="Y6W-OH-hqX" kind="embed" id="etm-EL-AKb"/>
                                 </connections>
@@ -30,7 +30,7 @@
                             <constraint firstItem="nYu-9o-Amz" firstAttribute="leading" secondItem="1Oo-eT-wkc" secondAttribute="leading" id="9IM-Fb-9iA"/>
                             <constraint firstItem="nYu-9o-Amz" firstAttribute="top" secondItem="1Oo-eT-wkc" secondAttribute="top" id="F8W-Ro-cel"/>
                             <constraint firstItem="1Oo-eT-wkc" firstAttribute="trailing" secondItem="nYu-9o-Amz" secondAttribute="trailing" id="Q4J-vt-sPU"/>
-                            <constraint firstItem="1Oo-eT-wkc" firstAttribute="bottom" secondItem="nYu-9o-Amz" secondAttribute="bottom" id="dyH-wu-d4G"/>
+                            <constraint firstAttribute="bottom" secondItem="nYu-9o-Amz" secondAttribute="bottom" id="dyH-wu-d4G"/>
                         </constraints>
                     </view>
                 </viewController>
