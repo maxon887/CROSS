@@ -119,7 +119,7 @@ public:
 	Orientation GetDeviceOrientation() const;
 	/* Returns physical screen aspect ration */
 	float GetAspectRatio() const;
-	/* Sets physical device screen size */
+	/* Sets view target screen size */
 	void SetWindowSize(S32 width, S32 height);
 	/* Returns all messages that was logged. Works only in debug builds */
 	String& GetLogBuffer();

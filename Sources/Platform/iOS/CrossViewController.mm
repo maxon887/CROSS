@@ -68,23 +68,22 @@ CrossViewController* instance = nil;
 
 - (void)update{
     if(!CrossPaused){
+		GLKView* view = (GLKView*)self.view;
         if(!cross::os){
-            cross::os = new IOSSystem();
+			cross::os = new IOSSystem();
+			cross::os->SetWindowSize((S32)view.drawableWidth, (S32)view.drawableHeight);
+			
             game = CrossMain();
             audio = new Audio();
             gfxGL = new GraphicsGL();
             game->Start();
         }
+		//detecting orientation changed
+		if(view.drawableWidth != cross::os->GetWindowWidth()){
+			cross::os->SetWindowSize((S32)view.drawableWidth, (S32)view.drawableHeight);
+		}
+		
         game->EngineUpdate();
-    }
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    if(cross::os){
-        CGFloat screenScale = [[UIScreen mainScreen] scale];
-        S32 width = size.width * screenScale;
-        S32 height = size.height * screenScale;
-        cross::os->SetWindowSize(width, height);
     }
 }
 

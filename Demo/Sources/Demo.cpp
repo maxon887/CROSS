@@ -102,10 +102,6 @@ void Demo::Start() {
 
 	io.GetClipboardTextFn = GetClipboardString;
 
-#ifdef _WIN32
-	WINSystem* winSys = (WINSystem*)os;
-#endif
-
     CreateUIShaders();
 	CreateFontsTexture();
 
