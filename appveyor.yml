@@ -5,7 +5,7 @@ os:
   - Visual Studio 2022
 
 install:
-	- cmd: git submodule update --init --recursive
+	- git submodule update --init --recursive
 
 # build with MSBuild
 build:
