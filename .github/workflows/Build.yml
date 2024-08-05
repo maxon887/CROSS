@@ -10,10 +10,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Checkout Repo
     - uses: actions/checkout@v4
-    - name: Add msbuild to PATH
+    - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
 
     - name: Build Cross
-      run: msbuild Demo\Projects\Windows\Cross++.sln
+      run: MSBuild Demo\Projects\Windows\Cross++.sln
 
