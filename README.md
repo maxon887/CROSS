@@ -5,6 +5,8 @@ Questions can be asked via [facebook](https://www.facebook.com/profile.php?id=10
 
 ### Build Status
 
+[![](http://github-actions.40ants.com/maxon887/Cross/matrix.svg)](https://github.com/maxon887/Cross)
+
 
 | Windows            | iOS                  | Android            |
 | ------------------ | -------------------- | ------------------ |
