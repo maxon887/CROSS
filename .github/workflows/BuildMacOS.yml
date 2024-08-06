@@ -21,4 +21,5 @@ jobs:
         project: Demo/Projects/MacOS/CrossMac.xcodeproj
         scheme: CrossMac
         action: build
+        arch: arm64
         destination: platform=macOS
