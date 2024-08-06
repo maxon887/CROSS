@@ -18,5 +18,6 @@ jobs:
     - name: Build Cross XCode
       uses: mxcl/xcodebuild@v2
       with:
+        working-directory: Demo/Projects/MacOS/
         scheme: CrossMac
         action: build
