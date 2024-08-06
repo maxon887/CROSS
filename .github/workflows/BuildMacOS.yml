@@ -15,6 +15,11 @@ jobs:
       with:
         submodules: 'recursive'
 
+    - name: setup-cocoapods
+      uses: maxim-lobanov/setup-cocoapods@v1
+      with:
+        version: 1.9.0
+
     - name: Build Cross XCode
       uses: sersoft-gmbh/xcodebuild-action@v3
       with:
