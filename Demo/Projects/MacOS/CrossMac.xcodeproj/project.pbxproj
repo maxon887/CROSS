@@ -1327,10 +1327,8 @@
 				INFOPLIST_FILE = CrossMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Resources";
 				LIBRARY_SEARCH_PATHS = (
+					/opt/homebrew/lib,
 					"$(PROJECT_DIR)/../../../Binaries/MacOS",
-					/opt/homebrew/Cellar/glfw/3.4/lib,
-					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
-					/opt/homebrew/Cellar/assimp/5.4.2/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
@@ -1369,10 +1367,8 @@
 				INFOPLIST_FILE = CrossMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../Resources";
 				LIBRARY_SEARCH_PATHS = (
+					/opt/homebrew/lib,
 					"$(PROJECT_DIR)/../../../Binaries/MacOS",
-					/opt/homebrew/Cellar/glfw/3.4/lib,
-					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
-					/opt/homebrew/Cellar/assimp/5.4.2/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_LDFLAGS = (
