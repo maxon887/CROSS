@@ -19,4 +19,5 @@ jobs:
       uses: sersoft-gmbh/xcodebuild-action@v3
       with:
         project: Demo/Projects/MacOS/CrossMac.xcodeproj
+        scheme: CrossMac
         destination: platform=macOS
