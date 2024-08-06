@@ -15,15 +15,8 @@ jobs:
       with:
         submodules: 'recursive'
 
-    - name: setup-cocoapods
-      uses: maxim-lobanov/setup-cocoapods@v1
-      with:
-        version: 1.9.0
-
     - name: Build Cross XCode
-      uses: sersoft-gmbh/xcodebuild-action@v3
+      uses: mxcl/xcodebuild@v3
       with:
-        project: Demo/Projects/MacOS/CrossMac.xcodeproj
         scheme: CrossMac
         action: build
-        arch: arm64
