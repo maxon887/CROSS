@@ -1,0 +1,22 @@
+name: Build MacOS
+
+on:
+  push:
+    branches: [ "Main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Build Cross XCode
+      uses: sersoft-gmbh/xcodebuild-action@v3
+      with:
+        project: CrossMac.xcodeproj
+        destination: platform=macOS
