@@ -214,6 +214,7 @@ ModelManifest.xml
 Demo/Projects/Windows/.vs
 Demo/Projects/Windows/Data
 Demo/Projects/CMake/Generated
+Demo/Projects/MacOS/DerivedData
 DebugOpenGL
 *.DS_Store
 
