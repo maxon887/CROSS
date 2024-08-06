@@ -15,6 +15,11 @@ jobs:
       with:
         submodules: 'recursive'
 
+    - name: Homebrew Install
+      uses: tecolicom/actions-use-homebrew-tools@v1
+      with:
+        tools: glew
+
     - name: Build Cross XCode
       uses: mxcl/xcodebuild@v2
       with:
