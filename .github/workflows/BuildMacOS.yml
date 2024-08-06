@@ -16,7 +16,7 @@ jobs:
         submodules: 'recursive'
 
     - name: Build Cross XCode
-      uses: mxcl/xcodebuild@v3
+      uses: mxcl/xcodebuild@v2
       with:
         scheme: CrossMac
         action: build
