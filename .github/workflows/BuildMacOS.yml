@@ -18,5 +18,5 @@ jobs:
     - name: Build Cross XCode
       uses: sersoft-gmbh/xcodebuild-action@v3
       with:
-        project: CrossMac.xcodeproj
+        project: Demo/Projects/MacOS/CrossMac.xcodeproj
         destination: platform=macOS
