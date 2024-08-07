@@ -33,4 +33,5 @@ jobs:
       uses: android-actions/setup-android@v3
 
     - name: Build Cross Android
-      run: Demo/Projects/Android/gradlew --no-daemon build
+      run: cd Demo/Projects/Android/
+      run: ./gradlew --no-daemon build
