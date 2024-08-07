@@ -32,6 +32,8 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Build Cross Android
+    - name: Change Directory
       run: cd Demo/Projects/Android/
+
+    - name: Build Cross Android
       run: ./gradlew --no-daemon build
