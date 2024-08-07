@@ -8,6 +8,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/Android
 
     steps:
     - name: Checkout Repo
@@ -31,9 +34,6 @@ jobs:
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-
-    - name: Change Directory
-      run: cd Demo/Projects/Android/
 
     - name: Build Cross Android
       run: ./gradlew --no-daemon build
