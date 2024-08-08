@@ -1,0 +1,23 @@
+name: iOS
+
+on:
+  push:
+    branches: [ "Main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Build Cross XCode
+      uses: mxcl/xcodebuild@v2
+      with:
+        working-directory: Demo/Projects/iOS/
+        scheme: Cross++
+        action: build
