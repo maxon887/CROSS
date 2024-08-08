@@ -8,6 +8,9 @@ jobs:
   build:
 
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/iOS
 
     steps:
     - name: Checkout Repo
@@ -21,9 +24,13 @@ jobs:
         cache: no
         tools: glew glfw assimp
 
-    - name: Build Cross XCode
+    - name: Locate XCode
       uses: mxcl/xcodebuild@v2
       with:
-        working-directory: Demo/Projects/MacOS/
-        scheme: CrossMac
-        action: build
+        action: none
+        #working-directory: Demo/Projects/MacOS/
+        #scheme: CrossMac
+        #action: build
+
+    - name: Build Cross XCode
+      run: xcodebuild -scheme CrossMac build
