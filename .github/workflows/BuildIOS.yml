@@ -21,3 +21,4 @@ jobs:
         working-directory: Demo/Projects/iOS/
         scheme: Cross++
         action: build
+        code-sign-identity: '-'
