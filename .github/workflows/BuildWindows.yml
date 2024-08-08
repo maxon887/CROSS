@@ -6,8 +6,10 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/Windows
 
     steps:
     - name: Checkout Repo
@@ -19,5 +21,4 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Build Cross
-      run: MSBuild Demo\Projects\Windows\Cross++.sln
-
+      run: MSBuild Cross++.sln
