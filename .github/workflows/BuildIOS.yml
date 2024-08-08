@@ -8,6 +8,9 @@ jobs:
   build:
 
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/iOS
 
     steps:
     - name: Checkout Repo
@@ -18,7 +21,9 @@ jobs:
     - name: Build Cross XCode
       uses: mxcl/xcodebuild@v2
       with:
-        working-directory: Demo/Projects/iOS/
-        scheme: Cross++
-        action: build
-        code-sign-identity: '-'
+        action: none
+        run: xcodebuild -scheme Cross++ CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO build
+        #working-directory: Demo/Projects/iOS/
+        #scheme: Cross++
+        #action: build
+        #code-sign-identity: '-'
