@@ -18,10 +18,12 @@ jobs:
       with:
         submodules: 'recursive'
 
-    - name: Build Cross XCode
+    - name: Locate XCode
       uses: mxcl/xcodebuild@v2
       with:
         action: none
+
+    - name: Build Cross XCode
       run: xcodebuild -scheme Cross++ CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO build
         #working-directory: Demo/Projects/iOS/
         #scheme: Cross++
