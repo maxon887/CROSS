@@ -8,7 +8,10 @@
 
 #include <iostream>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Weverything"
 #include <GLFW/glfw3.h>
+#pragma clang diagnostic pop
 
 using namespace std;
 using namespace cross;
