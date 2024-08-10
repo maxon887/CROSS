@@ -50,13 +50,13 @@ void ShaderVisualBox::Update() {
 		ImGui::Text("Vertex File:");
 		ImGui::SameLine(SCALED(120.f));
 		String vertexFile = shader->GetVertexFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), vertexFile);
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", vertexFile.ToCStr());
 
 		//fragment file
 		ImGui::Text("Fragment File:");
 		ImGui::SameLine(SCALED(120.f));
 		String fragmentFile = shader->GetFragmentFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), fragmentFile);
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", fragmentFile.ToCStr());
 
 		ImGui::NewLine();
 

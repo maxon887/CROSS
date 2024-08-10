@@ -29,9 +29,9 @@
 		507333062C385F9200E5D13D /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F52C385F9200E5D13D /* View.cpp */; };
 		507333072C385F9200E5D13D /* MeshVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F62C385F9200E5D13D /* MeshVisualBox.cpp */; };
 		507333082C385F9200E5D13D /* LaunchView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332F92C385F9200E5D13D /* LaunchView.cpp */; };
-		5073330F2C385FF600E5D13D /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507333092C385FF600E5D13D /* StringTest.cpp */; };
+		5073330F2C385FF600E5D13D /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507333092C385FF600E5D13D /* StringTest.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		507333102C385FF600E5D13D /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330C2C385FF600E5D13D /* FileUtils.cpp */; };
-		507333112C385FF600E5D13D /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330E2C385FF600E5D13D /* ArrayTest.cpp */; };
+		507333112C385FF600E5D13D /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330E2C385FF600E5D13D /* ArrayTest.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		9D32CDDD20B40B12004A4D7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D32CDDC20B40B12004A4D7E /* Assets.xcassets */; };
 		9D32D0E120B40E27004A4D7E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32CFF520B40E27004A4D7E /* Camera.cpp */; };
 		9D32D0E220B40E27004A4D7E /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32CFF720B40E27004A4D7E /* Color.cpp */; };
@@ -1210,7 +1210,7 @@
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -1265,7 +1265,7 @@
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -1303,6 +1303,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = CrossMac/CrossMac.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -1346,6 +1347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = CrossMac/CrossMac.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;

@@ -94,13 +94,13 @@ void ComponentsView::Update(float sec) {
 void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 	if(dynamic_cast<Property<S32>*>(baseProperty)) {
 		Property<S32>* prop = (Property<S32>*)baseProperty;
-		ImGui::Text(prop->GetName() + ":");
+		ImGui::TextUnformatted(prop->GetName() + ":");
 		ImGui::SameLine(SCALED(100.f));
 		ImGui::PushItemWidth(SCALED(70.f));
 		ImGui::DragInt("##" + prop->GetName(), &prop->value);
 	} else if(dynamic_cast<Property<float>*>(baseProperty)) {
 		Property<float>* prop = (Property<float>*)baseProperty;
-		ImGui::Text(prop->GetName() + ":");
+		ImGui::TextUnformatted(prop->GetName() + ":");
 		ImGui::SameLine(SCALED(100.f));
 		ImGui::PushItemWidth(SCALED(100.f));
 		ImGui::DragFloat("##" + prop->GetName(), &prop->value);
@@ -108,9 +108,9 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(SCALED(6.f), SCALED(6.f)));
 
 		Property<String>* prop = (Property<String>*)baseProperty;
-		ImGui::Text(prop->GetName() + ":");
+		ImGui::TextUnformatted(prop->GetName() + ":");
 		ImGui::SameLine(SCALED(100.f));
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), prop->value);
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", prop->value.ToCStr());
 
 		ImGui::PopStyleVar();
 	} else if(dynamic_cast<Property<Vector3D>*>(baseProperty)) {

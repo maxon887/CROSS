@@ -37,7 +37,7 @@ void MaterialVisualBox::Update() {
 		ImGui::Text("Shader:");
 		ImGui::SameLine(SCALED(70.f));
 		String shaderFilename = mat->GetShader()->GetFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), shaderFilename);
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", shaderFilename.ToCStr());
 
 		bool trans = mat->IsTransparent();
 		if(ImGui::Checkbox("Transparent", &trans)) {
@@ -49,7 +49,7 @@ void MaterialVisualBox::Update() {
 		ImGui::Separator();
 
 		for(Shader::Property& prop : mat->GetProperties()) {
-			ImGui::Text(prop.GetName());
+			ImGui::TextUnformatted(prop.GetName());
 			ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 			switch(prop.GetType()) {
 			case Shader::Property::Type::COLOR: {
