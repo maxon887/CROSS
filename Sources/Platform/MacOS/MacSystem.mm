@@ -110,6 +110,8 @@ bool MacSystem::Alert(const String& msg) {
 									  encoding:[NSString defaultCStringEncoding]]];
 	[alert addButtonWithTitle:[NSString stringWithCString:"Ok"
 							   encoding:[NSString defaultCStringEncoding]]];
+	[alert addButtonWithTitle: [NSString stringWithCString:"Abort"
+							   encoding:[NSString defaultCStringEncoding]]];
 	[alert addButtonWithTitle:[NSString stringWithCString:"Skip"
 							   encoding:[NSString defaultCStringEncoding]]];
 	NSModalResponse response = [alert runModal];
@@ -117,6 +119,8 @@ bool MacSystem::Alert(const String& msg) {
 		case NSAlertFirstButtonReturn:
 			return false;
 		case NSAlertSecondButtonReturn:
+			*((unsigned int*)0) = 0xDEAD;
+		case NSAlertThirdButtonReturn:
 			return true;
 		default:
 			return false;
