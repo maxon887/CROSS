@@ -119,7 +119,7 @@ bool MacSystem::Alert(const String& msg) {
 		case NSAlertFirstButtonReturn:
 			return false;
 		case NSAlertSecondButtonReturn:
-			*((unsigned int*)0) = 0xDEAD;
+			*((volatile unsigned int*)0) = 0xDEAD;
 		case NSAlertThirdButtonReturn:
 			return true;
 		default:
