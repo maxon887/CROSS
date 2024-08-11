@@ -16,6 +16,8 @@ MacSystem::MacSystem(const String& workingDir) {
         assets_path = "Assets/";
     } else if(IsDirectoryExists("../Resources/Assets/")) {
         assets_path = "../Resources/Assets/";
+    } else if(IsDirectoryExists("../../../Assets/")) {
+        assets_path = "../../../Assets/";
     } else if(IsDirectoryExists("../../../../Assets/")) {
         assets_path = "../../../../Assets/";
     } else if(IsDirectoryExists("../../../../../Assets/")) {
