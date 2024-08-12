@@ -135,14 +135,17 @@ int main(int c,char **args) {
     gfxGL = new GraphicsGL();
     game = CrossMain();
 
-	int width = config->GetInt("WindowWidth", 800);
-	int height = config->GetInt("WindowHeight", 600);
-	glfwSetWindowSize(window, width / 2.f, height / 2.f);
+	int windowWidth = config->GetInt("WindowWidth", 800);
+	int windowHeight = config->GetInt("WindowHeight", 600);
+	glfwSetWindowSize(window, windowWidth, windowHeight);
 	int posX = config->GetInt("WindowPosX", 200);
 	int posY = config->GetInt("WindowPosY", 100);
 	glfwSetWindowPos(window, posX, posY);
-	glfwGetFramebufferSize(window, &width, &height);
-	cross::os->SetWindowSize(width, height);
+    int frameWidth = 0;
+    int frameHeight = 0;
+	glfwGetFramebufferSize(window, &frameWidth, &frameHeight);
+	cross::os->SetWindowSize(frameWidth, frameHeight);
+    macSystem->frame_to_window_ratio = frameWidth / (float)windowWidth;
 
     game->Start();
     
@@ -152,8 +155,9 @@ int main(int c,char **args) {
         glfwSwapBuffers(window);
     }
 
-	config->SetInt("WindowWidth", cross::os->GetWindowWidth());
-	config->SetInt("WindowHeight", cross::os->GetWindowHeight());
+    glfwGetWindowSize(window, &windowWidth, &windowHeight);
+	config->SetInt("WindowWidth", windowWidth);
+	config->SetInt("WindowHeight", windowHeight);
 	glfwGetWindowPos(window, &posX, &posY);
 	config->SetInt("WindowPosX", posX);
 	config->SetInt("WindowPosY", posY);

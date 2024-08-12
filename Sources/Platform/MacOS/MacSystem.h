@@ -23,6 +23,8 @@ public:
     void SetScreenDPI(float dpi);
 	void SetAssetPath(const String& path);
 
+	float frame_to_window_ratio = 1.f;
+
 private:
     float dpi = 96.f;
 
