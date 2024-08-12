@@ -28,8 +28,9 @@ void GLFWResizeCallback(GLFWwindow* win, int width, int height) {
 
 void GLFWMouseMoveCallback(GLFWwindow* win, double xPos, double yPos) {
     if(input) {
-        xPos *= 2;
-        yPos *= 2;
+        MacSystem* macSystem = (MacSystem*)cross::os;
+        xPos *= macSystem->frame_to_window_ratio;
+        yPos *= macSystem->frame_to_window_ratio;
         mouse_pos.x = (float)xPos;
         mouse_pos.y = (float)yPos;
         input->TargetActionMove.Emit((float)xPos, (float)yPos, 0);
@@ -104,11 +105,6 @@ int main(int c,char **args) {
     }
 
     glfwSetErrorCallback(GLFWErrorCallback);
-
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	GLFWwindow* window = glfwCreateWindow(800, 600, "Cross++", NULL, NULL);
     if(!window){
