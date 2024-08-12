@@ -17,6 +17,7 @@ using namespace std;
 using namespace cross;
 
 Vector2D mouse_pos;
+float frame_to_window_ratio;
 
 void GLFWErrorCallback(int error, const char* description) {
     cout << "GLFW Error occured - " << error << "\n\t" << description << endl;
@@ -29,8 +30,8 @@ void GLFWResizeCallback(GLFWwindow* win, int width, int height) {
 void GLFWMouseMoveCallback(GLFWwindow* win, double xPos, double yPos) {
     if(input) {
         MacSystem* macSystem = (MacSystem*)cross::os;
-        xPos *= macSystem->frame_to_window_ratio;
-        yPos *= macSystem->frame_to_window_ratio;
+        xPos *= frame_to_window_ratio;
+        yPos *= frame_to_window_ratio;
         mouse_pos.x = (float)xPos;
         mouse_pos.y = (float)yPos;
         input->TargetActionMove.Emit((float)xPos, (float)yPos, 0);
@@ -97,6 +98,27 @@ void GLFWCharCallback(GLFWwindow* window, unsigned int codepoint) {
 	input->CharEnter.Emit(codepoint);
 }
 
+GLFWmonitor* GetMonitorFowWindow(GLFWwindow* window) {
+    int monitorsCount = 0;
+    GLFWmonitor** monitors = glfwGetMonitors(&monitorsCount);
+    for (int i = 0; i < monitorsCount; i++) {
+        GLFWmonitor* monitor = monitors[i];
+        const char* monitorName = glfwGetMonitorName(monitor);
+        int XPos = 0;
+        int YPos = 0;
+        glfwGetMonitorPos(monitor, &XPos, &YPos);
+        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        Rect screenRect(XPos, YPos, mode->width, mode->height);
+        int windowXPos = 0;
+        int windowYPos = 0;
+        glfwGetWindowPos(window, &windowXPos, &windowYPos);
+        if (screenRect.IsInRect(Vector2D(windowXPos, windowYPos))) {
+            return monitor;
+        }
+    }
+    return nullptr;
+}
+
 int main(int c,char **args) {
     cross::os = new MacSystem(args[0]);
 
@@ -116,14 +138,6 @@ int main(int c,char **args) {
 	glfwSetScrollCallback(window, GLFWScrollCallback);
 	glfwSetKeyCallback(window, GLFWKeyCallback);
 	glfwSetCharCallback(window, GLFWCharCallback);
-
-    int widthMM, heightMM;
-    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-    glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
-    float dpi = mode->width * 2.f / (widthMM / 25.4);
-    MacSystem* macSystem = (MacSystem*)cross::os;
-    macSystem->SetScreenDPI(dpi);
     
     glfwMakeContextCurrent(window);
 
@@ -141,7 +155,18 @@ int main(int c,char **args) {
     int frameHeight = 0;
 	glfwGetFramebufferSize(window, &frameWidth, &frameHeight);
 	cross::os->SetWindowSize(frameWidth, frameHeight);
-    macSystem->frame_to_window_ratio = frameWidth / (float)windowWidth;
+    frame_to_window_ratio = frameWidth / (float)windowWidth;
+
+    int widthMM, heightMM;
+    GLFWmonitor* monitor = GetMonitorFowWindow(window);
+    if(!monitor) {
+        monitor = glfwGetPrimaryMonitor();
+    }
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
+    float dpi = mode->width * frame_to_window_ratio / (widthMM / 25.4);
+    MacSystem* macSystem = (MacSystem*)cross::os;
+    macSystem->SetScreenDPI(dpi);
 
     game->Start();
     
