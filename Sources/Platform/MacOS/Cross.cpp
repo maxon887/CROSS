@@ -29,7 +29,6 @@ void GLFWResizeCallback(GLFWwindow* win, int width, int height) {
 
 void GLFWMouseMoveCallback(GLFWwindow* win, double xPos, double yPos) {
     if(input) {
-        MacSystem* macSystem = (MacSystem*)cross::os;
         xPos *= frame_to_window_ratio;
         yPos *= frame_to_window_ratio;
         mouse_pos.x = (float)xPos;
@@ -103,7 +102,6 @@ GLFWmonitor* GetMonitorForWindow(GLFWwindow* window) {
     GLFWmonitor** monitors = glfwGetMonitors(&monitorsCount);
     for (int i = 0; i < monitorsCount; i++) {
         GLFWmonitor* monitor = monitors[i];
-        const char* monitorName = glfwGetMonitorName(monitor);
         int XPos = 0;
         int YPos = 0;
         glfwGetMonitorPos(monitor, &XPos, &YPos);

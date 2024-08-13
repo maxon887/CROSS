@@ -25,6 +25,12 @@ MacSystem::MacSystem(const String& workingDir) {
     } else {
         CROSS_ASSERT(false, "Can not find Assets directory");
     }
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSString *applicationSupportDirectory = [paths firstObject];
+	NSLog(@"applicationSupportDirectory: '%@'", applicationSupportDirectory);
+	data_path = [applicationSupportDirectory cStringUsingEncoding:[NSString defaultCStringEncoding]];
+	data_path += "/Data/";
 }
 
 void MacSystem::Log(const char *msg) {
@@ -36,7 +42,7 @@ String MacSystem::AssetsPath() {
 }
 
 String MacSystem::DataPath() {
-    return "Data/";
+	return data_path;
 }
 
 U64 MacSystem::GetTime() {

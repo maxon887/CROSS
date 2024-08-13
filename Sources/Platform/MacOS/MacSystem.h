@@ -28,6 +28,7 @@ private:
 
     String working_dir = "";
 	String assets_path = "";
+	String data_path = "";
 };
 
 }
