@@ -98,7 +98,7 @@ void GLFWCharCallback(GLFWwindow* window, unsigned int codepoint) {
 	input->CharEnter.Emit(codepoint);
 }
 
-GLFWmonitor* GetMonitorFowWindow(GLFWwindow* window) {
+GLFWmonitor* GetMonitorForWindow(GLFWwindow* window) {
     int monitorsCount = 0;
     GLFWmonitor** monitors = glfwGetMonitors(&monitorsCount);
     for (int i = 0; i < monitorsCount; i++) {
@@ -112,7 +112,7 @@ GLFWmonitor* GetMonitorFowWindow(GLFWwindow* window) {
         int windowXPos = 0;
         int windowYPos = 0;
         glfwGetWindowPos(window, &windowXPos, &windowYPos);
-        if (screenRect.IsInRect(Vector2D(windowXPos, windowYPos))) {
+        if (PointInRect(Vector2D(windowXPos, windowYPos), screenRect)) {
             return monitor;
         }
     }
@@ -158,7 +158,7 @@ int main(int c,char **args) {
     frame_to_window_ratio = frameWidth / (float)windowWidth;
 
     int widthMM, heightMM;
-    GLFWmonitor* monitor = GetMonitorFowWindow(window);
+    GLFWmonitor* monitor = GetMonitorForWindow(window);
     if(!monitor) {
         monitor = glfwGetPrimaryMonitor();
     }
