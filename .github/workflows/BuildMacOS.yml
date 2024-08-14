@@ -20,6 +20,7 @@ jobs:
     - name: Homebrew Install
       uses: tecolicom/actions-use-homebrew-tools@v1
       with:
+        cache: no
         tools: glew glfw
 
     - name: Build Cross MacOS
