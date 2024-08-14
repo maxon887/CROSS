@@ -42,7 +42,6 @@ if (APPLE)
     target_link_libraries (${PROJECT_NAME} PRIVATE
         ${OPENGL_gl_LIBRARY}
         glfw
-        ${ASSIMP_LIBRARIES}
         ${COCOA_LIBRARY}
         GLEW::GLEW
         "${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libfmod.dylib"
