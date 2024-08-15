@@ -1,0 +1,5 @@
+DebugOpenGL/
+DebugGLES/
+Release/
+.vs/
+Data/
