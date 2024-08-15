@@ -39,7 +39,3 @@ Rect::Rect(float x, float y, float w, float h){
 	this->width = w;
 	this->height = h;
 }
-
-bool Rect::IsInRect(const Vector2D& point){
-	return point.x >= x && point.y >= y && point.x <= x + width && point.y <= y + height;
-}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		501777C32C6C0722004BCF01 /* libassimpMAC.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 501777C22C6C0722004BCF01 /* libassimpMAC.dylib */; };
+		501777C42C6C076A004BCF01 /* libassimpMAC.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 501777C22C6C0722004BCF01 /* libassimpMAC.dylib */; };
 		5066DC2F2C384DB200C73262 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5066DC2D2C384DB200C73262 /* Graphics.cpp */; };
 		507332D62C385F2700E5D13D /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332C92C385F2700E5D13D /* imgui_widgets.cpp */; };
 		507332D72C385F2700E5D13D /* imgui_tables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507332CE2C385F2700E5D13D /* imgui_tables.cpp */; };
@@ -104,6 +106,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		501777C22C6C0722004BCF01 /* libassimpMAC.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimpMAC.dylib; path = ../../../Binaries/MacOS/libassimpMAC.dylib; sourceTree = "<group>"; };
 		5066DC2D2C384DB200C73262 /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
 		5066DC2E2C384DB200C73262 /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
 		507332C92C385F2700E5D13D /* imgui_widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_widgets.cpp; sourceTree = "<group>"; };
@@ -422,6 +425,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501777C32C6C0722004BCF01 /* libassimpMAC.dylib in Frameworks */,
 				9D6D8ADA20B41A4200119C74 /* Cocoa.framework in Frameworks */,
 				9D6D8AD620B4189100119C74 /* libfmod.dylib in Frameworks */,
 				9D32D1FE20B40F2F004A4D7E /* OpenGL.framework in Frameworks */,
@@ -954,6 +958,7 @@
 		9D32D1FC20B40ECE004A4D7E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				501777C22C6C0722004BCF01 /* libassimpMAC.dylib */,
 				9D6D8AD920B41A3B00119C74 /* Cocoa.framework */,
 				9D6D8AD520B4189100119C74 /* libfmod.dylib */,
 				9D32D1FD20B40ECE004A4D7E /* OpenGL.framework */,
@@ -1088,6 +1093,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501777C42C6C076A004BCF01 /* libassimpMAC.dylib in Resources */,
 				9D6D8ADD20B41BCD00119C74 /* libfmod.dylib in Resources */,
 				9D60344F20B41C1A0054EEF0 /* Assets in Resources */,
 				9D32CDDD20B40B12004A4D7E /* Assets.xcassets in Resources */,
@@ -1335,7 +1341,6 @@
 				OTHER_LDFLAGS = (
 					"-lGLEW",
 					"-lGLFW",
-					"-lassimp",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = littleman.CrossMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1376,7 +1381,6 @@
 				OTHER_LDFLAGS = (
 					"-lGLEW",
 					"-lGLFW",
-					"-lassimp",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = littleman.CrossMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";

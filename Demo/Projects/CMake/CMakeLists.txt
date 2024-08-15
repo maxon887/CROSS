@@ -35,7 +35,6 @@ if (APPLE)
     add_definitions(-DMACOS)
     add_definitions(-DCROSS_DEBUG)
     
-    find_package(ASSIMP REQUIRED)
     find_package(GLEW REQUIRED)
     find_package(GLFW3 REQUIRED)
     find_library(COCOA_LIBRARY Cocoa)
@@ -43,10 +42,11 @@ if (APPLE)
     target_link_libraries (${PROJECT_NAME} PRIVATE
         ${OPENGL_gl_LIBRARY}
         glfw
-        ${ASSIMP_LIBRARIES}
         ${COCOA_LIBRARY}
         GLEW::GLEW
-        "${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libfmod.dylib")
+        "${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libfmod.dylib"
+		"${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libassimpMAC.dylib")
+
 
 endif (APPLE)
 
