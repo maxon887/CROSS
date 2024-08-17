@@ -3,3 +3,4 @@ Build
 out
 CMakePresets.json
 Generated/
+cmake-build-debug/
