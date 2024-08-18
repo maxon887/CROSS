@@ -31,8 +31,7 @@ public:
 	enum Primitive {
 		CUBE,
 		SPHERE,
-		PLANE,
-		COUNT
+		PLANE
 	};
 
 	~Model();

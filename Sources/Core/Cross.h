@@ -16,16 +16,15 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-// Available Macrosies.
-// Enable following macrosies on your compiler preprocessor level in order to accomplish described results */
+// Available Macros.
 
-// CROSS_DEBUG - enables engine debug functional. Additional logs and error checking will be enabled. Should not be turn on on Release mode
+// CROSS_DEBUG - enables engine debug functional. Additional logs and error checking will be enabled. Should not be turned on in Release mode
 
 // CROSS_MEMORY_PROFILE - enables internal memory profiler. Which keep track of all c++ memory allocations and deallocations. 
-// This functional will help you not to forget call delete for your memory by asserting on the exit of application. For old style memory
-// malloc and free the are CROSS_ALLOC, CROSS_REALLOC and CROSS_FREE macrosies. Should not be turn on on Release mode.
+// This functional will help you not to forget call delete for your variables by asserting at the exit moment of application. For old style memory
+// malloc and free there are CROSS_ALLOC, CROSS_REALLOC and CROSS_FREE macros. Should not be turned on in Release mode.
 
-// CROSS_STD_REPLACEMENT - replaces all basics std types for custom ones. In for performance and learning purposes. 
+// CROSS_STD_REPLACEMENT - replaces all basics std types for custom ones.
 
 
 /*	Access modifier that allow usage only inside engine classes */
@@ -122,7 +121,7 @@ static const char*	version = "4.0.2";
 
 }
 
-/*	This function must implement every game */
+/* Main function of the Cross Engine. This function must implement every game */
 cross::Game* CrossMain();
 
 using namespace std;
