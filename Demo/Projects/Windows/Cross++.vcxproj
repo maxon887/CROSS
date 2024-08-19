@@ -163,12 +163,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugOpenG
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>../../../Binaries/Windows/x64/fmod_vc.lib;assimp.lib;../../../Binaries/Windows/x64/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../Binaries/Windows/x64/fmod_vc.lib;../../../Binaries/Windows/x64/assimp.lib;../../../Binaries/Windows/x64/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x64\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
 xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x64\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x\64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
+xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
