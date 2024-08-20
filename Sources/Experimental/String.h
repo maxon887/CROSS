@@ -135,7 +135,7 @@ String String::Format(const String& format, First value, Args... args) {
 template<class Value>
 String::String(Value value, const char* format, S32 bufferSize) {
 	data = (char*)CROSS_ALLOC(bufferSize + 1);
-	length = sprintf(data, format, value);
+	length = snprintf(data, bufferSize, format, value);
 	capacity = bufferSize;
 
 	//Conversion from integer to string failed
