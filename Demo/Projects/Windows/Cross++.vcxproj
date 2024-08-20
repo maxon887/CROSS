@@ -92,7 +92,24 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -104,13 +121,13 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;libEGL.lib;libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries/x86/fmod_vc.lib;Binaries/x86/assimp.lib;Binaries/x86/libEGL.lib;Binaries/x86/libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libGLESv2.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x86\assimp.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x86\libGLESv2.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x86\libEGL.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|x64'">
@@ -124,13 +141,13 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLE
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;libEGL.lib;libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries\x64\fmod_vc.lib;Binaries\x64\assimp.lib;Binaries\x64\libEGL.lib;Binaries\x64\libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libGLESv2.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x64\assimp.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x64\libGLESv2.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x64\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'">
@@ -144,12 +161,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLE
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries/x86/fmod_vc.lib;Binaries/x86/assimp.lib;Binaries/x86/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x86\glew32.dll" "$(ProjectDir)\$(Platform)\DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x86\assimp.dll" "$(ProjectDir)\$(Platform)\DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugOpenGL\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|x64'">
@@ -163,12 +180,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugOpenG
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>../../../Binaries/Windows/x64/fmod_vc.lib;../../../Binaries/Windows/x64/assimp.lib;../../../Binaries/Windows/x64/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries\x64\fmod_vc.lib;Binaries\x64\assimp.lib;Binaries\x64\glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x64\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x64\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x64\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x64\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -186,12 +203,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\x64\fmod.dll" "$(ProjectDir)DebugO
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries/x86/fmod_vc.lib;Binaries/x86/assimp.lib;Binaries/x86/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)Release\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)Release\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x86\glew32.dll" "$(ProjectDir)\$(Platform)\Release\" /D
+xcopy "$(ProjectDir)Binaries\x86\assimp.dll" "$(ProjectDir)\$(Platform)\Release\" /D
+xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\Release\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -209,12 +226,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries/x64/fmod_vc.lib;Binaries/x64/assimp.lib;Binaries/x64/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)Release\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)Release\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x64\glew32.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)Binaries\x64\assimp.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
