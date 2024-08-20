@@ -47,8 +47,8 @@ if (APPLE)
         glfw
         ${COCOA_LIBRARY}
         GLEW::GLEW
-        "${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libfmod.dylib"
-		"${CMAKE_SOURCE_DIR}/../../../Binaries/MacOS/libassimpMAC.dylib")
+        "${CMAKE_SOURCE_DIR}/../MacOS/Binaries/libfmod.dylib"
+		"${CMAKE_SOURCE_DIR}/../MacOS/Binaries/libassimpMAC.dylib")
 
 endif()
 
