@@ -27,6 +27,8 @@ if (APPLE OR WIN32)
 
 	add_definitions(-DOPENGL)
 
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Generated")
+
 	add_executable(${PROJECT_NAME} WIN32 ${CROSS_SRC} ${DEMO_SRC} ${IMGUI_SRC})
 endif()
 
@@ -60,11 +62,11 @@ if (WIN32)
     add_definitions(-DWIN)
 
 	find_library(GLEW_LIB NAMES glew32
-		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
+		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../Windows/Binaries/x64)
 	find_library(FMOD_LIB NAMES fmod fmod_vc
-		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
+		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../Windows/Binaries/x64)
 	find_library(ASSIMP_LIB NAMES assimp
-		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Projects/Windows)
+		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../Windows/Binaries/x64)
 
 	target_link_libraries (${PROJECT_NAME} PRIVATE
 		${GLEW_LIB}
@@ -74,18 +76,18 @@ if (WIN32)
 
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/assimp.dll"
-		"${CMAKE_CURRENT_BINARY_DIR}/Debug/assimp.dll")
+		"${CMAKE_CURRENT_SOURCE_DIR}/../Windows/Binaries/x64/assimp.dll"
+		"${CMAKE_CURRENT_BINARY_DIR}/../Generated/assimp.dll")
 
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/fmod.dll"
-		"${CMAKE_CURRENT_BINARY_DIR}/Debug/fmod.dll")
+		"${CMAKE_CURRENT_SOURCE_DIR}/../Windows/Binaries/x64/fmod.dll"
+		"${CMAKE_CURRENT_BINARY_DIR}/../Generated/fmod.dll")
 
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		"${CMAKE_CURRENT_SOURCE_DIR}/../../../Binaries/Windows/glew32.dll"
-		"${CMAKE_CURRENT_BINARY_DIR}/Debug/glew32.dll")
+		"${CMAKE_CURRENT_SOURCE_DIR}/../Windows/Binaries/x64/glew32.dll"
+		"${CMAKE_CURRENT_BINARY_DIR}/../Generated/glew32.dll")
 
 endif ()
 
