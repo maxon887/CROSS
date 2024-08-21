@@ -60,7 +60,7 @@ Game::~Game() {
 
 void Game::SetScreen(Screen* screen) {
 	next_screen = screen;
-	if(!current_screen) {	//in this case we need momently load new screen
+	if(!current_screen) {	//in this case we need instantly load new screen
 		LoadNextScreen();
 	}
 }
@@ -70,7 +70,7 @@ Screen* Game::GetCurrentScreen() {
 }
 
 Scene* Game::GetCurrentScene() {
-	return dynamic_cast<Scene*>(game->GetCurrentScreen());
+	return dynamic_cast<Scene*>(GetCurrentScreen());
 }
 
 Factory<Component>* Game::GetComponentFactory() {
@@ -108,7 +108,7 @@ void Game::Resume() {
 }
 
 float Game::GetRunTime() const {
-	return (float)(run_time / 1000000.f);
+	return (float)run_time / 1000000.f;
 }
 
 void Game::EngineUpdate() {
@@ -117,7 +117,7 @@ void Game::EngineUpdate() {
 
 		U64 now = os->GetTime();
 		U64 updateTime = now - timestamp;
-		float secTime = (float)(updateTime / 1000000.);
+		float secTime = (float)updateTime / 1000000.f;
 		timestamp = now;
 		run_time += updateTime;
 
@@ -138,7 +138,7 @@ void Game::EngineUpdate() {
 		U64 cpuTime = os->GetTime() - timestamp;
 		Debugger::Instance()->SetCPUTime((float)cpuTime);
 
-		float milis = updateTime / 1000.f;
+		float milis = (float)updateTime / 1000.f;
 		if(milis < 5.f) {
 			os->Sleep(5.f - milis);
 		}
@@ -156,7 +156,6 @@ void Game::LoadNextScreen() {
 	if(current_screen) {
 		current_screen->Stop();
 		delete current_screen;
-		current_screen = nullptr;
 	}
 
 	current_screen = next_screen;
