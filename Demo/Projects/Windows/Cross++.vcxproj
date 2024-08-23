@@ -177,6 +177,7 @@ xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugOpenG
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

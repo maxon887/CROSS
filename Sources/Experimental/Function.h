@@ -28,6 +28,7 @@ public:
 	template<class Lambda>	Function(const Lambda& lambda);
 	template<class Class>	Function(Class* obj, Ret(Class::*meth)(Input... args));
 							Function(const Function& other);
+							Function(Function&& other);
 							~Function();
 
 	Ret operator ()(Input... args);
@@ -63,6 +64,18 @@ Function<Ret(Input...)>::Function(const Function& other) {
 	executer = other.executer;
 	copier = other.copier;
 	deleter = other.deleter;
+}
+
+template<class Ret, class... Input>
+Function<Ret(Input...)>::Function(Function&& other) {
+	lambda = other.lambda;
+	executer = other.executer;
+	copier = other.copier;
+	deleter = other.deleter;
+	other.lambda = nullptr;
+	other.executer = nullptr;
+	other.copier = nullptr;
+	other.deleter = nullptr;
 }
 
 template<class Ret, class... Input>
