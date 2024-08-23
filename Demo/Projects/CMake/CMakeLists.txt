@@ -25,7 +25,7 @@ if (APPLE OR WIN32)
 	find_package(OpenGL REQUIRED)
 	include_directories(${OPENGL_INCLUDE_DIR})
 
-	add_definitions(-DOPENGL)
+	add_definitions(-DOPENGL -DCROSS_DEBUG -DCROSS_MEMORY_PROFILE)
 
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Generated")
 
@@ -38,7 +38,6 @@ if (APPLE)
     target_sources(${PROJECT_NAME} PRIVATE ${MACOS_SRC})
     
     add_definitions(-DMACOS)
-    add_definitions(-DCROSS_DEBUG)
     
     find_package(GLEW REQUIRED)
     find_package(GLFW3 REQUIRED)
@@ -59,7 +58,7 @@ if (WIN32)
     file(GLOB WINDOWS_SRC ../../../Sources/Platform/Windows/*.cpp)
 	target_sources(${PROJECT_NAME} PRIVATE ${WINDOWS_SRC})
 
-    add_definitions(-DWIN)
+    add_definitions(-DWIN -D_CRT_SECURE_NO_WARNINGS)
 
 	find_library(GLEW_LIB NAMES glew32
 		PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../Windows/Binaries/x64)

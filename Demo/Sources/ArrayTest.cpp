@@ -271,7 +271,7 @@ float ArrayTestView::FindingStdFunc(const std::vector<S32>& integers) {
 		if(i % 2 == 0) {
 			auto found = std::find(integers.begin(), integers.end(), Random(-100000, 100000));
 		} else {
-			auto found = std::find(integers.begin(), integers.end(), integers[Random(0, integers.size())]);
+			auto found = std::find(integers.begin(), integers.end(), integers[Random(0, (int)integers.size())]);
 		}	
 	}
 
@@ -316,7 +316,7 @@ float ArrayTestView::GettingRandomElementStdFunc(const std::vector<S32>& integer
 	Debugger::Instance()->SetTimeCheck();
 
 	for(S32 i = 0; i < 150000; i++) {
-		S32 index = Random(0, integers.size());
+		S32 index = Random(0, (int)integers.size());
 		S32 value = integers[index];
 		value++;
 	}

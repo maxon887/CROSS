@@ -116,7 +116,7 @@ LRESULT CALLBACK WinProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam){
 		input->KeyReleased.Emit((cross::Key)wParam);
 		break;
 	case WM_CHAR:
-		input->CharEnter.Emit(wParam);
+		input->CharEnter.Emit((char)wParam);
 		break;
 	case WM_MOVE: {
 		int x = LOWORD(lParam) - 8;

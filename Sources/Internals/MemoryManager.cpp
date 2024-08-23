@@ -178,7 +178,7 @@ U64 MemoryManager::Dump() {
 	for(U64 i = 0; i < object_count; i++) {
 		Log("%4llu. 0x%08X: %llu bytes(%s: %llu)\n",
 			i,
-			(unsigned long)alloc_objects[i].address,
+			(U64)alloc_objects[i].address,
 			alloc_objects[i].size,
 			alloc_objects[i].filename,
 			alloc_objects[i].line);
@@ -208,7 +208,7 @@ void MemoryManager::SanityCheck() {
 		temp += alloc_objects[i].size;
 		if(memcmp(temp, &check_code, 4) != 0) {
 			Log("Memory corrupted at 0x%08X: %d bytes(%s: %d)\n",
-				(unsigned long)alloc_objects[i].address,
+				(U64)alloc_objects[i].address,
 				alloc_objects[i].size,
 				alloc_objects[i].filename,
 				alloc_objects[i].line);

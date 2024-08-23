@@ -119,7 +119,7 @@ int OpenGL_Main() {
 #ifdef CROSS_MEMORY_PROFILE
 	MemoryManager::Instance()->Dump();
 #endif // CROSS_MEMORY_PROFILE
-	return msg.wParam;
+	return (int)msg.wParam;
 }
 
 #endif
