@@ -20,6 +20,8 @@
 
 class Sexy {
 public:
+    Sexy(int a, int b) : ass(a), boobs(b) { }
+
 	int boobs = 8;
 	int ass = 9;
 };
