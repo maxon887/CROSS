@@ -76,8 +76,11 @@ void Demo::Start() {
 	input->CharEnter.Connect(this, &Demo::CharEnter);
 	input->Scroll.Connect(this, &Demo::WheelRoll);
 
+	imgui_filename = os->DataPath() + imgui_filename;
+
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
+	io.IniFilename = imgui_filename;
 	// Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
 	io.KeyMap[ImGuiKey_Tab] = (int)Key::TAB;
 	io.KeyMap[ImGuiKey_LeftArrow] = (int)Key::LEFT;

@@ -57,6 +57,7 @@ private:
 	Shader* ui_shader		= nullptr;
 	Texture* font_texture	= nullptr;
 	String clipboard		= "";
+	String imgui_filename	= "imgui.ini";
 	U32 vertex_buffer		= 0;
 	U32 index_buffer		= 0;
 
