@@ -23,7 +23,6 @@
 #include "Mesh.h"
 #include "Transform.h"
 #include "Material.h"
-#include "Tester.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -47,8 +46,6 @@ void DemoScene::Start() {
 	if(os->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
 	}
-
-	RunTest();
 }
 
 void DemoScene::Stop() {

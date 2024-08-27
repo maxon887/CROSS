@@ -23,6 +23,7 @@
 #include "UI/MenuBar.h"
 #include "UI/LaunchView.h"
 #include "Utils/Debugger.h"
+#include "Tester.h"
 #ifdef WIN
 #	include "Platform/Windows/WINSystem.h"
 #elif ANDROID
@@ -130,6 +131,8 @@ void Demo::Start() {
 	launch_view = new LaunchView();
 
 	ToMain();
+
+	RunTest();
 }
 
 void Demo::Stop() {

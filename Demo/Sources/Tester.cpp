@@ -15,7 +15,25 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
+#include <vector>
+#include "Cross.h"
+
+class Sexy {
+public:
+	int boobs = 8;
+	int ass = 9;
+};
 
 void RunTest()
 {
+	Sexy Olga{ 7, 8 };
+	Sexy Gosha{ 6, 6 };
+
+	std::vector<Sexy> stdArray;
+	stdArray.push_back(Olga);
+	stdArray.push_back(Gosha);
+
+	cross::Array<Sexy> crossArray;
+	crossArray.Add(Olga);
+	crossArray.Add(Gosha);
 }
