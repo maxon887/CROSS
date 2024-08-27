@@ -1,0 +1,15 @@
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="cross::Array&lt;*&gt;">
+    <DisplayString>
+      data={data} size={size}
+    </DisplayString>
+    <Expand>
+      <Item Name="size">size</Item>
+      <Item Name="capacity">capacity</Item>
+      <IndexListItems>
+        <Size>size</Size>
+        <ValueNode>data[$i]</ValueNode>
+      </IndexListItems>
+    </Expand>
+  </Type>
+</AutoVisualizer>
