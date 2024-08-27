@@ -12,4 +12,8 @@
       </IndexListItems>
     </Expand>
   </Type>
+
+  <Type Name="cross::String">
+  <DisplayString>{data, s}</DisplayString>
+  </Type>
 </AutoVisualizer>

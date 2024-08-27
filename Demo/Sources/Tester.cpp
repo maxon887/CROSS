@@ -26,6 +26,12 @@ public:
 	int ass = 9;
 };
 
+void StringConsumer(const cross::String& str)
+{
+	int i = 0;
+	i++;
+}
+
 void RunTest()
 {
 	Sexy Olga{ 7, 8 };
@@ -38,4 +44,9 @@ void RunTest()
 	cross::Array<Sexy> crossArray;
 	crossArray.Add(Olga);
 	crossArray.Add(Gosha);
+
+	std::string stdString = "Some std user text here";
+	cross::String crossString = "Cross could do the string to";
+
+	StringConsumer("In place created string");
 }
