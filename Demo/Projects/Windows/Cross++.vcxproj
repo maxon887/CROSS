@@ -310,6 +310,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
     <ClCompile Include="..\..\Sources\StringTest.cpp" />
+    <ClCompile Include="..\..\Sources\Tester.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
@@ -412,6 +413,7 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
     <ClInclude Include="..\..\Sources\StringTest.h" />
+    <ClInclude Include="..\..\Sources\Tester.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.h" />
