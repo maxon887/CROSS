@@ -32,6 +32,11 @@ void StringConsumer(const cross::String& str)
 	i++;
 }
 
+struct MyVector
+{
+  std::vector<int> mData;
+};
+
 void RunTest()
 {
 	Sexy Olga{ 7, 8 };
@@ -52,4 +57,8 @@ void RunTest()
 	
 	int IntegerNumber = 11;
 	IntegerNumber++;
+	
+	MyVector vec;
+	vec.mData.push_back(232);
+	vec.mData.push_back(110);
 }
