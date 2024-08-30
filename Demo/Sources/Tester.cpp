@@ -49,4 +49,7 @@ void RunTest()
 	cross::String crossString = "Cross could do the string to";
 
 	StringConsumer("In place created string");
+	
+	int IntegerNumber = 11;
+	IntegerNumber++;
 }
