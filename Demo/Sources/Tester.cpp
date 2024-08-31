@@ -32,23 +32,21 @@ void StringConsumer(const cross::String& str)
 	i++;
 }
 
-struct MyVector
-{
-  std::vector<int> mData;
-};
-
 void RunTest()
 {
 	Sexy Olga{ 7, 8 };
 	Sexy Gosha{ 6, 6 };
+	Sexy Lisiao { 9, 10 };
 
 	std::vector<Sexy> stdArray;
 	stdArray.push_back(Olga);
 	stdArray.push_back(Gosha);
+	stdArray.push_back(Lisiao);
 
 	cross::Array<Sexy> crossArray;
 	crossArray.Add(Olga);
 	crossArray.Add(Gosha);
+	crossArray.Add(Lisiao);
 
 	std::string stdString = "Some std user text here";
 	cross::String crossString = "Cross could do the string to";
@@ -57,8 +55,4 @@ void RunTest()
 	
 	int IntegerNumber = 11;
 	IntegerNumber++;
-	
-	MyVector vec;
-	vec.mData.push_back(232);
-	vec.mData.push_back(110);
 }
