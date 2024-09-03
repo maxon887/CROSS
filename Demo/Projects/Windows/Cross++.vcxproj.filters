@@ -345,6 +345,9 @@
     <ClCompile Include="..\..\Sources\Tester.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Sources\TransformGizmo.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -652,6 +655,9 @@
       <Filter>Cross\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Tester.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\TransformGizmo.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>

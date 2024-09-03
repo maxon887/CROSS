@@ -89,7 +89,6 @@ void DemoScene::Update(float sec) {
 	FreeCameraScene::Update(sec);
 
 	transform_gizmo.Update(sec);
-}
 
 	if(!draw_vector && arrow && arrow->GetParent()) {
 		arrow->GetParent()->RemoveChild(arrow);

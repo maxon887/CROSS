@@ -8,10 +8,10 @@
 #include "Game.h"
 #include "Scene.h"
 #include "Camera.h"
+#include "Graphics.h"
 
 TransformGizmo::TransformGizmo() {
-	shader = new Shader();
-	shader->Load("Engine/Shaders/Simple.sha");
+	shader = gfx->LoadShader("Engine/Shaders/Simple.sha");
 	shader->Compile();
 
 	red_mat = new Material(shader);
