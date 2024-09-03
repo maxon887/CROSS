@@ -1,0 +1,30 @@
+name: Android
+
+on:
+  push:
+    branches: [ "Main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/Android
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Build Cross Android
+      run: ./gradlew assembleDebug

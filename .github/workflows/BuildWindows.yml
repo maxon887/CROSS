@@ -1,0 +1,24 @@
+name: Windows
+
+on:
+  push:
+    branches: [ "Main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/Windows
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build Cross
+      run: MSBuild Cross++.sln

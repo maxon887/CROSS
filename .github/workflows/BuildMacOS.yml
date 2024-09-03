@@ -1,0 +1,27 @@
+name: MacOS
+
+on:
+  push:
+    branches: [ "Main" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/MacOS
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Homebrew Install
+      uses: tecolicom/actions-use-homebrew-tools@v1
+      with:
+        cache: no
+        tools: glew glfw
+
+    - name: Build Cross MacOS
+      run: xcodebuild -scheme CrossMac build

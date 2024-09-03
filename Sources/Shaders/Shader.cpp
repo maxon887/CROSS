@@ -206,46 +206,6 @@ Shader::~Shader() {
 	FreeResources();
 }
 
-void Shader::Load(const String& file) {
-	filename = file;
-	File* xmlFile = system->LoadAssetFile(file);
-	CROSS_FAIL(xmlFile, "Can not load shader xml file");
-	XMLDocument doc;
-	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
-	CROSS_FAIL(error == XML_SUCCESS, "Can not parse shader xml file");
-	delete xmlFile;
-
-	XMLElement* shaderXML = doc.FirstChildElement("Shader");
-	CROSS_FAIL(shaderXML, "Can not find node Shader in XML file");
-	XMLElement* vertexXML = shaderXML->FirstChildElement("Vertex");
-	const char* vertexFile = vertexXML->Attribute("filename");
-	XMLElement* fragmentXML = shaderXML->FirstChildElement("Fragment");
-	const char* fragmentFile = fragmentXML->Attribute("filename");
-	vertex_filename = vertexFile;
-    fragment_filename = fragmentFile;
-
-	XMLElement* macrosiesXML = shaderXML->FirstChildElement("Macrosies");
-	if(macrosiesXML) {
-		XMLElement* macroXML = macrosiesXML->FirstChildElement("Macro");
-		while(macroXML) {
-			const char* text = macroXML->GetText();
-			AddMacro(text);
-			macroXML = macroXML->NextSiblingElement("Macro");
-		}
-	}
-	XMLElement* propertiesXML = shaderXML->FirstChildElement("Properties");
-	if(propertiesXML) {
-		XMLElement* propertyXML = propertiesXML->FirstChildElement("Property");
-		while(propertyXML) {
-			const char* name = propertyXML->Attribute("name");
-			const char* glName = propertyXML->Attribute("glName");
-			const char* type = propertyXML->Attribute("type");
-			AddProperty(name, glName, Property::StringToType(type));
-			propertyXML = propertyXML->NextSiblingElement("Property");
-		}
-	}
-}
-
 void Shader::Save(const String& file) {
 	XMLDocument doc;
 
@@ -285,18 +245,18 @@ void Shader::Save(const String& file) {
 	saveFile.name = file;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
+	os->SaveFile(&saveFile);
 	saveFile.data = nullptr;
 }
 
 void Shader::Compile() {
 	CROSS_FAIL(vertex_filename != "", "Can not compile shader without vertex file");
-	vertex_file = system->LoadAssetFile(vertex_filename);
+	vertex_file = os->LoadAssetFile(vertex_filename);
 	vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex_file);
 	delete vertex_file;
 	vertex_file = nullptr;
 	CROSS_FAIL(fragment_filename != "", "Can not compile shader without fragment file");
-	fragment_file = system->LoadAssetFile(fragment_filename);
+	fragment_file = os->LoadAssetFile(fragment_filename);
 	fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment_file);
 	delete fragment_file;
 	fragment_file = nullptr;
@@ -326,13 +286,6 @@ void Shader::Compile() {
 	compiled = true;
 }
 
-void Shader::ReCompile() {
-	FreeResources();
-	compiled = false;
-	Load(GetFilename());
-	Compile();
-}
-
 void Shader::Use() {
 	CROSS_FAIL(IsCompiled(), "Attempt to draw with not compiled shader");
 	SAFE(glUseProgram(GetProgram()));
@@ -344,6 +297,10 @@ bool Shader::IsCompiled() const {
 
 String& Shader::GetFilename(){
 	return filename;
+}
+
+void Shader::SetFilename(const String& filename) {
+	this->filename = filename;
 }
 
 String& Shader::GetVertexFilename(){
@@ -365,26 +322,26 @@ void Shader::SetFragmentFilename(const String& filename) {
 void Shader::AddVersion(const String& ver) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String fullStr = "#version " + ver + " es\n";
-	macrosies.push_back(fullStr);
+	macrosies.Add(fullStr);
 	makro_len += fullStr.Length();
 }
 
-void Shader::AddMacro(const String& makro, bool system) {
+void Shader::AddMacro(const String& makro, bool os) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + "\n";
-	macrosies.push_back(makroString);
+	macrosies.Add(makroString);
 	makro_len += makroString.Length();
-	if(!system){
-		user_macro.push_back(makro);
+	if(!os){
+		user_macro.Add(makro);
 	}
 }
 
-void Shader::AddMacro(const String& makro, int value, bool system) {
+void Shader::AddMacro(const String& makro, int value, bool os) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String makroString = "#define " + makro + " " + String(value) + "\n";
-	macrosies.push_back(makroString);
+	macrosies.Add(makroString);
 	makro_len += makroString.Length();
-	if(!system) {
+	if(!os) {
 		CROSS_ASSERT(false, "Do not implement yet");
 	}
 }
@@ -394,49 +351,49 @@ Array<String>& Shader::GetMacrosies() {
 }
 
 void Shader::ClearMacrosies() {
-	user_macro.clear();
+	user_macro.Clear();
 }
 
 void Shader::AddProperty(const String& name, const String& glName) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName);
+	properties.CreateInside(name, glName);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Shader::Property::Type type) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, type);
+	properties.CreateInside(name, glName, type);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, float defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Color& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Vector3D& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Cubemap* defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
-	properties.emplace_back(name, glName, defValue);
+	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const Property& prop) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
 	CROSS_FAIL(!HaveProperty(prop.name), "Shader already contain that property");
-	properties.push_back(prop);
+	properties.Add(prop);
 }
 
 Shader::Property* Shader::GetProperty(const String& name) {
@@ -453,7 +410,7 @@ Array<Shader::Property>& Shader::GetProperties() {
 }
 
 void Shader::ClearProperties() {
-	properties.clear();
+	properties.Clear();
 }
 
 bool Shader::HaveProperty(const String& name) const {
@@ -475,7 +432,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
     if(type == GL_FRAGMENT_SHADER) {
         CROSS_RETURN(!compiled, 0, "Shader already compiled");
         String fullStr = "precision mediump float;\n";
-		macrosies.push_back(fullStr);
+		macrosies.Add(fullStr);
         makro_len += fullStr.Length();
     }
 #endif
@@ -533,7 +490,7 @@ void Shader::CompileProgram() {
 }
 
 void Shader::FreeResources() {
-	properties.clear();
+	properties.Clear();
 	if(vertex_shader) {
 		SAFE(glDeleteShader(vertex_shader));
 	}

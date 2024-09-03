@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+	ndkVersion '21.1.6352462'
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+	namespace 'com.littleman.cross'
     defaultConfig {
         applicationId "com.littleman.cross"
         minSdkVersion 9
-        targetSdkVersion 26
+        targetSdkVersion 33
         versionCode 300
         versionName "3.0.0"
+		flavorDimensions "default"
         productFlavors {
             armV7 {
                 ndk {
@@ -38,8 +40,8 @@ android {
             cmake {
                 cppFlags "-frtti"
                 cppFlags += " -fexceptions"
-                cppFlags += " -std=c++11"
                 cppFlags += " -Wno-error=format-security"
+				arguments "-DANDROID_STL=c++_shared"
             }
         }
     }
@@ -74,12 +76,12 @@ android {
 
 	externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            path "../../CMake/CMakeLists.txt"
         }
     }
 }
 
 dependencies {
-	compile fileTree(include: ['*.jar'], dir: 'libs')
-	testCompile 'junit:junit:4.12'
+	implementation fileTree(include: ['*.jar'], dir: 'libs')
+	testImplementation 'junit:junit:4.12'
 }

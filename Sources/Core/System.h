@@ -53,6 +53,8 @@ public:
 	virtual File* LoadDataFile(const String& filename);
 	/* Save file by absolute folder */
 	virtual void SaveFile(File* file);
+	/* Save file to asset folder */
+	virtual void SaveAssetFile(File* file);
 	/* Save file to data folder */
 	virtual void SaveDataFile(File* file);
 	/* Checks if file exists in provided path */
@@ -73,6 +75,8 @@ public:
 	virtual void CreateDirectory(const String& dirname);
 	/* Creates directory in game assets folder if available */
 	virtual void CreateAssetDirectory(const String& dirname);
+	/* Deletes file or folder with sub folders by path */
+	virtual void Delete(const String& path);
 	/* Returns all sub folders in provided directory */
 	virtual Array<String> GetSubDirectories(const String& filepath);
 	/* Returns all files contain in provided directory */
@@ -98,7 +102,7 @@ public:
 	/* Tries to open file with appropriate external program */
 	virtual void OpenFileExternal(const String& filename);
 	/* Opens system window for choosing file */
-	virtual String OpenFileDialog(bool saveDialog = false);
+	virtual String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false);
 	/* Prints String */
 	template<class... Args>
 	void LogIt(const String& msg, Args... args);
@@ -115,7 +119,7 @@ public:
 	Orientation GetDeviceOrientation() const;
 	/* Returns physical screen aspect ration */
 	float GetAspectRatio() const;
-	/* Sets physical device screen size */
+	/* Sets view target screen size */
 	void SetWindowSize(S32 width, S32 height);
 	/* Returns all messages that was logged. Works only in debug builds */
 	String& GetLogBuffer();

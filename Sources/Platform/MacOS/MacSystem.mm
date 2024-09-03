@@ -16,9 +16,21 @@ MacSystem::MacSystem(const String& workingDir) {
         assets_path = "Assets/";
     } else if(IsDirectoryExists("../Resources/Assets/")) {
         assets_path = "../Resources/Assets/";
+    } else if(IsDirectoryExists("../../../Assets/")) {
+        assets_path = "../../../Assets/";
+    } else if(IsDirectoryExists("../../../../Assets/")) {
+        assets_path = "../../../../Assets/";
+    } else if(IsDirectoryExists("../../../../../Assets/")) {
+        assets_path = "../../../../../Assets/";
     } else {
         CROSS_ASSERT(false, "Can not find Assets directory");
     }
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSString *applicationSupportDirectory = [paths firstObject];
+	NSLog(@"applicationSupportDirectory: '%@'", applicationSupportDirectory);
+	data_path = [applicationSupportDirectory cStringUsingEncoding:[NSString defaultCStringEncoding]];
+	data_path += "/Data/";
 }
 
 void MacSystem::Log(const char *msg) {
@@ -30,7 +42,7 @@ String MacSystem::AssetsPath() {
 }
 
 String MacSystem::DataPath() {
-    return "Data/";
+	return data_path;
 }
 
 U64 MacSystem::GetTime() {
@@ -73,7 +85,7 @@ Array<String> MacSystem::GetSubDirectories(const String& filepath) {
 	while(dir && (dr = readdir(dir))) {
 		String name = dr->d_name;
 		if(dr->d_type == DT_DIR && name != "." && name != "..") {
-			files.push_back(name);
+			files.Add(name);
 		}
 	}
 	closedir(dir);
@@ -91,7 +103,7 @@ Array<String> MacSystem::GetFilesInDirectory(const String& filepath) {
 	dirent* dr = nullptr;
 	while(dir && (dr = readdir(dir))) {
 		if(dr->d_type != DT_DIR) {
-			files.push_back(dr->d_name);
+			files.Add(dr->d_name);
 		}
 	}
 	closedir(dir);
@@ -106,6 +118,8 @@ bool MacSystem::Alert(const String& msg) {
 									  encoding:[NSString defaultCStringEncoding]]];
 	[alert addButtonWithTitle:[NSString stringWithCString:"Ok"
 							   encoding:[NSString defaultCStringEncoding]]];
+	[alert addButtonWithTitle: [NSString stringWithCString:"Abort"
+							   encoding:[NSString defaultCStringEncoding]]];
 	[alert addButtonWithTitle:[NSString stringWithCString:"Skip"
 							   encoding:[NSString defaultCStringEncoding]]];
 	NSModalResponse response = [alert runModal];
@@ -113,6 +127,8 @@ bool MacSystem::Alert(const String& msg) {
 		case NSAlertFirstButtonReturn:
 			return false;
 		case NSAlertSecondButtonReturn:
+			*((volatile unsigned int*)0) = 0xDEAD;
+		case NSAlertThirdButtonReturn:
 			return true;
 		default:
 			return false;

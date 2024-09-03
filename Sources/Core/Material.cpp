@@ -19,6 +19,7 @@
 #include "File.h"
 #include "Scene.h"
 #include "Game.h"
+#include "Graphics.h"
 
 #include <iomanip>
 #include <algorithm>
@@ -54,33 +55,40 @@ const String& Material::GetFilename() const {
 	return filename;
 }
 
-void Material::Load(const String& filename, Scene* scene) {
-	File* xmlFile = system->LoadAssetFile(filename);
-	CROSS_FAIL(xmlFile, "Can't load material. File not fount");
+bool Material::Load(const String& filename, Scene* scene) {
+	File* xmlFile = os->LoadAssetFile(filename);
+	CROSS_RETURN(xmlFile, false, "Can't load material. File not fount");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
 	delete xmlFile;
-	CROSS_FAIL(error == XML_SUCCESS, "Can't parse material xml file");
+	CROSS_RETURN(error == XML_SUCCESS, false, "Can't parse material xml file");
 
 	SetName(filename);
 
 	XMLElement* materialXML = doc.FirstChildElement("Material");
 	const char* shaderfilename = materialXML->Attribute("shader");
-	CROSS_FAIL(shaderfilename, "Material file not contain 'shader' filename");
+	CROSS_RETURN(shaderfilename, false, "Material file not contain 'shader' filename");
 
+	delete shader;
 	if(scene) {
 		shader = scene->GetShader(shaderfilename);
-		Reset();
 	} else {
-		shader = new Shader();
-		shader->Load(shaderfilename);
-		Reset();
+		shader = gfx->LoadShader(shaderfilename);
+	}
+	Reset();
+
+	XMLElement* transparancyXML = materialXML->FirstChildElement("Transparent");
+	if(transparancyXML) {
+		String transText = transparancyXML->GetText();
+		if(transText == "True") {
+			transparent = true;
+		}
 	}
 
 	XMLElement* propertyXML = materialXML->FirstChildElement("Property");
 	while(propertyXML) {
 		const char* name = propertyXML->Attribute("name");
-		CROSS_FAIL(name, "Property without name");
+		CROSS_RETURN(name, false, "Property without name");
 		if(HaveProperty(name)) {
 			Shader::Property* prop = GetProperty(name);
 			switch(prop->GetType()) {
@@ -94,38 +102,66 @@ void Material::Load(const String& filename, Scene* scene) {
 			} break;
 			case Shader::Property::COLOR: {
 				String value = propertyXML->Attribute("value");
-				prop->SetValue(value.ToColor());
+				prop->SetValue(Color(value));
 			} break;
 			case Shader::Property::TEXTURE: {
-				const char* textureFilename = propertyXML->Attribute("value");
-				CROSS_FAIL(scene, "Can not load material with texture without scene");
-				Texture* texture = scene->GetTexture(textureFilename);
-				prop->SetValue(texture);
+				String textureFilename = propertyXML->Attribute("value");
+				if(!textureFilename.IsEmpty()) {
+					if(scene) {
+						Texture* texture = scene->GetTexture(textureFilename);
+						prop->SetValue(texture);
+					} else {
+						Texture* texture = new Texture();
+						texture->Load(textureFilename);
+						prop->SetValue(texture);
+					}
+				}
 			} break;
 			default:
 				CROSS_ASSERT(false, "Unsupported property type");
 			}
+		} else {
+			CROSS_ASSERT(false, "Material loading error. Shader # doesn't contain property '#'", shader->GetFilename(), name);
 		}
 		propertyXML = propertyXML->NextSiblingElement("Property");
 	}
-
+	return true;
 }
 
 void Material::Save(const String& filename) {
 	XMLDocument doc;
 	XMLElement* materialXML = doc.NewElement("Material");
+
+	String shaderName = "";
 	if(GetShader()) {
-		materialXML->SetAttribute("shader", GetShader()->GetFilename());
+		shaderName = GetShader()->GetFilename();
 	}
+	materialXML->SetAttribute("shader", shaderName);
+
 	doc.LinkEndChild(materialXML);
+
+	if(IsTransparent()) {
+		XMLElement* transparancyXML = doc.NewElement("Transparent");
+		transparancyXML->SetText("True");
+		materialXML->LinkEndChild(transparancyXML);
+	}
 
 	for(const Shader::Property& prop : properties) {
 		XMLElement* propertyXML = doc.NewElement("Property");
 		propertyXML->SetAttribute("name", prop.GetName());
 		switch(prop.GetType()) {
 		case Shader::Property::Type::COLOR: {
-			String color = prop.value.color;
+			String color = prop.value.color.ToString();
 			propertyXML->SetAttribute("value", color);
+			break;
+		}
+		case Shader::Property::Type::TEXTURE: {
+			Texture* texture = prop.value.texture;
+			if(texture && texture->GetName() != "") {
+				propertyXML->SetAttribute("value", texture->GetName());
+			} else {
+				propertyXML->SetAttribute("value", "");
+			}
 			break;
 		}
 		default:
@@ -140,12 +176,12 @@ void Material::Save(const String& filename) {
 	saveFile.name = filename;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
+	os->SaveFile(&saveFile);
 	saveFile.data = nullptr;
 }
 
 void Material::Reset() {
-	properties.clear();
+	properties.Clear();
 	properties = shader->GetProperties();
 }
 
@@ -262,6 +298,10 @@ void Material::SetPropertyValue(U64 glID, Texture* value) {
 	Shader::Property* prop = GetProperty(glID);
 	CROSS_FAIL(prop, "Can not set property by id(#)", glID);
 	prop->SetValue(value);
+}
+
+void Material::SetTransparent(bool yes) {
+	transparent = yes;
 }
 
 bool Material::IsTransparent() {

@@ -18,7 +18,7 @@
 #include "Game.h"
 #include "Input.h"
 
-#define SCALED(x) x * cross::system->GetScreenScale()
+#define SCALED(x) x * cross::os->GetScreenScale()
 
 using namespace cross;
 
@@ -57,6 +57,7 @@ private:
 	Shader* ui_shader		= nullptr;
 	Texture* font_texture	= nullptr;
 	String clipboard		= "";
+	String imgui_filename	= "imgui.ini";
 	U32 vertex_buffer		= 0;
 	U32 index_buffer		= 0;
 

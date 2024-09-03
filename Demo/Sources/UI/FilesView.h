@@ -26,22 +26,26 @@ public:
 
 	void Shown() override;
 
-	void Content(float sec) override;
+	void Update(float sec) override;
 
 private:
 	struct Node {
 		String path = "";
 		String name = "";
+		String full_path = "";
 		bool initialized = false;
-		Array<String> files;
+		//first string is filename second full paht + filename
+		Array<pair<String, String> > files;
 		Array<Node> folders;
 	};
 
 	Node file_tree;
-	bool on_item_clicked = false;
-	String selected_path;
+	String current_path;
+
+	Array<String> all_shader_files;
 
 	void InitNode(Node& node);
+	void Refresh();
 	void BuildNote(Node& node);
 	void FileDoubleClicked(const String& filename);
 

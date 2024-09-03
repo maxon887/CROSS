@@ -19,13 +19,14 @@
 #include "File.h"
 #include "Demo.h"
 #include "System.h"
+#include "Graphics.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
 ShaderVisualBox::ShaderVisualBox() {
 	for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
 		Shader::Property::Type type = (Shader::Property::Type)i;
-		type_names.push_back(Shader::Property::TypeToString(type));
+		type_names.Add(Shader::Property::TypeToString(type));
 	}
 }
 
@@ -49,13 +50,13 @@ void ShaderVisualBox::Update() {
 		ImGui::Text("Vertex File:");
 		ImGui::SameLine(SCALED(120.f));
 		String vertexFile = shader->GetVertexFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), vertexFile);
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", vertexFile.ToCStr());
 
 		//fragment file
 		ImGui::Text("Fragment File:");
 		ImGui::SameLine(SCALED(120.f));
 		String fragmentFile = shader->GetFragmentFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), fragmentFile);
+		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", fragmentFile.ToCStr());
 
 		ImGui::NewLine();
 
@@ -80,7 +81,7 @@ void ShaderVisualBox::Update() {
 			ImGui::NextColumn();
 
 			char* values[Shader::Property::Type::UNKNOWN];
-			for(U32 i = 0; i < type_names.size(); i++) {
+			for(S32 i = 0; i < type_names.Size(); i++) {
 				values[i] = type_names[i].ToCStr();
 			}
 
@@ -134,8 +135,7 @@ void ShaderVisualBox::Update() {
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
 	if(File::ExtensionFromFile(filename) == "sha") {
-		shader = new Shader();
-		shader->Load(filename);
+		shader = gfx->LoadShader(filename);
 	} else {
 		shader = nullptr;
 	}

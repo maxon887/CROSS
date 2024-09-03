@@ -35,14 +35,6 @@
 
 @end
 
-IOSSystem::IOSSystem(){
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    S32 width = screenRect.size.width * screenScale;
-    S32 height = screenRect.size.height * screenScale;
-    SetWindowSize(width, height);
-}
-
 IOSSystem::~IOSSystem(){
     delete audio;
 }

@@ -50,15 +50,20 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Initialize(Scene* scene) {
-	if(!vertex_buffer) {
+	if(!model_filename.value.IsEmpty()) {
+		CROSS_FAIL(id != -1, "Can not initialize Mesh with ID = -1");
 		Model* model = scene->GetModel(model_filename);
 		Copy(model->GetMesh(id));
 
 		if(material_filename.value != "") {
 			Material* mat = scene->GetMaterial(material_filename);
-			SetMaterial(mat);
+			if(mat) {
+				SetMaterial(mat);
+			} else {
+				Disable();
+			}
 		} else {
-			SetMaterial(scene->GetMaterial("Engine/Default.mat"));
+			SetMaterial(scene->GetDefaultMaterial());
 		}
 	}
 }
@@ -73,8 +78,20 @@ Mesh* Mesh::Clone() const {
 	return mesh;
 }
 
+void Mesh::Enable() {
+	Entity* owner = GetEntity();
+	bool hasTransform = owner->GetComponent<Transform>() != nullptr;
+	CROSS_FAIL(hasTransform, "Can not enable Mesh. Owner entity doesn't have Transform Component");
+	CROSS_FAIL(initialized, "Can not enable Mesh. Mesh not initalized");
+	CROSS_FAIL(material, "Cano not enable Mesh. Current Mesh doesn't have Material assigned");
+	
+	enabled = true;
+}
+
 void Mesh::Draw() {
-	Draw(material);
+	if(enabled) {
+		Draw(material);
+	}
 }
 
 void Mesh::Draw(Material* mat) {
@@ -84,7 +101,7 @@ void Mesh::Draw(Material* mat) {
 void Mesh::Draw(Material* mat, StencilBehaviour sten) {
 	if(GetEntity()) {
 		CROSS_FAIL(GetEntity()->GetComponent<Transform>(), "Can not draw mesh without transform");
-		Draw(GetEntity()->GetWorldMatrix(), mat, sten);
+		Draw(GetEntity()->GetComponent<Transform>()->GetWorldMatrix(), mat, sten);
 	} else {
 		Draw(Matrix::Identity, mat, sten);
 	}
@@ -171,37 +188,38 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 
 	//binding attributes
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, (GLuint)VBO));
-	VertexBuffer* vertexBuf = vertex_buffer;
-	U32 vertexSize = vertexBuf->VertexSize();
+	U32 vertexSize = vertex_buffer->VertexSize();
 	if(shader->aPosition != -1) {
 		SAFE(glEnableVertexAttribArray((GLuint)shader->aPosition));
-		SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetPositionsOffset()));
+		SAFE(glVertexAttribPointer((GLuint)shader->aPosition, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetPositionsOffset()));
 	}
 	if(shader->aTexCoords != -1) {
-		CROSS_FAIL(vertexBuf->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
+		CROSS_FAIL(vertex_buffer->HasTextureCoordinates(), "Current mesh does not contain texture coordinates");
 		SAFE(glEnableVertexAttribArray((GLuint)shader->aTexCoords));
-		SAFE(glVertexAttribPointer((GLuint)shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTextureCoordinatesOffset()));
+		SAFE(glVertexAttribPointer((GLuint)shader->aTexCoords, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetTextureCoordinatesOffset()));
 	}
 	if(shader->aNormal != -1) {
-		CROSS_FAIL(vertexBuf->HasNormals(), "Current mesh does not countain normals");
+		CROSS_FAIL(vertex_buffer->HasNormals(), "Current mesh does not countain normals");
 		SAFE(glEnableVertexAttribArray((GLuint)shader->aNormal));
-		SAFE(glVertexAttribPointer((GLuint)shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetNormalsOffset()));
+		SAFE(glVertexAttribPointer((GLuint)shader->aNormal, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetNormalsOffset()));
 	}
 	if(shader->aTangent != -1) {
-		CROSS_FAIL(vertexBuf->HasTangents(), "Current mesh does not contain tangents");
+		CROSS_FAIL(vertex_buffer->HasTangents(), "Current mesh does not contain tangents");
 		SAFE(glEnableVertexAttribArray((GLuint)shader->aTangent));
-		SAFE(glVertexAttribPointer((GLuint)shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetTangentsOffset()));
+		SAFE(glVertexAttribPointer((GLuint)shader->aTangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetTangentsOffset()));
 	}
 	if(shader->aBitangent != -1) {
-		CROSS_FAIL(vertexBuf->HasBitangents(), "Current mesh does not contain bitangents");
+		CROSS_FAIL(vertex_buffer->HasBitangents(), "Current mesh does not contain bitangents");
 		SAFE(glEnableVertexAttribArray((GLuint)shader->aBitangent));
-		SAFE(glVertexAttribPointer((GLuint)shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertexBuf->GetBitangentsOffset()));
+		SAFE(glVertexAttribPointer((GLuint)shader->aBitangent, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLfloat*)0 + vertex_buffer->GetBitangentsOffset()));
 	}
 
 	//drawing
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	//depth test
-	SAFE(glEnable(GL_DEPTH_TEST));
+	if(IsDepthTestEnabled()) {
+		SAFE(glEnable(GL_DEPTH_TEST));
+	}
 	//face culling
 	if(IsFaceCullingEnabled()) {
 		SAFE(glEnable(GL_CULL_FACE));
@@ -229,7 +247,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 		SAFE(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	}
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
-	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.size(), GL_UNSIGNED_SHORT, 0));
+	SAFE(glDrawElements(GL_TRIANGLES, (S32)indices.Size(), GL_UNSIGNED_SHORT, 0));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	SAFE(glDisable(GL_BLEND));
 	SAFE(glDisable(GL_STENCIL_TEST));
@@ -237,7 +255,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	SAFE(glDisable(GL_DEPTH_TEST));
 }
 
-void Mesh::TransferVideoData() {
+void Mesh::InitializeVideoData() {
 	SAFE(glGenBuffers(1, (GLuint*)&VBO));
 	SAFE(glGenBuffers(1, (GLuint*)&EBO));
 
@@ -246,11 +264,21 @@ void Mesh::TransferVideoData() {
 	SAFE(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, (GLuint)EBO));
-	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW));
+	SAFE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)indices.Size() * sizeof(GLushort), indices.GetData(), GL_STATIC_DRAW));
 	SAFE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
 	vertex_buffer->Free();
 	initialized = true;
+}
+
+void Mesh::TransferVideoData(Mesh* mesh) {
+	VBO = mesh->VBO;
+	EBO = mesh->EBO;
+	indices = mesh->indices;
+	initialized = mesh->initialized;
+	indices = mesh->indices;
+	delete vertex_buffer;
+	vertex_buffer = mesh->vertex_buffer->Clone();
 }
 
 void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
@@ -260,9 +288,9 @@ void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 		vertex_buffer->PushData(buffer->GetData(), buffer->GetDataSize());
 	}
 
-	U16 indsOffset = (U16)indices.size();
-	for(U32 i = 0; i < inds.size(); ++i) {
-		indices.push_back(indsOffset + inds[i]);
+	U16 indsOffset = (U16)indices.Size();
+	for(S32 i = 0; i < inds.Size(); ++i) {
+		indices.Add(indsOffset + inds[i]);
 	}
 }
 
@@ -273,6 +301,14 @@ void Mesh::SetMaterial(Material* mat) {
 
 Material* Mesh::GetMaterial() {
 	return material;
+}
+
+bool Mesh::IsDepthTestEnabled() const {
+	return depth_test;
+}
+
+void Mesh::EnableDepthTest(bool enable) {
+	depth_test = enable;
 }
 
 bool Mesh::IsFaceCullingEnabled() const {
@@ -295,8 +331,24 @@ S32 Mesh::GetID() const {
 	return id;
 }
 
+void Mesh::SetID(S32 index) {
+	id = index;
+}
+
+String Mesh::GetModelFileName() const {
+	return model_filename.value;
+}
+
+void Mesh::SetModelFileName(const String& filename) {
+	model_filename = filename;
+}
+
+String Mesh::GetMaterialFileName() const {
+	return material_filename.value;
+}
+
 U32 Mesh::GetPolyCount() const {
-	return (U32)indices.size();
+	return (U32)indices.Size();
 }
 
 bool Mesh::IsEqual(Mesh* other) const {
@@ -304,11 +356,13 @@ bool Mesh::IsEqual(Mesh* other) const {
 }
 
 void Mesh::Copy(const Mesh* m) {
-	VBO = m->VBO;
-	EBO = m->EBO;
-	vertex_buffer = m->vertex_buffer;
 	id = m->id;
 	model_filename = m->model_filename;
+	//filename should not be copied for propper model loading, look Mesh::Initialize
+	//material_filename = m->material_filename;
+
+	VBO = m->VBO;
+	EBO = m->EBO;
 	material = m->material;
 	indices = m->indices;
 	initialized = m->initialized;

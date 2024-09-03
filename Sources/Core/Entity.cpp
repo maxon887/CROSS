@@ -55,13 +55,17 @@ void Entity::SetName(const String& name) {
 }
 
 Component* Entity::GetComponent(U64 type) {
-	return components[type];
+	if(components.find(type) == components.end()) {
+		return nullptr;
+	} else {
+		return components[type];
+	}
 }
 
 Array<Component*> Entity::GetComponents() {
 	Array<Component*> result;
 	for(pair<U64, Component*> pair : components) {
-		result.push_back(pair.second);
+		result.Add(pair.second);
 	}
 	return result;
 }
@@ -76,11 +80,17 @@ void Entity::AddComponent(Component* component) {
 }
 
 void Entity::AddComponent(Component* component, Scene* scene) {
+	AddComponent(component, scene, true);
+}
+
+void Entity::AddComponent(Component* component, Scene* scene, bool initialize) {
 	U64 hash = typeid(*component).hash_code();
 	CROSS_FAIL(components.find(hash) == components.end(), "Entity already have same component");
 	component->entity = this;
 	components[hash] = component;
-	component->Initialize(scene);
+	if(initialize) {
+		component->Initialize(scene);
+	}
 }
 
 void Entity::RemoveComponent(Component* component) {
@@ -150,6 +160,7 @@ Entity* Entity::RemoveChild(Entity* child) {
 		Entity* c = (*it);
 		if(c == child) {
 			c->Remove();
+			c->SetParent(nullptr);
 			children.erase(it);
 			return c;
 		}
@@ -170,14 +181,6 @@ Entity* Entity::Clone() {
 		clone->AddChild(cloneChild);
 	}
 	return clone;
-}
-
-Matrix Entity::GetWorldMatrix() {
-	if(parent){
-		return parent->GetWorldMatrix() * GetTransform()->GetModelMatrix();
-	}else{
-		return GetTransform()->GetModelMatrix();
-	}
 }
 
 Vector3D Entity::GetDirection() {

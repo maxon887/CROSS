@@ -18,6 +18,7 @@
 #include "UI/View.h"
 #include "Property.h"
 #include "TransformVisualBox.h"
+#include "MeshVisualBox.h"
 
 class SceneView;
 
@@ -25,11 +26,14 @@ class ComponentsView : public View {
 public:
 	ComponentsView(SceneView* sceneView);
 
-	void Content(float sec) override;
+	void Update(float sec) override;
 
 protected:
 	TransformVisualBox tranform_box;
+	MeshVisualBox mesh_box;
 	SceneView* scene_view = nullptr;
 
 	void ShowProperty(BaseProperty* baseProperty);
+
+	void ContextMenu(Entity* selectedEntity);
 };

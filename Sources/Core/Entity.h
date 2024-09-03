@@ -45,10 +45,12 @@ public:
 	Array<Component*> GetComponents();
 	/* Returns Transform component contained in this Entity or nullptr if Transform not found */
 	Transform* GetTransform();
-	/* Adds component to the current Entity component stack. Components with the same name can't be added twice */
+	/* Adds component to the current Entity component stack. Components with the same type can't be added twice */
 	void AddComponent(Component* component);
 	/* Adds component to the current Entity component stack. With explicitly specified loading Scene */
 	void AddComponent(Component* component, Scene* scene);
+	/* Adds component to the current Entity component stack. initilize = true if component should be initialized in place */
+	void AddComponent(Component* component, Scene* scene, bool initilize);
 	/* Removes component from Entity. Appropriate Remove() will be called on Component object */
 	void RemoveComponent(Component* component);
 
@@ -73,8 +75,6 @@ public:
 	/* Clone this entity with all it's components and children */
 	Entity* Clone();
 
-	/* Returns Entity's world transform Matrix. Not fast and save function (all parents matrices must be multiplied and must exists) */
-	Matrix GetWorldMatrix();
 	/* Returns Entity's world direction vector. Not fast function (all parents directions must be multiplied and must exist) */
 	Vector3D GetDirection();
 

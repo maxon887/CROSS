@@ -18,7 +18,11 @@
 #include "File.h"
 #include "Config.h"
 
+#include "shlwapi.h"
+
 #define DATA_PATH "Data/"
+
+#pragma comment(lib, "Shlwapi.lib")
 
 using namespace cross;
 
@@ -89,6 +93,24 @@ String WINSystem::GetClipboard() {
 	return clipboard;
 }
 
+bool WINSystem::Alert(const String& msg) {
+	if(wnd) {
+		auto msgBoxResult = MessageBoxA(wnd, msg.ToCStr(), "Something goes wrong", MB_ABORTRETRYIGNORE | MB_ICONEXCLAMATION);
+		switch(msgBoxResult) {
+		case IDIGNORE:
+			return true;
+		case IDABORT:
+			*((unsigned int*)0) = 0xDEAD;
+		default:
+			return false;
+		}
+	} else {
+		LogIt("HWND == nullptr");
+		System::Messagebox("Something goes wrong", msg);
+	}
+	return false;
+}
+
 void WINSystem::Messagebox(const String& title, const String& msg) {
 	if(wnd) {
 		MessageBoxA(wnd, msg.ToCStr(), title.ToCStr(), MB_OK | MB_ICONEXCLAMATION);
@@ -109,6 +131,33 @@ void WINSystem::CreateDirectory(const String& dirpath) {
 	CROSS_ASSERT(CreateDirectoryA(dirpath, nullptr), "Can not create directory");
 }
 
+void WINSystem::Delete(const String& path) {
+	if(IsDirectoryExists(path)) {
+		Array<String> files = GetFilesInDirectory(path + "/");
+		for(String& file : files) {
+			String filename = path + "/" + file;
+			if(!DeleteFile(path)) {
+				DWORD err = GetLastError();
+				String errorMessage = GetLastErrorString(err);
+				CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
+			}
+		}
+
+		Array<String> folders = GetSubDirectories(path + "/");
+		for(String& folder : folders) {
+			Delete(folder);
+		}
+
+		RemoveDirectory(path.ToCStr());
+	} else {//if it is not directory means that is file
+		if(!DeleteFile(path)) {
+			DWORD err = GetLastError();
+			String errorMessage = GetLastErrorString(err);
+			CROSS_ASSERT(false, "Can not delete file\nError: #", errorMessage);
+		}
+	}
+}
+
 Array<String> WINSystem::GetSubDirectories(const String& filepath) {
 	Array<String> result;
 
@@ -120,7 +169,7 @@ Array<String> WINSystem::GetSubDirectories(const String& filepath) {
 			String filename = data.cFileName;
 			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY
 				&& filename != "." && filename != "..") {
-				result.push_back(data.cFileName);
+				result.Add(data.cFileName);
 			}
 		} while(FindNextFile(file, &data));
 		FindClose(file);
@@ -140,7 +189,7 @@ Array<String> WINSystem::GetFilesInDirectory(const String& directory) {
 			String filename = data.cFileName;
 			if((data.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY
 				&& filename != "." && filename != "..") {
-				result.push_back(data.cFileName);
+				result.Add(data.cFileName);
 			}
 		} while(FindNextFile(file, &data));
 		FindClose(file);
@@ -154,56 +203,58 @@ void WINSystem::Sleep(float milis) {
 }
 
 bool WINSystem::IsMobile() {
-	return config->GetBool("EMULATE_MOBILE", false);
+	//return config->GetBool("EMULATE_MOBILE", false);
+	return false;
 }
 
 void WINSystem::OpenFileExternal(const String& filename) {
-	char szFileName[MAX_PATH + 1];
-	GetCurrentDirectoryA(MAX_PATH + 1, szFileName);
-	String fullpath = String(szFileName) + "\\" + AssetsPath() + filename;
-	S32 result = (S32)ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
+	char charFilenameName[MAX_PATH + 1];
+	GetCurrentDirectoryA(MAX_PATH + 1, charFilenameName);
+	String fullpath = String(charFilenameName) + "\\" + AssetsPath() + filename;
+	S64 result = (S64)ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
 	if(result < 32) {
 		LPSTR messageBuffer = nullptr;
 		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-			NULL, result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+			NULL, (DWORD)result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
 		CROSS_ASSERT(false, String("Can not open file with external editor\nerror:") + messageBuffer);
 	}
 }
 
-String WINSystem::OpenFileDialog(bool saveDialog /* = false */) {
-	char szFile[512];
+String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDialog /* = false */) {
+	char charFilename[512];
 	OPENFILENAME ofn;
 	ZeroMemory(&ofn, sizeof(ofn));
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = NULL;
-	ofn.lpstrFile = szFile;
+	ofn.lpstrFile = charFilename;
 	ofn.lpstrFile[0] = '\0';
-	ofn.nMaxFile = sizeof(szFile);
-	ofn.lpstrFilter = "Scene File\0*.scn\0";
+	ofn.nMaxFile = sizeof(charFilename);
+	char fileFilter[512];
+	memset(fileFilter, 0, 512);
+	strcpy(fileFilter, extension.ToCStr());
+	memcpy(fileFilter + strlen(fileFilter) + 1, extension.ToCStr(), extension.Length() + 1);
+	ofn.lpstrFilter = fileFilter;
+	//ofn.lpstrFilter = "File Type\0*.*\0";
 	ofn.nFilterIndex = 1;
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
 
-	String initPath = system->AssetsPath();
+	String initPath = os->AssetsPath();
 	initPath.Replace("/", "\\");
 	ofn.lpstrInitialDir = initPath;
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 	if(saveDialog) {
 		GetSaveFileName(&ofn);
+		return charFilename;
 	} else {
 		GetOpenFileName(&ofn);
 	}
-	String filepath = szFile;
+	String filepath = charFilename;
 	if(filepath == "") {
 		return filepath;
 	}
-	filepath.Replace("\\", "/");
-	String filename = File::FileFromPath(filepath);
-	String ext = File::ExtensionFromFile(filename);
-	if(ext == filename) {
-		filepath += ".scn";
-	}
-	return filepath;
+
+	return FromAbsoluteToAssetPath(filepath);
 }
 
 void WINSystem::SetAssetPath(const String& path) {
@@ -282,6 +333,37 @@ void WINSystem::KeyReleasedHandle(Key key) {
 	default:
 		break;
 	}
+}
+
+String WINSystem::FromAbsoluteToAssetPath(const String& absolutePath) {
+	char currentDir[512];
+	GetCurrentDirectory(511, currentDir);
+
+	char pathToAssets[512];
+	String winAssetsPath = AssetsPath();
+		winAssetsPath.Replace("/", "\\");
+	PathCombine(pathToAssets, currentDir, winAssetsPath);
+
+	char relativePath[512];
+	PathRelativePathTo(relativePath, pathToAssets, FILE_ATTRIBUTE_DIRECTORY, absolutePath, FILE_ATTRIBUTE_NORMAL);
+
+	String result = relativePath;
+	result.Replace("\\", "/");
+	result.Remove("./");
+	return result;
+}
+
+String WINSystem::GetLastErrorString(DWORD err) {
+	LPSTR messageBuffer = nullptr;
+	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+	std::string message(messageBuffer, size);
+
+	//Free the buffer.
+	LocalFree(messageBuffer);
+
+	return message.c_str();
 }
 
 bool WINSystem::EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate) {

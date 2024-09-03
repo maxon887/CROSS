@@ -28,6 +28,7 @@
 #include "UI/LaunchView.h"
 #include "UI/PropertiesView.h"
 #include "Scenes/DemoScene.h"
+#include "File.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -37,11 +38,11 @@ MenuBar::MenuBar() {
 	SceneView* sceneView = new SceneView();
 	ComponentsView* componentsView = new ComponentsView(sceneView);
 	PropertiesView* propertiesView = new PropertiesView(filesView);
-	views.push_back(filesView);
-	views.push_back(sceneView);
-	views.push_back(componentsView);
-	views.push_back(propertiesView);
-	views.push_back(cameraController);
+	views.Add(filesView);
+	views.Add(sceneView);
+	views.Add(componentsView);
+	views.Add(propertiesView);
+	views.Add(cameraController);
 	for(View* v : views) {
 		if(v->IsVisible()) {
 			v->Shown();
@@ -57,7 +58,7 @@ MenuBar::~MenuBar() {
 	for(View* v : views) {
 		delete v;
 	}
-	views.clear();
+	views.Clear();
 
 	delete about;
 	delete stats;
@@ -66,21 +67,21 @@ MenuBar::~MenuBar() {
 
 void MenuBar::Update(float sec) {
 	for(View* v : views) {
-		v->Update(sec);
+		v->Run(sec);
 	}
 	if(show_style_editor) {
-		ImGui::Begin("Style Editor", &show_style_editor, ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
+		ImGui::Begin("Style Editor", &show_style_editor);// ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}
 
-	log->Update(sec);
-	stats->Update(sec);
-	about->Update(sec);
+	log->Run(sec);
+	stats->Run(sec);
+	about->Run(sec);
 }
 
 void MenuBar::ShowMenu() {
-	if(system->IsMobile()) {
+	if(os->IsMobile()) {
 		ImGui::PushFont(demo->big_font);
 	}
 
@@ -91,11 +92,16 @@ void MenuBar::ShowMenu() {
 		}
 
 		if(ImGui::BeginMenu("File")) {
+			if(ImGui::MenuItem("New Scene")) {
+				Scene* scene = new DemoScene();
+				game->SetScreen(scene);
+			}
+
 			if(ImGui::MenuItem("Open Scene")) {
-				String sceneFile = system->OpenFileDialog();
+				String sceneFile = os->OpenFileDialog("*.scn");
 				if(sceneFile != "") {
 					Scene* scene = new DemoScene();
-					if(!scene->Load(sceneFile, false)) {
+					if(!scene->Load(sceneFile)) {
 						delete scene;
 						CROSS_ASSERT(false, "Can not load scene file, sorry");
 					} else {
@@ -105,8 +111,12 @@ void MenuBar::ShowMenu() {
 			}
 
 			if(ImGui::MenuItem("Save Scene", 0, false, game->GetCurrentScene() != nullptr)) {
-				String filename = system->OpenFileDialog(true);
+				String filename = os->OpenFileDialog("*.scn", true);
 				if(filename != "") {
+					String extencion = File::ExtensionFromFile(filename);
+					if(extencion.IsEmpty()) {
+						filename += ".scn";
+					}
 					game->GetCurrentScene()->Save(filename);
 				}
 			}
@@ -121,9 +131,9 @@ void MenuBar::ShowMenu() {
 
 		if(ImGui::BeginMenu("View")) {
 			for(View* v : views) {
-				if(v->IsMenuVisible()) {
+				if(v->VisibleInMenu()) {
 					bool selected = v->IsVisible();
-					bool available = v->IsMenuAvailable();
+					bool available = v->AvailableInMenu();
 					if(ImGui::MenuItem(v->GetName(), "", &selected, available)) {
 						if(selected) {
 							v->Show();
@@ -159,8 +169,14 @@ void MenuBar::ShowMenu() {
 		ImGui::EndMainMenuBar();
 	}
 
-	if(system->IsMobile()) {
+	if(os->IsMobile()) {
 		ImGui::PopFont();
+	}
+}
+
+void MenuBar::CloseAllViews() {
+	for(View* v : views) {
+		v->Hide();
 	}
 }
 

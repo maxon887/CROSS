@@ -240,9 +240,6 @@
     <ClCompile Include="..\..\..\Sources\Internals\Audio.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp">
-      <Filter>Cross\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\UI\Log.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
@@ -267,14 +264,8 @@
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp">
       <Filter>Demo\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\Scenes\Simple\TexturedModelScene.cpp">
-      <Filter>Demo\Scenes\Simple</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp">
       <Filter>Demo\Scenes\Simple</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\Scenes\Misc\ApocalypseScene.cpp">
-      <Filter>Demo\Scenes\Misc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp">
       <Filter>Demo\Scenes\Misc</Filter>
@@ -330,7 +321,28 @@
     <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\TransformGizmo.cpp">
+    <ClCompile Include="..\..\Sources\StringTest.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\ArrayTest.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp">
+      <Filter>Demo\ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\FileUtils.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp">
+      <Filter>Demo\ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Core\Graphics.cpp">
+      <Filter>Cross\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\Tester.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -534,9 +546,6 @@
     <ClInclude Include="..\..\..\Sources\Internals\Audio.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Core\ComponentFactory.h">
-      <Filter>Cross\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\Log.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
@@ -567,14 +576,8 @@
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h">
       <Filter>Demo\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\Scenes\Simple\TexturedModelScene.h">
-      <Filter>Demo\Scenes\Simple</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h">
       <Filter>Demo\Scenes\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\Scenes\Misc\ApocalypseScene.h">
-      <Filter>Demo\Scenes\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h">
       <Filter>Demo\Scenes\Misc</Filter>
@@ -630,7 +633,25 @@
     <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\TransformGizmo.h">
+    <ClInclude Include="..\..\Sources\StringTest.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\ArrayTest.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\FileUtils.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Core\Factory.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Core\Graphics.h">
+      <Filter>Cross\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\Tester.h">
       <Filter>Demo</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,10 +25,10 @@ namespace cross {
 #define MAX_ACTIONS 20
 
 enum class Key {
-	BACK		= 0x08,
+	BACKSPACE	= 0x08,
 	TAB			= 0x09,
 	CLEAR		= 0x0C,
-	RETURN		= 0x0D,
+	ENTER		= 0x0D,
 	SHIFT		= 0x10,
 	CONTROL		= 0x11,
 	ALT			= 0x12,
@@ -115,6 +115,7 @@ enum class Key {
 	F12			= 0x7B,
 	NUMLOC		= 0x90,
 
+	BACK		= 0xFE,
 	MAX_KEY_NUM = 0xFF
 };
 

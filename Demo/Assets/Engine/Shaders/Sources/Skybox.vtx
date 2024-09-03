@@ -1,4 +1,3 @@
-//uniform mat4 uMVP;
 uniform mat4 uCustomMVP;
 
 attribute vec3 aPosition;

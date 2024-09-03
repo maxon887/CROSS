@@ -47,9 +47,11 @@ public:
 	virtual bool Save(tinyxml2::XMLElement* parent, tinyxml2::XMLDocument* doc);
 
 	/* Returns true if Component behavior is enabled */
-	bool IsEnabled() const;
-	/* Enables or disables Component behavior */
-	void Enable(bool enable);
+	virtual bool IsEnabled() const;
+	/* Enables Component behavior */
+	virtual void Enable();
+	/* Disables Component behaviour */
+	virtual void Disable();
 	/* Returns Component's name */
 	String GetName() const;
 	/* Returns Entity that owns this Component */
@@ -63,14 +65,16 @@ public:
 	/* Set position into into Entity's Transform Component */
 	void SetPosition(const Vector3D& pos);
 
-private:
+protected:
 	friend Entity;
 	friend BaseProperty;
 
-	String name		= "noname";
 	Entity* entity	= nullptr;
 	bool enabled	= true;
 	Array<BaseProperty*> properties;
+
+private:
+	String name = "noname";
 };
 
 }

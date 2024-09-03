@@ -35,29 +35,31 @@ Model::~Model() {
 	delete hierarchy;
 }
 
-void Model::Load(const String& filename) {
-	Load(filename, false);
+bool Model::Load(const String& filename) {
+	return Load(filename, false);
 }
 
-void Model::Load(const String& filename, bool calcTangents) {
-	Load(filename, calcTangents, true);
+bool Model::Load(const String& filename, bool calcTangents) {
+	return Load(filename, calcTangents, true);
 }
 
-void Model::Load(const String& filename, bool calcTangents, bool transferVideoData) {
+bool Model::Load(const String& filename, bool calcTangents, bool initializeVideoData) {
 	Debugger::Instance()->SetTimeCheck();
 
-	transfer_video = transferVideoData;
+	initialize_video = initializeVideoData;
 	mesh_id = 0;
 	this->filename = filename;
 	Entity* root = new Entity("ModelRoot");
 	hierarchy = root;
-	File* file = system->LoadAssetFile(filename);
-	CROSS_FAIL(file, "Can not load model file");
-	ProcessScene(root, file, calcTangents);
+	File* file = os->LoadAssetFile(filename);
+	CROSS_RETURN(file, false, "Can not load model file");
+	bool result = ProcessScene(root, file, calcTangents);
 	delete file;
 
 	float loadTime = Debugger::Instance()->GetTimeCheck();
-	system->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
+	os->LogIt("Model(#) loaded in #ms", filename, String(loadTime, "%0.1f", 12));
+
+	return result;
 }
 
 const String& Model::GetFilename() const {
@@ -69,23 +71,38 @@ Entity* Model::GetHierarchy() const {
 }
 
 Mesh* Model::GetMesh(S32 id) {
-	return meshes[id];
+	if(meshes.find(id) != meshes.end()) {
+		return meshes[id];
+	} else {
+		return nullptr;
+	}
 }
 
-void Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
+U32 Model::GetMeshesCount() const {
+	return (U32)meshes.size();
+}
+
+bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	Assimp::Importer importer;
+
 	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate;
 	if(calcTangents) {
 		flags |= aiProcess_CalcTangentSpace;
 	}
 	current_scene = importer.ReadFileFromMemory(file->data, (Size)file->size, flags);
 	if(!current_scene || current_scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !current_scene->mRootNode) {
-		CROSS_FAIL(false, "Assimp Error: #", importer.GetErrorString());
+		CROSS_RETURN(false, false, "Assimp Error: #", importer.GetErrorString());
 	}
+
 	aiNode* aiRoot = current_scene->mRootNode;
-	CROSS_FAIL(aiRoot->mNumChildren == 1, "Failed to load model. Unknown number of root childerns");
-	root->SetName(aiRoot->mChildren[0]->mName.C_Str());
-	ProcessNode(root, aiRoot->mChildren[0]);
+	if(aiRoot->mNumChildren == 1) {
+		root->SetName(aiRoot->mChildren[0]->mName.C_Str());
+		ProcessNode(root, aiRoot->mChildren[0]);
+	} else {
+		root->SetName(File::FileFromPath(File::FileWithoutExtension(file->name)));
+		ProcessNode(root, aiRoot);
+	}
+	return true;
 }
 
 void Model::ProcessNode(Entity* entity, aiNode* node) {
@@ -102,7 +119,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 		Mesh* crMesh = ProcessMesh(aiMesh);
 		meshes[mesh_id] = crMesh;
 		mesh_id++;
-		entity->AddComponent(crMesh);
+		entity->AddComponent(crMesh, nullptr, false);
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
@@ -151,15 +168,15 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 	Array<U16> indices;
 	for(U32 i = 0; i < mesh->mNumFaces; ++i) {
 		for(U32 j = 0; j < mesh->mFaces[i].mNumIndices; ++j) {
-			indices.push_back((U16)mesh->mFaces[i].mIndices[j]);
+			indices.Add((U16)mesh->mFaces[i].mIndices[j]);
 		}
 	}
-	system->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
+	os->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
 	Mesh* crsMesh = new Mesh(filename, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
-	if(transfer_video) {
-		crsMesh->TransferVideoData();
+	if(initialize_video) {
+		crsMesh->InitializeVideoData();
 	}
 	return crsMesh;
 }

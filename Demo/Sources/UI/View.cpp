@@ -47,10 +47,14 @@ bool View::IsVisible() const {
 	return visible;
 }
 
-void View::Update(float sec) {
+const String& View::GetName() const {
+	return landscape_name;
+}
+
+void View::Run(float sec) {
 	if(visible) {
-		WillContent();
-		switch(system->GetDeviceOrientation()) {
+		PreUpdate();
+		switch(os->GetDeviceOrientation()) {
 		case System::Orientation::LANDSCAPE:
 			ImGui::Begin(landscape_name, &visible, flags);
 			break;
@@ -62,14 +66,10 @@ void View::Update(float sec) {
 			break;
 		}
 
-		Content(sec);
+		Update(sec);
 		ImGui::End();
-		DidContent();
+		PostUpdate();
 	}
-}
-
-const String& View::GetName() const {
-	return landscape_name;
 }
 
 void View::SetFlags(U32 f) {

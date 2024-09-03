@@ -20,11 +20,13 @@
 
 namespace cross{
 
-class ComponentFactory;
+template<class BaseClass>
+class Factory;
 
-/*	Core engine component. It manages Screen's behavior, generic application events and data.
-	You can inherit this class to put custom initialization/deinitialization code inside Start()/Stop() functions
-	or in case where you need update something despite of Screens replacement */
+/*  Single Game class instance created at application launch and stays valid until application is closed.
+    Based on it lifetime it is good place to store persistent data and logic here. Update virtual functions
+    available for code that needs to be in sync with game loop.
+    Game also responsible for Screens management and generic game events like Start()/Stop()/Suspend() etc. */
 class Game {
 public:
 	/* Occurs when someone call SetScreen() */
@@ -39,7 +41,7 @@ public:
 	virtual void Stop() { }
 	/* Called before regular Game::Update() */
 	virtual void PreUpdate(float sec) { }
-	/* Called every frame update. Be aware this Update will be called in any game Screen */
+	/* Called every frame update. This Update will be called in any game Screen */
 	virtual void Update(float sec) { }
 	/* Called after regular Game::Update() */
 	virtual void PostUpdate(float sec) { }
@@ -57,19 +59,19 @@ public:
 	/* Returns active game Scene if available */
 	Scene* GetCurrentScene();
 	/* Returns component factory for custom Components registration */
-	ComponentFactory* GetComponentFactory();
+	Factory<Component>* GetComponentFactory();
 
 	/* Engine specific */
 	void EngineUpdate();
 	bool IsSuspended() const;
 
 protected:
-	ComponentFactory* component_factory = nullptr;
-	Screen* current_screen				= nullptr;
-	Screen* next_screen					= nullptr;
-	U64 timestamp						= 0;
-	U64 run_time						= 0;
-	bool suspended						= false;
+	Factory<Component>* component_factory	= nullptr;
+	Screen* current_screen					= nullptr;
+	Screen* next_screen						= nullptr;
+	U64 timestamp							= 0;
+	U64 run_time							= 0;
+	bool suspended							= false;
 
 	void LoadNextScreen();
 };

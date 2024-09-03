@@ -61,10 +61,17 @@ void System::SaveFile(File* file) {
 	fclose(f);
 }
 
+void System::SaveAssetFile(File* file) {
+	/* Shitty code its rewrites original file path */
+	file->name = AssetsPath() + file->name;
+	SaveFile(file);
+}
+
 void System::SaveDataFile(File* file) {
 	if(!IsDirectoryExists(DataPath())) {
 		CreateDirectory(DataPath());
 	}
+	/* Shitty code its rewrites original file path */
 	file->name = DataPath() + file->name;
 	SaveFile(file);
 }
@@ -113,7 +120,11 @@ void System::CreateDirectory(const String& dirname) {
 }
 
 void System::CreateAssetDirectory(const String& dirname) {
-	CreateDirectory(AssetsPath() + "/" + dirname);
+	CreateDirectory(AssetsPath() + dirname);
+}
+
+void System::Delete(const String& path) {
+	CROSS_FAIL(false, "System::Delete() does not implemented for current platform");
 }
 
 Array<String> System::GetSubDirectories(const String& filepath) {
@@ -158,7 +169,7 @@ void System::OpenFileExternal(const String& filename) {
 	CROSS_ASSERT(false, "System::OpenFileWithExternalEditor() does not implemented for current platform");
 }
 
-String System::OpenFileDialog(bool saveDialog /* = false */) {
+String System::OpenFileDialog(const String& extension /* *.* */, bool saveDialog /* = false */) {
 	CROSS_RETURN(false, "", "System::OpenFileDialog() does not implemented for current platform");
 }
 

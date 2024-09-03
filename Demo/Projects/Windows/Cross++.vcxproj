@@ -5,36 +5,68 @@
       <Configuration>DebugGLES</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugGLES|x64">
+      <Configuration>DebugGLES</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugOpenGL|Win32">
       <Configuration>DebugOpenGL</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugOpenGL|x64">
+      <Configuration>DebugOpenGL</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E96D7CA4-B808-4E52-849B-70B9E3C46ED0}</ProjectGuid>
     <RootNamespace>Cross</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -44,30 +76,79 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'">
+    <OutDir>$(SolutionDir)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;GLES;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;libEGL.lib;libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries/x86/fmod_vc.lib;Binaries/x86/assimp.lib;Binaries/x86/libEGL.lib;Binaries/x86/libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libGLESv2.dll" "$(ProjectDir)DebugGLES\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x86\assimp.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x86\libGLESv2.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x86\libEGL.dll" "$(ProjectDir)\$(Platform)\DebugGLES\" /D</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGLES|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;GLES;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Binaries\x64\fmod_vc.lib;Binaries\x64\assimp.lib;Binaries\x64\libEGL.lib;Binaries\x64\libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Binaries\x64\assimp.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x64\libGLESv2.dll" "$(ProjectDir)DebugGLES\" /D
+xcopy "$(ProjectDir)Binaries\x64\libEGL.dll" "$(ProjectDir)DebugGLES\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|Win32'">
@@ -76,15 +157,38 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\libEGL.dll" "$(ProjectDir)DebugGLE
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries/x86/fmod_vc.lib;Binaries/x86/assimp.lib;Binaries/x86/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x86\glew32.dll" "$(ProjectDir)\$(Platform)\DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x86\assimp.dll" "$(ProjectDir)\$(Platform)\DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\DebugOpenGL\" /D</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugOpenGL|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;CROSS_DEBUG;CROSS_MEMORY_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Binaries\x64\fmod_vc.lib;Binaries\x64\assimp.lib;Binaries\x64\glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Binaries\x64\glew32.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x64\assimp.dll" "$(ProjectDir)DebugOpenGL\" /D
+xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)DebugOpenGL\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,28 +199,55 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)DebugOpenG
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>fmod_vc.lib;assimp.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Binaries/x86/fmod_vc.lib;Binaries/x86/assimp.lib;Binaries/x86/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)..\..\..\Binaries\Windows\glew32.dll" "$(ProjectDir)Release\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\assimp.dll" "$(ProjectDir)Release\" /D
-xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" /D</Command>
+      <Command>xcopy "$(ProjectDir)Binaries\x86\glew32.dll" "$(ProjectDir)\$(Platform)\Release\" /D
+xcopy "$(ProjectDir)Binaries\x86\assimp.dll" "$(ProjectDir)\$(Platform)\Release\" /D
+xcopy "$(ProjectDir)Binaries\x86\fmod.dll" "$(ProjectDir)\$(Platform)\Release\" /D</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN;OPENGL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../Sources;../../../Sources/Libs/FreeType;../../../Sources/Libs/FreeType/freetype2;../../Sources;../../../Sources/Platform/Windows;$(ProjectDir);../../../Sources/Core;../../../Sources/Libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Binaries/x64/fmod_vc.lib;Binaries/x64/assimp.lib;Binaries/x64/glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Binaries\x64\glew32.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)Binaries\x64\assimp.dll" "$(ProjectDir)Release\" /D
+xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Sources\Core\Camera.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Color.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Component.cpp" />
-    <ClCompile Include="..\..\..\Sources\Core\ComponentFactory.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Config.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\File.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Game.cpp" />
+    <ClCompile Include="..\..\..\Sources\Core\Graphics.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Input.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Light.cpp" />
     <ClCompile Include="..\..\..\Sources\Core\Material.cpp" />
@@ -159,8 +290,10 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\PrimitiveDrawer.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp" />
+    <ClCompile Include="..\..\Sources\ArrayTest.cpp" />
     <ClCompile Include="..\..\Sources\AudioScreen.cpp" />
     <ClCompile Include="..\..\Sources\Demo.cpp" />
+    <ClCompile Include="..\..\Sources\FileUtils.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\DemoScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\DirectionalLightScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Light\MaterialScene.cpp" />
@@ -172,18 +305,19 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\Scenes\Maps\NormalScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Maps\RoughnessScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Maps\SpecularScene.cpp" />
-    <ClCompile Include="..\..\Sources\Scenes\Misc\ApocalypseScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\DepthScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\SkyboxScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Misc\TransparencyScene.cpp" />
-    <ClCompile Include="..\..\Sources\Scenes\Simple\TexturedModelScene.cpp" />
     <ClCompile Include="..\..\Sources\Scenes\Simple\TriangleScene.cpp" />
+    <ClCompile Include="..\..\Sources\StringTest.cpp" />
+    <ClCompile Include="..\..\Sources\Tester.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_demo.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.cpp" />
     <ClCompile Include="..\..\Sources\ImGuiScreen.cpp" />
-    <ClCompile Include="..\..\Sources\TransformGizmo.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="..\..\Sources\UI\About.cpp" />
     <ClCompile Include="..\..\Sources\UI\CameraController.cpp" />
     <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp" />
@@ -191,6 +325,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClCompile Include="..\..\Sources\UI\LaunchView.cpp" />
     <ClCompile Include="..\..\Sources\UI\Log.cpp" />
     <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp" />
+    <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp" />
     <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\Stats.cpp" />
@@ -203,13 +338,14 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
     <ClInclude Include="..\..\..\Sources\Core\Color.h" />
     <ClInclude Include="..\..\..\Sources\Core\Component.h" />
-    <ClInclude Include="..\..\..\Sources\Core\ComponentFactory.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Factory.h" />
     <ClInclude Include="..\..\..\Sources\Core\Config.h" />
     <ClInclude Include="..\..\..\Sources\Core\Cross.h" />
     <ClInclude Include="..\..\..\Sources\Core\Entity.h" />
     <ClInclude Include="..\..\..\Sources\Core\Event.h" />
     <ClInclude Include="..\..\..\Sources\Core\File.h" />
     <ClInclude Include="..\..\..\Sources\Core\Game.h" />
+    <ClInclude Include="..\..\..\Sources\Core\Graphics.h" />
     <ClInclude Include="..\..\..\Sources\Core\Input.h" />
     <ClInclude Include="..\..\..\Sources\Core\Light.h" />
     <ClInclude Include="..\..\..\Sources\Core\Material.h" />
@@ -257,8 +393,10 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h" />
     <ClInclude Include="..\..\..\Sources\Utils\PrimitiveDrawer.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h" />
+    <ClInclude Include="..\..\Sources\ArrayTest.h" />
     <ClInclude Include="..\..\Sources\AudioScreen.h" />
     <ClInclude Include="..\..\Sources\Demo.h" />
+    <ClInclude Include="..\..\Sources\FileUtils.h" />
     <ClInclude Include="..\..\Sources\Scenes\DemoScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\DirectionalLightScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Light\MaterialScene.h" />
@@ -270,12 +408,12 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\Scenes\Maps\NormalScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Maps\RoughnessScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Maps\SpecularScene.h" />
-    <ClInclude Include="..\..\Sources\Scenes\Misc\ApocalypseScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\DepthScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\SkyboxScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Misc\TransparencyScene.h" />
-    <ClInclude Include="..\..\Sources\Scenes\Simple\TexturedModelScene.h" />
     <ClInclude Include="..\..\Sources\Scenes\Simple\TriangleScene.h" />
+    <ClInclude Include="..\..\Sources\StringTest.h" />
+    <ClInclude Include="..\..\Sources\Tester.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\imgui_freetype.h" />
@@ -284,7 +422,6 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h" />
     <ClInclude Include="..\..\Sources\ImGuiScreen.h" />
-    <ClInclude Include="..\..\Sources\TransformGizmo.h" />
     <ClInclude Include="..\..\Sources\UI\About.h" />
     <ClInclude Include="..\..\Sources\UI\CameraController.h" />
     <ClInclude Include="..\..\Sources\UI\ComponentsView.h" />
@@ -292,6 +429,7 @@ xcopy "$(ProjectDir)..\..\..\Binaries\Windows\fmod.dll" "$(ProjectDir)Release\" 
     <ClInclude Include="..\..\Sources\UI\LaunchView.h" />
     <ClInclude Include="..\..\Sources\UI\Log.h" />
     <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h" />
+    <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\PropertiesView.h" />
     <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\Stats.h" />

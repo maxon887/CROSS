@@ -21,7 +21,6 @@
 #include "Texture.h"
 #include "UI/MenuBar.h"
 #include "Scenes/Simple/TriangleScene.h"
-#include "Scenes/Simple/TexturedModelScene.h"
 #include "Scenes/Light/MaterialScene.h"
 #include "Scenes/Light/DirectionalLightScene.h"
 #include "Scenes/Light/PointLightScene.h"
@@ -35,7 +34,8 @@
 #include "Scenes/Misc/DepthScene.h"
 #include "Scenes/Misc/TransparencyScene.h"
 #include "Scenes/Misc/SkyboxScene.h"
-#include "Scenes/Misc/ApocalypseScene.h"
+#include "StringTest.h"
+#include "ArrayTest.h"
 #include "AudioScreen.h"
 
 #include "ThirdParty/ImGui/imgui.h"
@@ -43,15 +43,15 @@
 LaunchView::LaunchView() : View("Demos")
 { }
 
-void LaunchView::WillContent() {
+void LaunchView::PreUpdate() {
 	ImGui::PushFont(demo->big_font);
 
-	if(!system->IsMobile()) {
-		ImGui::SetNextWindowSize(ImVec2(system->GetWindowWidth() / 3.f, system->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowPos(ImVec2(system->GetWindowWidth() / 2.f, system->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
+	if(!os->IsMobile()) {
+		ImGui::SetNextWindowSize(ImVec2(os->GetWindowWidth() / 3.f, os->GetWindowHeight() / 3.f * 2.f), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos(ImVec2(os->GetWindowWidth() / 2.f, os->GetWindowHeight() / 2.f), ImGuiCond_FirstUseEver, ImVec2(0.5f, 0.5f));
 	} else {
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
-		ImGui::SetNextWindowSize(ImVec2((float)system->GetWindowWidth(), (float)(system->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
+		ImGui::SetNextWindowSize(ImVec2((float)os->GetWindowWidth(), (float)(os->GetWindowHeight() - demo->GetMenuBar()->GetHeight())));
 		ImGui::SetNextWindowPos(ImVec2(0, demo->GetMenuBar()->GetHeight()));
 		SetFlags(	ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoMove |
@@ -61,15 +61,12 @@ void LaunchView::WillContent() {
 	}
 }
 
-void LaunchView::DidContent() {
-	if(system->IsMobile()) {
-		ImGui::PopStyleVar();
-	}
-	ImGui::PopFont();
-}
-
-void LaunchView::Content(float sec) {
+void LaunchView::Update(float sec) {
 	if(ImGui::CollapsingHeader("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
+		if(ImGui::Button("New Scene", ImVec2(-1, 0))) {
+			Scene* scene = new DemoScene();
+			game->SetScreen(scene);
+		}
 		if(ImGui::TreeNode("Simple")) {
 			if(ImGui::MenuButton("Triangle")) {
 				game->SetScreen(new TriangleScene());
@@ -79,7 +76,12 @@ void LaunchView::Content(float sec) {
 				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			if(ImGui::MenuButton("Textured Model")) {
-				game->SetScreen(new TexturedModelScene());
+				const String filename = "Scenes/TexturedCube.scn";
+				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
+			}
+			if(ImGui::MenuButton("Apocalypse Scene")) {
+				const String filename = "Scenes/ApocalypticCity/ApocalypticCity.scn";
+				CROSS_ASSERT(LoadScene(filename), "Can not load scene(#)", filename);
 			}
 			ImGui::TreePop();
 		}
@@ -129,10 +131,22 @@ void LaunchView::Content(float sec) {
 			if(ImGui::MenuButton("Skybox")) {
 				game->SetScreen(new SkyboxScene());
 			}
-			if(ImGui::MenuButton("Apocalypse Scene")) {
-				game->SetScreen(new ApocalypseScene());
-			}
 			ImGui::TreePop();
+		}
+	}
+
+	if(ImGui::CollapsingHeader("Tests")) {
+		ImVec2 cursorPos = ImGui::GetCursorPos();
+		cursorPos.x += ImGui::GetStyle().IndentSpacing;
+		ImGui::SetCursorPos(cursorPos);
+		if(ImGui::MenuButton("String Test")) {
+			game->SetScreen(new StringTest());
+		}
+		cursorPos = ImGui::GetCursorPos();
+		cursorPos.x += ImGui::GetStyle().IndentSpacing;
+		ImGui::SetCursorPos(cursorPos);
+		if(ImGui::MenuButton("Array Test")) {
+			game->SetScreen(new ArrayTest());
 		}
 	}
 	if(ImGui::Button("Audio", ImVec2(-1, 0))) {
@@ -141,6 +155,13 @@ void LaunchView::Content(float sec) {
 	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
 		game->SetScreen(new ImGuiScreen());
 	}
+}
+
+void LaunchView::PostUpdate() {
+	if(os->IsMobile()) {
+		ImGui::PopStyleVar();
+	}
+	ImGui::PopFont();
 }
 
 bool LaunchView::LoadScene(const String& filename) {

@@ -16,23 +16,34 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
+// Available Macros.
+
+// CROSS_DEBUG - enables engine debug functional. Additional logs and error checking will be enabled. Should not be turned on in Release mode
+
+// CROSS_MEMORY_PROFILE - enables internal memory profiler. Which keep track of all c++ memory allocations and deallocations. 
+// This functional will help you not to forget call delete for your variables by asserting at the exit moment of application. For old style memory
+// malloc and free there are CROSS_ALLOC, CROSS_REALLOC and CROSS_FREE macros. Should not be turned on in Release mode.
+
+// CROSS_STD_REPLACEMENT - replaces all basics std types for custom ones.
+
+
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 
 #define CROSS_ASSERT(condition, message, ...)									\
 if(!(condition)) {																\
-	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
 }
 
 #define CROSS_FAIL(condition, message, ...)										\
 if(!(condition)) {																\
-	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
 	return;																		\
 }
 
 #define CROSS_RETURN(condition, value, message, ...)							\
 if(!(condition)) {																\
-	cross::system->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
+	cross::os->Alert(message, __FILE__, __LINE__, ##__VA_ARGS__);			\
 	return value;																\
 }
 
@@ -54,6 +65,11 @@ namespace cross {
 }
 
 #include "Internals/MemoryManager.h"
+
+#include "Experimental/String.h"
+#include "Experimental/Array.h"
+#include "Experimental/Function.h"
+
 #include "Math/All.h"
 #include "Color.h"
 
@@ -61,16 +77,8 @@ namespace cross {
 #include <map>
 #include <set>
 
-#include "Experimental/ArraySTD.h"
-#include "Experimental/String.h"
-#include "Experimental/Function.h"
-
-#define system cross_system
-
 namespace cross{
 
-template<typename Type>
-using Array = ArraySTD<Type>;
 template<typename Type>
 using List = std::list<Type>;
 template<typename Key, typename Value>
@@ -80,6 +88,7 @@ using Set = std::set<Type>;
 
 class Game;
 class System;
+class Graphics;
 class GraphicsGL;
 class Input;
 class Config;
@@ -101,7 +110,8 @@ class Transform;
 class Cubemap;
 
 extern Game*		game;
-extern System*		system;
+extern System*		os;
+extern Graphics*	gfx;
 extern GraphicsGL*	gfxGL;
 extern Audio*		audio;
 extern Input*		input;
@@ -111,7 +121,7 @@ static const char*	version = "4.0.2";
 
 }
 
-/*	This function must implement every game */
+/* Main function of the Cross Engine. This function must implement every game */
 cross::Game* CrossMain();
 
 using namespace std;

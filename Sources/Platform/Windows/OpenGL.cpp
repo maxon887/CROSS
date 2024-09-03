@@ -48,7 +48,7 @@ int OpenGL_Main() {
 	MSG msg;
 
 	WINSystem* winSys = new WINSystem(wnd);
-	system = winSys;
+	os = winSys;
 	game = CrossMain();
 
 	int winX = config->GetInt("WIN_POS_X", 100);
@@ -115,19 +115,11 @@ int OpenGL_Main() {
 	delete gfxGL;
 	delete game;
 	delete audio;
-	delete system;
+	delete os;
 #ifdef CROSS_MEMORY_PROFILE
-	U64 leaked = MemoryManager::Instance()->Dump();
-	if(leaked > 0) {
-		char buf[256];
-		sprintf(buf, "Memory leak.Total bytes = %llu\n", leaked);
-		OutputDebugString(buf);
-		return -1;
-	} else {
-		OutputDebugString("No memory leak detected\n");
-	}
+	MemoryManager::Instance()->Dump();
 #endif // CROSS_MEMORY_PROFILE
-	return msg.wParam;
+	return (int)msg.wParam;
 }
 
 #endif

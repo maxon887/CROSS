@@ -28,15 +28,10 @@ public:
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
 
-	/* Handle input action down that not drop on UI elements */
-	virtual void ActionDown(Input::Action action);
-	/* Handle input action move that not drop on UI elements */
-	virtual void ActionMove(Input::Action action);
-	/* Handle input action up that not drop on UI elements */
-	virtual void ActionUp(Input::Action action);
+	virtual void Save(const String& file) override;
 
-protected:
-	void ApplyMaterial(Entity* entity, Material* mat);
+	void ApplyMaterial(Entity* entity, Material* mat, bool depthTest = true);
+	void DrawVector(const Vector3D& vec, const Vector3D& pos = Vector3D::Zero);
 
 private:
 	const float camera_speed = 5.f;
@@ -45,6 +40,11 @@ private:
 
 	//used same concept as on the Input class
 	List<pair<Input::Action, int> > action_stack;
+
+	const String ArrowModelFile = "Models/Arrow.fbx";
+	bool draw_vector = false;
+	Entity* arrow = nullptr;
+	Material* arrow_mat = nullptr;
 
 	S32 handled_action		= -1;
 	Vector2D touch_position = Vector2D();

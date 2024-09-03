@@ -35,15 +35,17 @@ public:
 	float GetScreenDPI() override;
 	String GetClipboard() override;
 
+	bool Alert(const String& msg) override;
 	void Messagebox(const String& title, const String& msg) override;
 	bool IsDirectoryExists(const String& filepath) override;
 	void CreateDirectory(const String& dirname) override;
+	void Delete(const String& path) override;
 	Array<String> GetSubDirectories(const String& filepath) override;
 	Array<String> GetFilesInDirectory(const String& directory) override;
 	void Sleep(float milis) override;
 	bool IsMobile() override;
 	void OpenFileExternal(const String& filename) override;
-	String OpenFileDialog(bool saveDialog = false) override;
+	String OpenFileDialog(const String& extension = "*.*", bool saveDialog = false) override;
 
 	void SetAssetPath(const String& path);
 	void FullScreen(bool yes);
@@ -63,6 +65,10 @@ private:
 	int window_pos_x	= 0;
 	int window_pos_y	= 0;
 	bool fullscreen		= false;
+
+	String FromAbsoluteToAssetPath(const String& absolutePath);
+
+	String GetLastErrorString(DWORD err);
 
 	bool EnterFullscreen(HWND hwnd, int fullscreenWidth, int fullscreenHeight, int colourBits, int refreshRate);
 	bool ExitFullscreen(HWND hwnd, int windowX, int windowY, int windowedWidth, int windowedHeight, int windowedPaddingX, int windowedPaddingY);

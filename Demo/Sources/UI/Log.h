@@ -26,12 +26,13 @@ class Log : public View {
 public:
 	Log() : View("Log") { }
 
-	void WillContent() override;
-	void Content(float sec) override;
+	void PreUpdate() override;
+	void Update(float sec) override;
 
 private:
 	ImGuiTextFilter     filter;
 	ImVector<int>		lineoffset;        // Index to lines offset
+	U64					log_size = 0;
 	bool				scroll_to_bottom = true;
 
 	void Clear();

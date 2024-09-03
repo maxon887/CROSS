@@ -1,0 +1,22 @@
+name: iOS
+
+on:
+  push:
+    branches: [ "Main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./Demo/Projects/iOS
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Build Cross iOS
+      run: xcodebuild -scheme Cross++ CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO build

@@ -37,7 +37,7 @@ void Input::TouchEnabled(bool enabled) {
 Vector2D Input::TargetToWordConvert(float x, float y) const {
 	Vector2D result;
 	result.x = x;
-	result.y = system->GetWindowHeight() - y;
+	result.y = os->GetWindowHeight() - y;
 	return result;
 }
 
@@ -71,8 +71,10 @@ void Input::Update() {
 }
 
 void Input::ResetKeys() {
-	for(int i = 0; i < pressed_keys.size(); ++i) {
-		pressed_keys[i] = false;
+	for(S32 i = 0; i < pressed_keys.Size(); ++i) {
+		if(pressed_keys[i]) {
+			KeyReleased.Emit((Key)i);
+		}
 	}
 }
 

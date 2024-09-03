@@ -17,11 +17,11 @@
 #include "Log.h"
 #include "System.h"
 
-void Log::WillContent() {
+void Log::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
 }
 
-void Log::Content(float sec) {
+void Log::Update(float sec) {
 	if(ImGui::Button("Clear")) Clear();
 	ImGui::SameLine();
 	bool copy = ImGui::Button("Copy");
@@ -32,7 +32,7 @@ void Log::Content(float sec) {
 	if(copy) ImGui::LogToClipboard();
 
 	if(filter.IsActive()) {
-		const char* buf_begin = system->GetLogBuffer();
+		const char* buf_begin = os->GetLogBuffer();
 		const char* line = buf_begin;
 		for(int line_no = 0; line != nullptr; line_no++) {
 			const char* line_end = (line_no < lineoffset.Size) ? buf_begin + lineoffset[line_no] : nullptr;
@@ -42,19 +42,24 @@ void Log::Content(float sec) {
 			line = line_end && line_end[1] ? line_end + 1 : nullptr;
 		}
 	} else {
-		if(system->GetLogBuffer().Length() > 0) {
-			ImGui::TextUnformatted(system->GetLogBuffer());
+		if(os->GetLogBuffer().Length() > 0) {
+			ImGui::TextUnformatted(os->GetLogBuffer());
 		}
 	}
 
+	if(log_size != os->GetLogBuffer().Length()) {
+		scroll_to_bottom = true;
+		log_size = os->GetLogBuffer().Length();
+	}
+
 	if(scroll_to_bottom) {
-		ImGui::SetScrollHere(1.0f);
+		ImGui::SetScrollHereY(1.0f);
 	}
 	scroll_to_bottom = false;
 	ImGui::EndChild();
 }
 
 void Log::Clear() {
-	system->GetLogBuffer().Clear();
+	os->GetLogBuffer().Clear();
 	lineoffset.clear();
 }

@@ -21,6 +21,7 @@
 #include "System.h"
 #include "Entity.h"
 #include "Mesh.h"
+#include "Material.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -29,24 +30,30 @@ void DemoScene::Start() {
 	if(!camera) {
 		CreateDefaultCamera();
 	}
-	LookAtCamera(Vector3D::Zero);
+
 	input->ActionDown.Connect(this, &DemoScene::OnActionDown);
 	input->ActionMove.Connect(this, &DemoScene::OnActionMove);
 	input->ActionUp.Connect(this, &DemoScene::OnActionUp);
 	input->KeyPressed.Connect(this, &DemoScene::OnKeyPressed);
 	input->KeyReleased.Connect(this, &DemoScene::OnKeyReleased);
 	input->Scroll.Connect(this, &DemoScene::MouseWheelRoll);
-	system->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
+	os->OrientationChanged.Connect(this, &DemoScene::OnOrientationChanged);
 
+	LookAtTarget(Vector3D::Zero);
 	LookAtCamera(true);
 	
-	if(system->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
+	if(os->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
 	}
 }
 
 void DemoScene::Stop() {
-	system->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
+	delete arrow_mat;
+	if(arrow && arrow->GetParent() == nullptr) {
+		delete arrow;
+	}
+
+	os->OrientationChanged.Disconnect(this, &DemoScene::OnOrientationChanged);
 	input->Scroll.Disconnect(this, &DemoScene::MouseWheelRoll);
 	input->KeyReleased.Disconnect(this, &DemoScene::OnKeyReleased);
 	input->KeyPressed.Disconnect(this, &DemoScene::OnKeyPressed);
@@ -57,44 +64,25 @@ void DemoScene::Stop() {
 }
 
 void DemoScene::Update(float sec) {
-
-	if(input->IsPressed(Key::W)) {
-		FreeCameraScene::MoveForward(camera_speed * sec);
-	}
-	if(input->IsPressed(Key::S)) {
-		FreeCameraScene::MoveForward(-camera_speed * sec);
-	}
-	if(input->IsPressed(Key::D)) {
-		FreeCameraScene::MoveRight(camera_speed * sec);
-	}
-	if(input->IsPressed(Key::A)) {
-		FreeCameraScene::MoveRight(-camera_speed * sec);
-	}
-	if(input->IsPressed(Key::SHIFT)) {
-		FreeCameraScene::MoveUp(camera_speed * sec);
-	}
-	if(input->IsPressed(Key::CONTROL)) {
-		FreeCameraScene::MoveUp(-camera_speed * sec);
-	}
-
-	while(!action_stack.empty()) {
-		Input::Action action = action_stack.front().first;
-		int actionState = action_stack.front().second;
-		action_stack.pop_front();
-		switch(actionState) {
-		case 0:
-			if(!ImGui::IsMouseHoveringAnyWindow()) {
-				ActionDown(action);
-			}
-			break;
-		case 1:
-			ActionMove(action);
-			break;
-		case 2:
-			ActionUp(action);
-			break;
-		default:
-			break;
+	ImGuiIO& io = ImGui::GetIO();
+	if(!io.WantCaptureKeyboard) {
+		if(input->IsPressed(Key::W)) {
+			FreeCameraScene::MoveForward(camera_speed * sec);
+		}
+		if(input->IsPressed(Key::S)) {
+			FreeCameraScene::MoveForward(-camera_speed * sec);
+		}
+		if(input->IsPressed(Key::D)) {
+			FreeCameraScene::MoveRight(camera_speed * sec);
+		}
+		if(input->IsPressed(Key::A)) {
+			FreeCameraScene::MoveRight(-camera_speed * sec);
+		}
+		if(input->IsPressed(Key::E)) {
+			FreeCameraScene::MoveUp(camera_speed * sec);
+		}
+		if(input->IsPressed(Key::Q)) {
+			FreeCameraScene::MoveUp(-camera_speed * sec);
 		}
 	}
 
@@ -103,47 +91,77 @@ void DemoScene::Update(float sec) {
 	transform_gizmo.Update(sec);
 }
 
-void DemoScene::ActionDown(Input::Action action) {
-	if(handled_action == -1) {
+	if(!draw_vector && arrow && arrow->GetParent()) {
+		arrow->GetParent()->RemoveChild(arrow);
+	}
+	draw_vector = false;
+}
+
+void DemoScene::Save(const String& file) {
+	if(arrow && arrow->GetParent()) {
+		arrow->GetParent()->RemoveChild(arrow);
+	}
+	FreeCameraScene::Save(file);
+}
+
+void DemoScene::ApplyMaterial(Entity* entity, Material* mat, bool depthTest) {
+	if(entity->GetComponent<Mesh>()) {
+		entity->GetComponent<Mesh>()->SetMaterial(mat);
+		entity->GetComponent<Mesh>()->EnableDepthTest(depthTest);
+	}
+	for(Entity* child : entity->GetChildren()) {
+		ApplyMaterial(child, mat, depthTest);
+	}
+}
+
+void DemoScene::DrawVector(const Vector3D& vec, const Vector3D& pos /* = zero */) {
+	if(!arrow) {
+		arrow = GetModel(ArrowModelFile)->GetHierarchy();
+		arrow_mat = GetDefaultMaterial()->Clone();
+		arrow_mat->SetPropertyValue("Color", Color::Blue);
+		ApplyMaterial(arrow, arrow_mat, false);
+	}
+	if(!arrow->GetParent()) {
+		AddEntity(arrow);
+	}
+	arrow->GetComponent<Transform>()->SetPosition(pos);
+	arrow->GetComponent<Transform>()->SetDirection(vec);
+	arrow->GetComponent<Transform>()->SetScale(vec.Length());
+	draw_vector = true;
+}
+
+void DemoScene::OnActionDown(Input::Action action) {
+	if(handled_action == -1 && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
 		handled_action = action.id;
 		touch_position = action.pos;
 	}
 }
 
-void DemoScene::ActionMove(Input::Action action) {
-	if(handled_action == action.id) {
-		Vector2D deltaPosition = touch_position - action.pos;
-		touch_position = action.pos;
-		FreeCameraScene::LookRight(deltaPosition.x / 10.f);
-		FreeCameraScene::LookUp(deltaPosition.y / 10.f);
-	}
-}
-
-void DemoScene::ActionUp(Input::Action action) {
-	if(handled_action == action.id) {
-		handled_action = -1;
-	}
-}
-
-void DemoScene::ApplyMaterial(Entity* entity, Material* mat) {
-	if(entity->GetComponent<Mesh>()) {
-		entity->GetComponent<Mesh>()->SetMaterial(mat);
-	}
-	for(Entity* child : entity->GetChildren()) {
-		ApplyMaterial(child, mat);
-	}
-}
-
-void DemoScene::OnActionDown(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 0));
-}
-
 void DemoScene::OnActionMove(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 1));
+	Vector2D delta = touch_position - action.pos;
+	touch_position = action.pos;
+
+	if(handled_action == 0) {
+		LookAtCamera(true);
+		FreeCameraScene::LookRight(delta.x / 10.f);
+		FreeCameraScene::LookUp(delta.y / 10.f);
+	}
+	if(handled_action == 1) {
+		LookAtCamera(false);
+		FreeCameraScene::LookRight(delta.x / 10.f);
+		FreeCameraScene::LookUp(delta.y / 10.f);
+	}
+	if(handled_action == 2) {
+		delta /= 200.f;
+		MoveRight(delta.x);
+		MoveUp(delta.y);
+	}
 }
 
 void DemoScene::OnActionUp(Input::Action action) {
-	action_stack.push_back(pair<Input::Action, int>(action, 2));
+	if(handled_action == action.id) {
+		handled_action = -1;
+	}
 }
 
 void DemoScene::OnKeyPressed(Key key) {
@@ -169,7 +187,7 @@ void DemoScene::OnOrientationChanged(System::Orientation o) {
 }
 
 void DemoScene::MouseWheelRoll(float delta) {
-	if(!ImGui::IsMouseHoveringAnyWindow()) {
-		MoveForward(0.1f * delta, false);
+	if(!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
+		MoveCloser(0.1f * delta);
 	}
 }

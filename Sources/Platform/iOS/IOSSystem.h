@@ -22,7 +22,6 @@ using namespace cross;
 
 class IOSSystem : public System {
 public:
-    IOSSystem();
     ~IOSSystem();
     
     void Log(const char* msg) override;

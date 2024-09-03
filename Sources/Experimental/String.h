@@ -16,6 +16,8 @@
     along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
+#include <stdio.h>
+
 namespace cross {
 
 class String {
@@ -34,7 +36,6 @@ public:
 	String(S64 number);
 	String(U64 number);
 	String(float number);
-	String(const Color& color);
 	String(const char* cstr, S32 length, S32 capacity);
 	template<class Value>
 	String(Value value, const char* format, S32 bufferSize);
@@ -54,6 +55,8 @@ public:
 	S32 Find(char c) const;
 	/* Returns position of a first occurrence of subStr in this String or -1 if wasn't found */
 	S32 Find(const char* subStr) const;
+	/* Returns position of a first occurrence of subStr in this String or -1. start from startPos */
+	S32 Find(const char* subStr, S32 startPos) const;
 	/* Returns position of a last occurrence of char in this String or -1 if wasn't found */
 	S32 FindLast(char c) const;
 	/* Returns first occurrence of any character in provided sequence */
@@ -70,6 +73,8 @@ public:
 	void Lowercase();
 	/* Removes first occurrence of subStr in current String */
 	bool Remove(const char* subStr);
+	/* Removes first occurrence of subStr in current String start with pos*/
+	bool Remove(const char* subStr, S32 startPos);
 	/* Removes first occurrence of character in current String */
 	bool Remove(char c);
 	/* Replaces all occurrences of 'from' string to 'to' string */
@@ -88,8 +93,6 @@ public:
 	S32 ToInt(U32 base) const;
 	/* Converts this String to float type and returns it */
 	float ToFloat() const;
-	/* Converts this String to Color object and returns it */
-	Color ToColor() const;
 
 	String& operator = (const char* other);
 	String& operator = (const String& other);
@@ -132,13 +135,13 @@ String String::Format(const String& format, First value, Args... args) {
 template<class Value>
 String::String(Value value, const char* format, S32 bufferSize) {
 	data = (char*)CROSS_ALLOC(bufferSize + 1);
-	length = sprintf(data, format, value);
+	length = snprintf(data, bufferSize, format, value);
 	capacity = bufferSize;
 
 	//Conversion from integer to string failed
 	assert(length > 0);
 	//More data written in buffer than was allocated
-	assert(length < bufferSize);
+	assert(length <= bufferSize);
 }
 
 }

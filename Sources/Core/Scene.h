@@ -49,9 +49,10 @@ public:
 	virtual void Update(float sec) override;
 
 	/* Loads scene from file(.scn). Returns true if succeed */
-	bool Load(const String& file, bool assetPath = true);
+	virtual bool Load(const String& file);
 	/* Save scene into file */
-	void Save(const String& file);
+	virtual void Save(const String& file);
+
 	/* Removes all loaded stuff from scene (Textures, Materials, Shader, Models and Entities) */
 	void Clear();
 	/* Returns root Scene Entity */
@@ -68,7 +69,7 @@ public:
 	void AddEntity(Entity* entity);
 	/* Loads primitive model as Entity with Mesh Component included */
 	Entity* LoadPrimitive(Model::Primitive primitive);
-	/* Removes entity from this Scene by name. Returns founded Entity or nullptr otherwise. Entity won't we destructed */
+	/* Removes entity from Scene by name. Returns founded Entity or nullptr otherwise. Entity won't be destructed */
 	Entity* RemoveEntity(const String& name);
 	/* Returns all available Lights on the Scene. */
 	List<Light*>& GetLights();
@@ -80,6 +81,8 @@ public:
 	Shader* GetShader(const String& shaderfile);
 	/* Obtain loaded into scene Material or load it by self in other way */
 	Material* GetMaterial(const String& xmlFile);
+	/* Returns default engine material */
+	Material* GetDefaultMaterial();
 	/* Obtain loaded into scene Texture or load it by self in other way */
 	Texture* GetTexture(const String& textureFile);
 	/* Loads texture with provided filter */
@@ -88,8 +91,6 @@ public:
 	Model* GetModel(const String& modelFile, bool calcTangents = false);
 	/* Resets all materials to default state */
 	void ResetMaterials();
-	/* Resets all shaders to default state */
-	void ResetShaders();
 
 protected:
 	Entity* root							= nullptr;

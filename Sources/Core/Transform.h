@@ -30,8 +30,10 @@ public:
 	/* Full by per element object copy operation */
 	Component* Clone() const override;
 
-	/* Returns position of this object in a related to parent world coordinates */
+	/* Returns position of this object in a relative coordinates */
 	Vector3D GetPosition() const;
+	/* Returns position of this object in a world coordinates */
+	Vector3D GetWorldPosition();
 	/* Sets position of this object by 3D vector */
 	void SetPosition(const Vector3D& pos);
 	/* Sets position of this object by translation Matrix */
@@ -62,6 +64,8 @@ public:
 
 	/* Returns object direction vector. Object forwarding direction */
 	Vector3D GetDirection() const;
+	/* Returns world direction vector */
+	Vector3D GetWorldDirection();
 	/* Returns object forward vector. Same as direction vector */
 	Vector3D GetForward() const;
 	/* Returns local object right axis */
@@ -73,6 +77,8 @@ public:
 
 	/* Returns object models Matrix. Usually need for shader calculation */
 	Matrix& GetModelMatrix();
+	/* Returns world transform Matrix. Not fast and save function (all parents matrices must be multiplied and must exists) */
+	Matrix GetWorldMatrix();
 
 protected:
 	Property<Vector3D> position		= Property<Vector3D>(this, "Position", Vector3D::Zero);

@@ -120,22 +120,21 @@ public:
 	virtual ~Shader();
 
 	virtual void Use();
-	virtual void Load(const String& file);
 	virtual void Save(const String& file);
 	virtual void Compile();
 	virtual void OnDraw() { }
 
-	void ReCompile();
 	bool IsCompiled() const;
 	String& GetFilename();
+	void SetFilename(const String& filename);
 	String& GetVertexFilename();
 	void SetVertexFilename(const String& filename);
 	String& GetFragmentFilename();
 	void SetFragmentFilename(const String& filename);
 
 	void AddVersion(const String& version);
-	void AddMacro(const String& macro, bool system = false);
-	void AddMacro(const String& macro, int value, bool system = false);
+	void AddMacro(const String& macro, bool os = false);
+	void AddMacro(const String& macro, int value, bool os = false);
 	Array<String>& GetMacrosies();
 	void ClearMacrosies();
 

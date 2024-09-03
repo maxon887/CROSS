@@ -17,6 +17,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "System.h"
 #include "Light.h"
 #include "Entity.h"
@@ -25,7 +26,7 @@
 #include "Shaders/LightsShader.h"
 #include "File.h"
 #include "Transform.h"
-#include "ComponentFactory.h"
+#include "Factory.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -35,13 +36,13 @@ using namespace tinyxml2;
 Scene::Scene()
 {
 	root = new Entity("Root");
-	root->AddComponent(new Transform());
+	root->AddComponent(new Transform(), this);
 }
 
 void Scene::Start() {
 	Screen::Start();
 
-	system->WindowResized.Connect(this, &Scene::OnWindowResize);
+	os->WindowResized.Connect(this, &Scene::OnWindowResize);
 }
 
 void Scene::Update(float sec) {
@@ -50,7 +51,7 @@ void Scene::Update(float sec) {
 }
 
 void Scene::Stop() {
-	system->WindowResized.Disconnect(this, &Scene::OnWindowResize);
+	os->WindowResized.Disconnect(this, &Scene::OnWindowResize);
 	delete root;
 	root = nullptr;
 	for(pair<U64, Texture*> pair : textures) {
@@ -68,14 +69,10 @@ void Scene::Stop() {
 	Screen::Stop();
 }
 
-bool Scene::Load(const String& file, bool assetPath /* = true */) {
+bool Scene::Load(const String& file) {
 	filename = file;
 	File* xmlFile = nullptr;
-	if(assetPath) {
-		xmlFile = system->LoadAssetFile(file);
-	} else {
-		xmlFile = system->LoadFile(file);
-	}
+	xmlFile = os->LoadAssetFile(file);
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
@@ -180,7 +177,7 @@ void Scene::Save(const String& filename) {
 	saveFile.name = filename;
 	saveFile.size = printer.CStrSize();
 	saveFile.data = (Byte*)printer.CStr();
-	system->SaveFile(&saveFile);
+	os->SaveFile(&saveFile);
 	saveFile.data = nullptr;
 }
 
@@ -258,8 +255,7 @@ Shader* Scene::GetShader(const String& shaderfile) {
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
 	} else {
-		Shader* shader = new Shader();
-		shader->Load(shaderfile);
+		Shader* shader = gfx->LoadShader(shaderfile);
 		shader->Compile();
 		shaders[hash] = shader;
 		return shader;
@@ -273,10 +269,19 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 		return (*matIt).second;
 	} else {
 		Material* mat = new Material();
-		mat->Load(xmlFile, this);
-		materials[hash] = mat;
-		return mat;
+		bool success = mat->Load(xmlFile, this);
+		if(success) {
+			materials[hash] = mat;
+			return mat;
+		} else {
+			delete mat;
+			return nullptr;
+		}
 	}
+}
+
+Material* Scene::GetDefaultMaterial() {
+	return GetMaterial("Engine/Default.mat");
 }
 
 Texture* Scene::GetTexture(const String& textureFile) {
@@ -310,22 +315,20 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 		return (*modelIt).second;
 	} else {
 		Model* model = new Model();
-		model->Load(modelFile, calcTangents);
-		models[hash] = model;
-		return model;
+		bool success = model->Load(modelFile, calcTangents);
+		if(success) {
+			models[hash] = model;
+			return model;
+		} else {
+			delete model;
+			return nullptr;
+		}
 	}
 }
 
 void Scene::ResetMaterials() {
 	for(pair<U64, Material*> pair : materials) {
 		pair.second->Reset();
-	}
-}
-
-void Scene::ResetShaders() {
-	for(pair<U64, Shader*> pair : shaders) {
-		Shader* shader = pair.second;
-		shader->ReCompile();
 	}
 }
 
@@ -340,7 +343,7 @@ bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	parent->AddChild(entity);
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
-	ComponentFactory* factory = game->GetComponentFactory();
+	Factory<Component>* factory = game->GetComponentFactory();
 	if(componentsXML) {
 		XMLElement* componentXML = componentsXML->FirstChildElement();
 		while(componentXML) {
@@ -369,7 +372,7 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 	objectXML->SetAttribute("name", entity->GetName());
 
 	const Array<Component*>& components = entity->GetComponents();
-	if(components.size() > 0) {
+	if(components.Size() > 0) {
 		XMLElement* componentsXML = doc->NewElement("Components");
 		for(Component* component : components) {
 			CROSS_RETURN(component->Save(componentsXML, doc), false, "Can't save entity component");
@@ -389,7 +392,7 @@ bool Scene::SaveEntity(Entity* entity, XMLElement* parent, XMLDocument* doc) {
 }
 
 void Scene::OnWindowResize(S32 width, S32 height){
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, camera->GetViewDistance());
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, camera->GetViewDistance());
 	camera->SetProjectionMatrix(projection);
 }
 
@@ -398,7 +401,7 @@ void Scene::CreateDefaultCamera() {
 	Transform* transComp = new Transform(Vector3D(0.f, 0.f, -2.f));
 	transComp->SetDirection(Vector3D(0.f, 0.f, 1.f));
 	Camera* camComp = new Camera();
-	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, system->GetAspectRatio(), 0.1f, 100.f);
+	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, 100.f);
 	camComp->SetProjectionMatrix(projection);
 	camEntity->AddComponent(transComp);
 	camEntity->AddComponent(camComp);
