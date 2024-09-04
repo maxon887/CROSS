@@ -1,4 +1,3 @@
-precision mediump float;
 uniform vec4 uColor;
 uniform float uFar;
 uniform float uNear;
