@@ -2,14 +2,14 @@
     <Objects>
         <Object name="Camera">
             <Components>
-                <Transform>
-                    <Position type="Vector3D" x="1.1818663" y="2.2892575" z="-3.8325701"/>
-                    <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="-0.21396618" y="0.36192793" z="-0.08573103" w="0.90325904"/>
-                </Transform>
                 <Camera>
                     <ViewDistance type="Float" value="100"/>
                 </Camera>
+                <Transform>
+                    <Position type="Vector3D" x="-0.49051613" y="1.0523076" z="3.526741"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="0.0073058652" y="0.96721929" z="-0.028009633" w="-0.25228766"/>
+                </Transform>
             </Components>
         </Object>
         <Object name="ApocalypticCity">
@@ -60,20 +60,6 @@
                             <ID type="Int" value="2"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
                             <Material type="String" value="Scenes/ApocalypticCity/Materials/Facade2.mat"/>
-                        </Mesh>
-                    </Components>
-                </Object>
-                <Object name="wire">
-                    <Components>
-                        <Transform>
-                            <Position type="Vector3D" x="0" y="0" z="0"/>
-                            <Scale type="Vector3D" x="1" y="1" z="1"/>
-                            <Rotation type="Quaternion" x="0" y="0" z="0" w="1"/>
-                        </Transform>
-                        <Mesh>
-                            <ID type="Int" value="3"/>
-                            <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
-                            <Material type="String" value="Materials/SimpleGreen.mat"/>
                         </Mesh>
                     </Components>
                 </Object>
