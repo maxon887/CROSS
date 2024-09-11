@@ -69,10 +69,10 @@ bool Material::Load(const String& filename, Scene* scene) {
 	const char* shaderfilename = materialXML->Attribute("shader");
 	CROSS_RETURN(shaderfilename, false, "Material file not contain 'shader' filename");
 
-	delete shader;
 	if(scene) {
 		shader = scene->GetShader(shaderfilename);
 	} else {
+		delete shader;
 		shader = gfx->LoadShader(shaderfilename);
 	}
 	Reset();

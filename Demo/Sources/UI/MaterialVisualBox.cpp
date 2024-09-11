@@ -91,7 +91,11 @@ void MaterialVisualBox::Update() {
 		ImGui::NewLine();
 		ImGui::SameLine(availableWidth / 2);
 		if(ImGui::Button("Revert", ImVec2(availableWidth / 4 - SCALED(10.f), 0))) {
-			mat->Load(mat->GetFilename(), game->GetCurrentScene());
+			if(loaded_from_scene) {
+				mat->Load(mat->GetFilename(), game->GetCurrentScene());
+			} else {
+				mat->Load(mat->GetFilename(), nullptr);
+			}
 		}
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
