@@ -71,6 +71,7 @@ void ShaderVisualBox::Update() {
 
 		String buffer("", 0, 256);
 		for(Shader::Property& prop : shader->GetProperties()) {
+            ImGui::PushID(prop.GetName());
 			buffer = prop.GetName();
 			ImGui::PushItemWidth(-1);
 			ImGui::InputText("##Name", buffer.ToCStr(), buffer.Capacity());
@@ -108,6 +109,7 @@ void ShaderVisualBox::Update() {
 			}
 
 			ImGui::NextColumn();
+            ImGui::PopID();
 		}
 		ImGui::Columns(1);
 
