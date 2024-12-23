@@ -57,7 +57,7 @@ void GLFWScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
 }
 
 void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	Key mappedKey = Key::ESCAPE;
+	Key mappedKey = (Key)key;
 	switch(key) {
 	case GLFW_KEY_ESCAPE:
 		mappedKey = Key::ESCAPE;
@@ -80,8 +80,6 @@ void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int 
 	case GLFW_KEY_HOME:
 		mappedKey = Key::HOME;
 		break;
-	default:
-		return;
 	}
 	switch(action) {
 	case GLFW_PRESS:
