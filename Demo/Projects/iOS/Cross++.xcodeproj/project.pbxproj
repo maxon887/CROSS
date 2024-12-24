@@ -95,7 +95,6 @@
 		9DDFFF131F46EF1700A6E782 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA31F46EF1700A6E782 /* AppDelegate.mm */; };
 		9DDFFF141F46EF1700A6E782 /* CrossViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA51F46EF1700A6E782 /* CrossViewController.mm */; };
 		9DDFFF151F46EF1700A6E782 /* IOSSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA71F46EF1700A6E782 /* IOSSystem.mm */; };
-		9DDFFF161F46EF1700A6E782 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA91F46EF1700A6E782 /* iRate.m */; };
 		9DDFFF171F46EF1700A6E782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DDFFEAA1F46EF1700A6E782 /* Main.storyboard */; };
 		9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */; };
 		9DDFFF1E1F46EF1700A6E782 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECA1F46EF1700A6E782 /* Shader.cpp */; };
@@ -387,8 +386,6 @@
 		9DDFFEA51F46EF1700A6E782 /* CrossViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CrossViewController.mm; sourceTree = "<group>"; };
 		9DDFFEA61F46EF1700A6E782 /* IOSSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSSystem.h; sourceTree = "<group>"; };
 		9DDFFEA71F46EF1700A6E782 /* IOSSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSSystem.mm; sourceTree = "<group>"; };
-		9DDFFEA81F46EF1700A6E782 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
-		9DDFFEA91F46EF1700A6E782 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		9DDFFEAA1F46EF1700A6E782 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightsShader.cpp; sourceTree = "<group>"; };
 		9DDFFEC91F46EF1700A6E782 /* LightsShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightsShader.h; sourceTree = "<group>"; };
@@ -926,8 +923,6 @@
 				9DDFFEA51F46EF1700A6E782 /* CrossViewController.mm */,
 				9DDFFEA61F46EF1700A6E782 /* IOSSystem.h */,
 				9DDFFEA71F46EF1700A6E782 /* IOSSystem.mm */,
-				9DDFFEA81F46EF1700A6E782 /* iRate.h */,
-				9DDFFEA91F46EF1700A6E782 /* iRate.m */,
 				9DDFFEAA1F46EF1700A6E782 /* Main.storyboard */,
 			);
 			path = iOS;
@@ -1084,7 +1079,6 @@
 				9DDFFF031F46EF1700A6E782 /* SOIL.c in Sources */,
 				50424D4E2C57BDC300CE0055 /* TransformVisualBox.cpp in Sources */,
 				50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */,
-				9DDFFF161F46EF1700A6E782 /* iRate.m in Sources */,
 				50424D5A2C57BDC300CE0055 /* Stats.cpp in Sources */,
 				9DDFFF091F46EF1700A6E782 /* Rect.cpp in Sources */,
 				9D54BB651FBC4316009E8469 /* AudioScreen.cpp in Sources */,
