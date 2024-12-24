@@ -24,15 +24,18 @@ namespace cross {
 
 #define MAX_ACTIONS 20
 
-enum class Key {
+enum class Key : Byte {
 	BACKSPACE	= 0x08,
 	TAB			= 0x09,
+	COMMAND		= 0x0A,
+	OPTION		= 0x0B,
 	CLEAR		= 0x0C,
 	ENTER		= 0x0D,
 	SHIFT		= 0x10,
 	CONTROL		= 0x11,
 	ALT			= 0x12,
 	PAUSE		= 0x13,
+	CAPSLOCK	= 0x14,
 	ESCAPE		= 0x1B,
 	SPACE		= 0x20,
 	PAGE_UP		= 0x21,
@@ -46,6 +49,7 @@ enum class Key {
 	INSERT		= 0x2D,
 	DEL			= 0x2E,
 	HELP		= 0x2F,
+	
 	NUM_0		= 0x30,
 	NUM_1		= 0x31,
 	NUM_2		= 0x32,

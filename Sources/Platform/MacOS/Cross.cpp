@@ -80,6 +80,42 @@ void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int 
 	case GLFW_KEY_HOME:
 		mappedKey = Key::HOME;
 		break;
+	case GLFW_KEY_LEFT_SUPER:
+	case GLFW_KEY_RIGHT_SUPER:
+		mappedKey = Key::COMMAND;
+		break;
+	case GLFW_KEY_LEFT_ALT:
+	case GLFW_KEY_RIGHT_ALT:
+		mappedKey = Key::OPTION;
+		break;
+	case GLFW_KEY_LEFT_CONTROL:
+	case GLFW_KEY_RIGHT_CONTROL:
+		mappedKey = Key::CONTROL;
+		break;
+	case GLFW_KEY_LEFT_SHIFT:
+	case GLFW_KEY_RIGHT_SHIFT:
+		mappedKey = Key::SHIFT;
+		break;
+	case GLFW_KEY_CAPS_LOCK:
+		mappedKey = Key::CAPSLOCK;
+		break;
+	case GLFW_KEY_UP:
+		mappedKey = Key::UP;
+		break;
+	case GLFW_KEY_DOWN:
+		mappedKey = Key::DOWN;
+		break;
+	case GLFW_KEY_LEFT:
+		mappedKey = Key::LEFT;
+		break;
+	case GLFW_KEY_RIGHT:
+		mappedKey = Key::RIGHT;
+		break;
+	case GLFW_KEY_UNKNOWN:
+		return;
+	default:
+		CROSS_FAIL(key <= (int)Key::MAX_KEY_NUM, "Unknown key pressed with keycode more than cross can handle");
+		break;
 	}
 	switch(action) {
 	case GLFW_PRESS:

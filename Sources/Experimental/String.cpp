@@ -18,9 +18,8 @@
 #include "System.h"
 
 #include <cstring>
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cctype>
 
 using namespace cross;
 
@@ -118,7 +117,7 @@ bool String::IsEmpty() const {
 
 U64 String::Hash() const {
 	U64 hash = 5381;
-	int c;
+	char c;
 	char* str = data;
 	while((c = *str++)) {
 		hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
