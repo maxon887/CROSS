@@ -69,7 +69,7 @@ void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int 
 		mappedKey = Key::TAB;
 		break;
 	case GLFW_KEY_BACKSPACE:
-		mappedKey = Key::BACK;
+		mappedKey = Key::BACKSPACE;
 		break;
 	case GLFW_KEY_INSERT:
 		mappedKey = Key::INSERT;
@@ -110,6 +110,75 @@ void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int 
 		break;
 	case GLFW_KEY_RIGHT:
 		mappedKey = Key::RIGHT;
+		break;
+	case GLFW_KEY_GRAVE_ACCENT:
+		mappedKey = Key::TILDE;
+		break;
+	case GLFW_KEY_APOSTROPHE:
+		mappedKey = Key::APOSTROPHE;
+		break;
+	case GLFW_KEY_COMMA:
+		mappedKey = Key::COMMA;
+		break;
+	case GLFW_KEY_MINUS:
+		mappedKey = Key::MINUS;
+		break;
+	case GLFW_KEY_PERIOD:
+		mappedKey = Key::DOT;
+		break;
+	case GLFW_KEY_SLASH:
+		mappedKey = Key::SLASH;
+		break;
+	case GLFW_KEY_EQUAL:
+		mappedKey = Key::PLUS;
+		break;
+	case GLFW_KEY_LEFT_BRACKET:
+		mappedKey = Key::L_SQUARE_BRACKET;
+		break;
+	case GLFW_KEY_BACKSLASH:
+		mappedKey = Key::BACKSLASH;
+		break;
+	case GLFW_KEY_RIGHT_BRACKET:
+		mappedKey = Key::R_SQUARE_BRACKET;
+		break;
+	case GLFW_KEY_SEMICOLON:
+		mappedKey = Key::SEMICOLON;
+		break;
+	case GLFW_KEY_F1:
+		mappedKey = Key::F1;
+		break;
+	case GLFW_KEY_F2:
+		mappedKey = Key::F2;
+		break;
+	case GLFW_KEY_F3:
+		mappedKey = Key::F3;
+		break;
+	case GLFW_KEY_F4:
+		mappedKey = Key::F4;
+		break;
+	case GLFW_KEY_F5:
+		mappedKey = Key::F5;
+		break;
+	case GLFW_KEY_F6:
+		mappedKey = Key::F6;
+		break;
+	case GLFW_KEY_F7:
+		mappedKey = Key::F7;
+		break;
+	case GLFW_KEY_F8:
+		mappedKey = Key::F8;
+		break;
+	case GLFW_KEY_F9:
+		mappedKey = Key::F9;
+		break;
+	case GLFW_KEY_F10:
+		mappedKey = Key::F10;
+		break;
+	case GLFW_KEY_F11:
+		mappedKey = Key::F11;
+		break;
+	case GLFW_KEY_F12:
+		mappedKey = Key::F12;
 		break;
 	case GLFW_KEY_UNKNOWN:
 		return;
