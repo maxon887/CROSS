@@ -360,6 +360,9 @@ void Demo::KeyPressed(Key key) {
 	if(key == Key::ALT) {
 		io.KeyAlt = true;
 	}
+	if(key == Key::COMMAND) {
+		io.KeySuper = true;
+	}
 }
 
 void Demo::KeyReleased(Key key) {
@@ -373,6 +376,9 @@ void Demo::KeyReleased(Key key) {
 	}
 	if(key == Key::ALT) {
 		io.KeyAlt = false;
+	}
+	if (key == Key::COMMAND) {
+		io.KeySuper = false;
 	}
 }
 

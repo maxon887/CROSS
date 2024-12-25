@@ -118,6 +118,19 @@ enum class Key : Byte {
 	F11			= 0x7A,
 	F12			= 0x7B,
 	NUMLOC		= 0x90,
+	SCROLLLOCK	= 0x91,
+
+	SEMICOLON	     = 0xBA,
+	PLUS			 = 0xBB,
+	COMMA			 = 0xBC,
+	MUNUS			 = 0xBD,
+	DOT				 = 0xBE,
+	SLASH			 = 0xBF,
+	TILDE		     = 0xC0,
+	L_SQUARE_BRACKET = 0xDB,
+	BACKSLASH		 = 0xDC,
+	R_SQUARE_BRACKET = 0xDD,
+	APOSTROPHE	     = 0xDE,
 
 	BACK		= 0xFE,
 	MAX_KEY_NUM = 0xFF
