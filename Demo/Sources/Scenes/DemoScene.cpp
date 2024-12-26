@@ -46,6 +46,10 @@ void DemoScene::Start() {
 	if(os->GetDeviceOrientation() == System::Orientation::PORTRAIT) {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
 	}
+
+	service_root = new Entity("ServiceRoot");
+	service_root->AddComponent(new Transform());
+	AddEntity(service_root);
 }
 
 void DemoScene::Stop() {
@@ -86,6 +90,13 @@ void DemoScene::Update(float sec) {
 			FreeCameraScene::MoveUp(-camera_speed * sec);
 		}
 	}
+	
+	//service_root should always be at the end of drawing line in order to properly handle transparent drawing
+	if(root->GetChildren().back() != service_root)
+	{
+		root->RemoveChild(service_root);
+		root->AddChild(service_root);
+	}
 
 	FreeCameraScene::Update(sec);
 
@@ -96,9 +107,7 @@ void DemoScene::Update(float sec) {
 }
 
 void DemoScene::Save(const String& file) {
-	if(arrow && arrow->GetParent()) {
-		arrow->GetParent()->RemoveChild(arrow);
-	}
+	service_root->GetParent()->RemoveChild(service_root);
 	FreeCameraScene::Save(file);
 }
 
@@ -120,7 +129,7 @@ void DemoScene::DrawVector(const Vector3D& vec, const Vector3D& pos /* = zero */
 		ApplyMaterial(arrow, arrow_mat, false);
 	}
 	if(!arrow->GetParent()) {
-		AddEntity(arrow);
+		service_root->AddChild(arrow);
 	}
 	arrow->GetComponent<Transform>()->SetPosition(pos);
 	arrow->GetComponent<Transform>()->SetDirection(vec);
