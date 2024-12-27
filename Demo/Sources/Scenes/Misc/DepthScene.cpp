@@ -29,7 +29,7 @@ void DepthScene::Start(){
 
 	SetAmbientColor(Color(0.1f));
 
-	shader = new Shader("Shaders/depth_test.vert", "Shaders/depth_test.frag");
+	shader = new Shader("Shaders/DepthTest.vert", "Shaders/DepthTest.frag");
 	shader->AddProperty("Far", "uFar", 30.f);
 	shader->AddProperty("Near", "uNear", 0.1f);
 	shader->Compile();
