@@ -48,9 +48,13 @@ void SceneView::PreUpdate() {
 }
 
 void SceneView::Update(float sec) {
+	DemoScene* scene = static_cast<DemoScene*>(demo->GetCurrentScene());
+
 	if(game->GetCurrentScene()) {
 		for(Entity* child : game->GetCurrentScene()->GetRoot()->GetChildren()) {
-			BuildNode(child);
+			if(child != scene->service_root) {
+				BuildNode(child);
+			}
 		}
 	} else {
 		selected_entity = nullptr;
@@ -64,8 +68,7 @@ void SceneView::Update(float sec) {
 
 	ContextMenu();
 
-	if(selected_entity && selected_entity->HasComponent<Transform>()) {
-		DemoScene* scene = static_cast<DemoScene*>(demo->GetCurrentScene());
+	if(selected_entity && selected_entity->HasComponent<Transform>() && !selected_entity->HasComponent<Camera>()) {
 		Transform* transform = selected_entity->GetComponent<Transform>();
 		scene->DrawVector(transform->GetWorldDirection(), transform->GetWorldPosition());
 	}

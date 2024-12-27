@@ -23,6 +23,9 @@ using namespace cross;
 
 class DemoScene : public FreeCameraScene {
 public:
+	//Service entities will not be shown on SceneView and will be remove before scene saving
+	Entity* service_root = nullptr;
+
 	virtual void Start() override;
 	virtual void Stop() override;
 	virtual void Update(float sec) override;
@@ -34,8 +37,8 @@ public:
 
 private:
 	const float camera_speed = 5.f;
-
 	const String ArrowModelFile = "Models/Arrow.fbx";
+
 	bool draw_vector = false;
 	Entity* arrow = nullptr;
 	Material* arrow_mat = nullptr;
