@@ -1,4 +1,4 @@
 <Shader>
-    <Vertex filename="Engine/Shaders/Sources/UI.vtx"/>
-    <Fragment filename="Engine/Shaders/Sources/UI.fgm"/>
+    <Vertex filename="Engine/Shaders/Sources/UI.vert"/>
+    <Fragment filename="Engine/Shaders/Sources/UI.frag"/>
 </Shader>

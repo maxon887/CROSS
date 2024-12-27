@@ -32,7 +32,7 @@ Skybox::Skybox(Cubemap* cubemap) :
 	box = game->GetCurrentScene()->LoadPrimitive(Model::Primitive::CUBE);
 	box->GetTransform()->SetScale(game->GetCurrentScene()->GetCamera()->GetViewDistance());
 
-	shader = new Shader("Engine/Shaders/Sources/Skybox.vtx", "Engine/Shaders/Sources/Skybox.fgm");
+	shader = new Shader("Engine/Shaders/Sources/Skybox.vert", "Engine/Shaders/Sources/Skybox.frag");
 	
 	shader->AddProperty("Cubemap", "uCubemap", cubemap);
 	String MVPPropertyString = "Custom MVP";

@@ -1,6 +1,6 @@
 <Shader>
-	<Vertex filename="Engine/Shaders/Sources/Light.vtx"/>
-	<Fragment filename="Engine/Shaders/Sources/Light.fgm"/>
+	<Vertex filename="Engine/Shaders/Sources/MultiLight.vert"/>
+	<Fragment filename="Engine/Shaders/Sources/MultiLight.frag"/>
 	<Properties>
 		<Property name="Transparency" glName="uTransparency" type="Float"/>
 		<Property name="Diffuse Color" glName="uDiffuseColor" type="Color"/>

@@ -24,7 +24,7 @@
 using namespace cross;
 
 LightsShader::LightsShader() :
-	LightsShader("Engine/Shaders/Sources/Light.vtx", "Engine/Shaders/Sources/Light.fgm")
+	LightsShader("Engine/Shaders/Sources/MultiLight.vert", "Engine/Shaders/Sources/MultiLight.frag")
 { }
 
 LightsShader::LightsShader(const String& vert, const String& frag) :
