@@ -39,7 +39,9 @@ void SpotLightScene::Start(){
 	light->AddComponent(lightComponent);
 	AddEntity(light);
 
-	shader = new SingleLightShader("Shaders/spot_light.vert", "Shaders/spot_light.frag");
+	shader = new SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
+	shader->AddMacro("SPOT_LIGHT");
+	shader->AddMacro("POINT_OR_SPOT_LIGHT");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");

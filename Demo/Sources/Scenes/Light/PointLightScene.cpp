@@ -34,7 +34,9 @@ void PointLightScene::Start(){
 	light->AddComponent(new Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = new SingleLightShader("Shaders/point_light.vert", "Shaders/point_light.frag");
+	shader = new SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
+	shader->AddMacro("POINT_LIGHT");
+	shader->AddMacro("POINT_OR_SPOT_LIGHT");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");
