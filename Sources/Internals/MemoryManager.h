@@ -15,11 +15,16 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#ifdef CROSS_MEMORY_PROFILE
 
-#define CROSS_ALLOC(size) MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__)
-#define CROSS_REALLOC(pointer, size) MemoryManager::Instance()->ReAlloc(pointer, size, __FILE__, __LINE__)
-#define CROSS_FREE(pointer) MemoryManager::Instance()->Free(pointer)
+void* StaticAlloc(cross::S64 size, char* filename, cross::U64 line);
+void* StaticReAlloc(void* pointer, cross::S64 size, char* filename, cross::U64 line);
+void StaticFree(void* pointer);
+
+#define CROSS_ALLOC(size) StaticAlloc(size, __FILE__, __LINE__)
+#define CROSS_REALLOC(pointer, size) StaticReAlloc(pointer, size, __FILE__, __LINE__)
+#define CROSS_FREE(pointer) StaticFree(pointer)
+
+#ifdef CROSS_MEMORY_PROFILE
 
 void* operator new(size_t size);
 void* operator new(size_t size, char* filename, cross::U64 line);
@@ -69,15 +74,5 @@ private:
 };
 
 }
-
-#else
-
-void* StaticAlloc(cross::S64 size);
-void* StaticReAlloc(void* pointer, cross::S64 size);
-void StaticFree(void* pointer);
-
-#define CROSS_ALLOC(size) StaticAlloc(size)
-#define CROSS_REALLOC(pointer, size) StaticReAlloc(pointer, size)
-#define CROSS_FREE(pointer) StaticFree(pointer)
 
 #endif

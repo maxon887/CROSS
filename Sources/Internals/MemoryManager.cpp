@@ -244,14 +244,34 @@ void MemoryManager::Log(const char* msg, ...) {
 	va_end(params);
 }
 
+void* StaticAlloc(cross::S64 size, char* filename, U64 line) {
+	mut.lock();
+	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
+	mut.unlock();
+	return result;
+}
+
+void* StaticReAlloc(void* pointer, cross::S64 size, char* filename, U64 line) {
+	mut.lock();
+	void* result = MemoryManager::Instance()->ReAlloc(pointer, size, filename, line);
+	mut.unlock();
+	return result;
+}
+void StaticFree(void* pointer) {
+	mut.lock();
+	MemoryManager::Instance()->Free(pointer);
+	mut.unlock();
+}
+
+
 #else
 #include <stdlib.h>
 
-void* StaticAlloc(cross::S64 size) {
+void* StaticAlloc(cross::S64 size, char* filename, cross::U64 line) {
 	return malloc((cross::Size)size);
 }
 
-void* StaticReAlloc(void* pointer, cross::S64 size) {
+void* StaticReAlloc(void* pointer, cross::S64 size, char* filename, cross::U64 line) {
 	return realloc(pointer, (cross::Size)size);
 }
 void StaticFree(void* pointer) {
