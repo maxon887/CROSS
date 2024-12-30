@@ -50,6 +50,16 @@ String File::FileWithoutExtension(const String& filename) {
 	return filename.SubString(0, filename.FindLast('.'));
 }
 
+String File::FromAbsoluteToAssetPath(const String &absolutePath) {
+	const String assetFolder = "Assets/";
+	String result = absolutePath;
+	S32 foundAssetFolder = absolutePath.Find(assetFolder);
+	CROSS_RETURN(foundAssetFolder > 0, String(), "This path does not contain Assets folder");
+	result.Cut(foundAssetFolder, result.Length());
+	result.Remove(assetFolder);
+	return result;
+}
+
 File::~File() {
 	if(data){
 		delete[] data;

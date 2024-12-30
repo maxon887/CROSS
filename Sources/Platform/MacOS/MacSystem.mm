@@ -150,6 +150,42 @@ void MacSystem::Sleep(float milis) {
 	usleep(milis * 1000.f);
 }
 
+String MacSystem::OpenFileDialog(const String& extension, bool saveDialog) {
+	NSURL* fileURL = [[NSURL alloc] init];
+	if(!saveDialog) {
+		NSOpenPanel* openDialog = [NSOpenPanel openPanel];
+		[openDialog setCanChooseFiles:YES];
+		[openDialog setAllowsMultipleSelection:NO];
+		[openDialog setCanChooseDirectories:NO];
+		
+		String shortExtension = extension.SubString(2, 5);
+		NSString* nsExtension = [NSString stringWithCString:shortExtension];
+		NSArray* fileTypes = [NSArray arrayWithObjects:nsExtension,nil];
+		[openDialog setAllowedFileTypes:fileTypes];
+		if([openDialog runModal] == NSOKButton) {
+			NSArray* urls = [openDialog URLs];
+			if([urls count] > 0) {
+				fileURL = [urls objectAtIndex:0];
+				if(fileURL.absoluteString.length > 0) {
+					String result = [fileURL fileSystemRepresentation];
+					result = File::FromAbsoluteToAssetPath(result);
+					return result;
+				}
+			}
+		}
+	} else {
+		NSSavePanel* openDialog = [NSSavePanel savePanel];
+		if([openDialog runModal] == NSOKButton) {
+			fileURL = [openDialog URL];
+			if(fileURL.absoluteString.length > 0) {
+				String result = [fileURL fileSystemRepresentation];
+				return result;
+			}
+		}
+	}
+	return String();
+}
+
 void MacSystem::SetScreenDPI(float newDPI) {
     dpi = newDPI;
 }

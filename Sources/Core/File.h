@@ -31,6 +31,8 @@ public:
 	static String ExtensionFromFile(const String& file);
 	/* Returns raw file name without extension (ex "log" for "log.txt") */
 	static String FileWithoutExtension(const String& file);
+	/* Returns path staring from Assets folder */
+	static String FromAbsoluteToAssetPath(const String& absolutePath);
 
 	~File();
 
