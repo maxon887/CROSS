@@ -4,22 +4,18 @@ project(Demo)
 
 set (CMAKE_CXX_STANDARD 11)
 
-include_directories(../../../Sources)
-include_directories(../../../Sources/Core)
 include_directories(../../../Sources/Internals)
-include_directories(../../../Sources/Libs)
-include_directories(../../../Demo/Sources)
+
 
 file(GLOB_RECURSE CROSS_SRC ../../../Sources/*.*)
 list(FILTER CROSS_SRC EXCLUDE REGEX "../../../Sources/Platform/.*" )
 
-file(GLOB_RECURSE DEMO_SRC ../../../Demo/Sources/*.*)
-list(FILTER DEMO_SRC EXCLUDE REGEX "../../../Demo/Sources/ThirdParty/ImGui/.*" )
-
-file(GLOB IMGUI_SRC ../../../Demo/Sources/ThirdParty/ImGui/*.cpp)
+#file(GLOB_RECURSE DEMO_SRC ../../../Demo/Sources/*.*)
+#list(FILTER DEMO_SRC EXCLUDE REGEX "../../../Demo/Sources/ThirdParty/ImGui/.*" )
+#
+#file(GLOB IMGUI_SRC ../../../Demo/Sources/ThirdParty/ImGui/*.cpp)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Sources" FILES ${CROSS_SRC})
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/../../../Demo/Sources" FILES ${DEMO_SRC})
 
 if (APPLE OR WIN32)
 	find_package(OpenGL REQUIRED)
