@@ -221,6 +221,9 @@ GLFWmonitor* GetMonitorForWindow(GLFWwindow* window) {
 }
 
 int main(int c,char **args) {
+#ifdef CROSS_MEMORY_PROFILE
+	cross::MemoryManager::dead = false;
+#endif
     cross::os = new MacSystem(args[0]);
 
     if(!glfwInit()) {
@@ -293,4 +296,9 @@ int main(int c,char **args) {
     delete gfxGL;
     delete audio;
     delete cross::os;
+	
+#ifdef CROSS_MEMORY_PROFILE
+	cross::MemoryManager::Instance()->Dump();
+	cross::MemoryManager::dead = false;
+#endif
 }

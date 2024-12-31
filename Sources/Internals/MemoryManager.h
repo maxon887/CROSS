@@ -35,12 +35,14 @@ void operator delete(void* p, char* filename, cross::U64 line);
 void operator delete[](void* p) noexcept;
 void operator delete[](void* p, char* filename, cross::U64 line);
 
-#define new new(__FILE__, __LINE__)
+//#define new new(__FILE__, __LINE__)
 
 namespace cross{
 
 class MemoryManager {
 public:
+	static bool dead;
+	
 	static MemoryManager* Instance();
 	void* Alloc(U64 size, const char* filename, U64 line);
 	void* ReAlloc(void* pointer, U64 size, const char* filename, U64 line);
@@ -58,7 +60,6 @@ private:
 	};
 
 	static const U64 check_code;
-	static bool dead;
 	static MemoryManager instance;
 
 	U64 object_count;

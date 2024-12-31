@@ -99,7 +99,7 @@ MemoryManager* MemoryManager::Instance() {
 MemoryManager::MemoryManager():
 	object_count(0)
 {
-	dead = false;
+	//dead = false;
 	capacity = START_MEMORY_OBJECTS_ARRAY_CAPACITY;
 	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * (Size)capacity);
 }
