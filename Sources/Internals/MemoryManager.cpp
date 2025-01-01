@@ -36,6 +36,8 @@ using namespace cross;
 
 std::mutex mut;
 
+#ifdef CROSS_GLOBAL_MEMORY_PROFILE
+
 void* operator new(size_t size) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
@@ -87,6 +89,8 @@ void operator delete[](void* p, char* filename, U64 line) {
 	MemoryManager::Instance()->Free(p);
 	mut.unlock();
 }
+
+#endif
 
 const U64				MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;
@@ -185,7 +189,7 @@ U64 MemoryManager::Dump() {
 		totalBytes += alloc_objects[i].size;
 	}
 	if(totalBytes != 0) {
-		Log("Memory leak detected(%llu bytes)\n", totalBytes);
+		Log("Memory leak detected. Total - %llu bytes\n", totalBytes);
 		assert(false);
 	} else {
 		Log("No memory leak detected\n");
@@ -213,7 +217,6 @@ void MemoryManager::SanityCheck() {
 				alloc_objects[i].filename,
 				alloc_objects[i].line);
 			count++;
-			assert(false);
 		}
 	}
 	if(count != 0) {
@@ -240,6 +243,8 @@ void MemoryManager::Log(const char* msg, ...) {
 	vsprintf(buffer, msg, params);
 #ifdef WIN
 	OutputDebugStringA(buffer);
+#else
+	printf(buffer);
 #endif
 	va_end(params);
 }

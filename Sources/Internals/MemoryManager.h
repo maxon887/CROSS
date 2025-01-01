@@ -26,6 +26,8 @@ void StaticFree(void* pointer);
 
 #ifdef CROSS_MEMORY_PROFILE
 
+#ifdef CROSS_GLOBAL_MEMORY_PROFILE
+
 void* operator new(size_t size);
 void* operator new(size_t size, char* filename, cross::U64 line);
 void* operator new[](size_t size);
@@ -34,6 +36,8 @@ void operator delete(void* p) noexcept;
 void operator delete(void* p, char* filename, cross::U64 line);
 void operator delete[](void* p) noexcept;
 void operator delete[](void* p, char* filename, cross::U64 line);
+
+#endif
 
 //#define new new(__FILE__, __LINE__)
 

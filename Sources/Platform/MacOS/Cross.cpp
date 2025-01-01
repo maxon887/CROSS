@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Screen.h"
 #include "Config.h"
+#include "Utils/Debugger.h"
 
 #include <iostream>
 
@@ -296,6 +297,7 @@ int main(int c,char **args) {
     delete gfxGL;
     delete audio;
     delete cross::os;
+	cross::Debugger::Release();
 	
 #ifdef CROSS_MEMORY_PROFILE
 	cross::MemoryManager::Instance()->Dump();
