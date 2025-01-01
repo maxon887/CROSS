@@ -6,6 +6,8 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
+#include <string>
+
 using namespace cross;
 
 const char* long_names[] = {
