@@ -221,7 +221,7 @@ GLFWmonitor* GetMonitorForWindow(GLFWwindow* window) {
     return nullptr;
 }
 
-int main(int c,char **args) {
+int main(int c, char **args) {
 #ifdef CROSS_MEMORY_PROFILE
 	cross::MemoryManager::dead = false;
 #endif
@@ -243,7 +243,7 @@ int main(int c,char **args) {
 	glfwSetScrollCallback(window, GLFWScrollCallback);
 	glfwSetKeyCallback(window, GLFWKeyCallback);
 	glfwSetCharCallback(window, GLFWCharCallback);
-    
+
     glfwMakeContextCurrent(window);
 
     audio = new Audio();
@@ -274,7 +274,7 @@ int main(int c,char **args) {
     macSystem->SetScreenDPI(dpi);
 
     game->Start();
-    
+
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
         game->EngineUpdate();

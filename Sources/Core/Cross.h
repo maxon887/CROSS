@@ -50,6 +50,9 @@ if(!(condition)) {																\
 #include <cstdint>
 #include <cassert>
 #include <cstdlib>
+#include <list>
+#include <map>
+#include <set>
 
 namespace cross {
 	typedef int8_t		S8;
@@ -72,10 +75,6 @@ namespace cross {
 
 #include "Math/All.h"
 #include "Color.h"
-
-#include <list>
-#include <map>
-#include <set>
 
 namespace cross{
 

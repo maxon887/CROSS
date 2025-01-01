@@ -1,8 +1,10 @@
 #include "MacSystem.h"
 
 #include "File.h"
-
+#pragma push_macro("new")
+#undef new
 #import <Cocoa/Cocoa.h>
+#pragma pop_macro("new")
 
 #include <sys/time.h>
 #include <sys/stat.h>

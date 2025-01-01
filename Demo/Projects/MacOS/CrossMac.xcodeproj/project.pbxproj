@@ -1342,6 +1342,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					OPENGL,
+					CROSS_MEMORY_PROFILE,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Sources/",

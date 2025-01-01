@@ -45,13 +45,6 @@ void* operator new(size_t size) {
 	return result;
 }
 
-void* operator new(size_t size, char* filename, U64 line) {
-	mut.lock();
-	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
-	mut.unlock();
-	return result;
-}
-
 void* operator new[](size_t size) {
 	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
@@ -59,38 +52,24 @@ void* operator new[](size_t size) {
 	return result;
 }
 
+#endif
+
+void* operator new(size_t size, char* filename, U64 line) {
+	return MemoryManager::Instance()->Alloc(size, filename, line);
+}
+
 void* operator new[](size_t size, char* filename, U64 line) {
-	mut.lock();
-	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
-	mut.unlock();
-	return result;
+	return MemoryManager::Instance()->Alloc(size, filename, line);
 }
 
 void operator delete(void* p) noexcept {
-	mut.lock();
 	MemoryManager::Instance()->Free(p);
-	mut.unlock();
-}
-
-void operator delete(void* p, char* filename, U64 line) {
-	mut.lock();
-	MemoryManager::Instance()->Free(p);
-	mut.unlock();
 }
 
 void operator delete[](void* p) noexcept {
-	mut.lock();
 	MemoryManager::Instance()->Free(p);
-	mut.unlock();
 }
 
-void operator delete[](void* p, char* filename, U64 line) {
-	mut.lock();
-	MemoryManager::Instance()->Free(p);
-	mut.unlock();
-}
-
-#endif
 
 const U64				MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;
@@ -103,18 +82,18 @@ MemoryManager* MemoryManager::Instance() {
 MemoryManager::MemoryManager():
 	object_count(0)
 {
-	//dead = false;
 	capacity = START_MEMORY_OBJECTS_ARRAY_CAPACITY;
 	alloc_objects = (MemoryObject*)malloc(sizeof(MemoryObject) * (Size)capacity);
 }
 
 MemoryManager::~MemoryManager() {
+	free(alloc_objects);
 	dead = true;
 }
 
 void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 	if(!dead) {
-
+		mut.lock();
 		if(object_count > capacity - 1) {
 			capacity *= 2;
 			alloc_objects = (MemoryObject*)realloc(alloc_objects, sizeof(MemoryObject) * (Size)capacity);
@@ -131,6 +110,7 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 		temp += size;
 		memcpy(temp, &check_code, 4);
 
+		mut.unlock();
 		return alloc_objects[object_count++].address;
 	} else {
 		return malloc((Size)size);
@@ -139,16 +119,22 @@ void* MemoryManager::Alloc(U64 size, const char* filename, U64 line) {
 
 void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 line) {
 	if(!dead) {
+		mut.lock();
 		SanityCheck();
 
-		MemoryObject& obj = FindObject(pointer);
-		obj.address = realloc(pointer, (Size)(size + 4));
-		obj.filename = filename;
-		obj.size = size;
+		MemoryObject* obj = FindObject(pointer);
+		if(!obj)
+		{
+			Log("Can not find memory object");
+			assert(false);//we also could rearrange new block of memory
+		}
+		obj->address = realloc(pointer, (Size)(size + 4));
+		obj->filename = filename;
+		obj->size = size;
 
-		memcpy((char*)obj.address + size, &check_code, 4);
-
-		return obj.address;
+		memcpy((char*)obj->address + size, &check_code, 4);
+		mut.unlock();
+		return obj->address;
 	} else {
 		return realloc(pointer, (Size)size);
 	}
@@ -156,8 +142,10 @@ void* MemoryManager::ReAlloc(void* pointer, U64 size, const char* filename, U64 
 
 void MemoryManager::Free(void* address) {
 	if(!dead) {
+		mut.lock();
 		SanityCheck();
 		if(address == nullptr) {
+			mut.unlock();
 			return;
 		}
 		for(U64 i = 0; i < object_count; i++) {
@@ -167,10 +155,16 @@ void MemoryManager::Free(void* address) {
 					memcpy(alloc_objects + i, alloc_objects + object_count - 1, sizeof(MemoryObject));
 				}
 				object_count--;
+				mut.unlock();
 				return;
 			}
 		}
+#ifdef CROSS_GLOBAL_MEMORY_PROFILE
 		assert(false && "Attempt to delete bad pointer\n");
+#else
+		free(address);
+#endif
+		mut.unlock();
 	} else {
 		free(address);
 	}
@@ -225,15 +219,13 @@ void MemoryManager::SanityCheck() {
 	}
 }
 
-MemoryManager::MemoryObject& MemoryManager::FindObject(void* address) {
+MemoryManager::MemoryObject* MemoryManager::FindObject(void* address) {
 	for(U64 i = 0; i < object_count; ++i) {
 		if(alloc_objects[i].address == address) {
-			return alloc_objects[i];
+			return &alloc_objects[i];
 		}
 	}
-	assert(false && "Can not find memory object");
-	static MemoryObject bad_object;
-	return bad_object;
+	return nullptr;
 }
 
 void MemoryManager::Log(const char* msg, ...) {
@@ -250,22 +242,16 @@ void MemoryManager::Log(const char* msg, ...) {
 }
 
 void* StaticAlloc(cross::S64 size, char* filename, U64 line) {
-	mut.lock();
 	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
-	mut.unlock();
 	return result;
 }
 
 void* StaticReAlloc(void* pointer, cross::S64 size, char* filename, U64 line) {
-	mut.lock();
 	void* result = MemoryManager::Instance()->ReAlloc(pointer, size, filename, line);
-	mut.unlock();
 	return result;
 }
 void StaticFree(void* pointer) {
-	mut.lock();
 	MemoryManager::Instance()->Free(pointer);
-	mut.unlock();
 }
 
 

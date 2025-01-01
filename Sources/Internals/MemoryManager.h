@@ -29,17 +29,16 @@ void StaticFree(void* pointer);
 #ifdef CROSS_GLOBAL_MEMORY_PROFILE
 
 void* operator new(size_t size);
-void* operator new(size_t size, char* filename, cross::U64 line);
 void* operator new[](size_t size);
-void* operator new[](size_t size, char* filename, cross::U64 line);
-void operator delete(void* p) noexcept;
-void operator delete(void* p, char* filename, cross::U64 line);
-void operator delete[](void* p) noexcept;
-void operator delete[](void* p, char* filename, cross::U64 line);
 
 #endif
 
-//#define new new(__FILE__, __LINE__)
+void* operator new(size_t size, char* filename, cross::U64 line);
+void* operator new[](size_t size, char* filename, cross::U64 line);
+void operator delete(void* p) noexcept;
+void operator delete[](void* p) noexcept;
+
+#define new new(__FILE__, __LINE__)
 
 namespace cross{
 
@@ -74,7 +73,7 @@ private:
 	~MemoryManager();
 
 	void SanityCheck();
-	MemoryObject& FindObject(void* address);
+	MemoryObject* FindObject(void* address);
 	void Log(const char* msg, ...);
 };
 

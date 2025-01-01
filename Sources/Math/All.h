@@ -23,7 +23,6 @@
 #include "Quaternion.h"
 
 #include <math.h>
-#include <sstream>
 
 #define PI (3.141592653589793f)
 
