@@ -16,8 +16,8 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 
-void* StaticAlloc(cross::S64 size, char* filename, cross::U64 line);
-void* StaticReAlloc(void* pointer, cross::S64 size, char* filename, cross::U64 line);
+void* StaticAlloc(cross::S64 size, const char* filename, cross::U64 line);
+void* StaticReAlloc(void* pointer, cross::S64 size, const char* filename, cross::U64 line);
 void StaticFree(void* pointer);
 
 #define CROSS_ALLOC(size) StaticAlloc(size, __FILE__, __LINE__)
@@ -33,8 +33,8 @@ void* operator new[](size_t size);
 
 #endif
 
-void* operator new(size_t size, char* filename, cross::U64 line);
-void* operator new[](size_t size, char* filename, cross::U64 line);
+void* operator new(size_t size, const char* filename, cross::U64 line);
+void* operator new[](size_t size, const char* filename, cross::U64 line);
 void operator delete(void* p) noexcept;
 void operator delete[](void* p) noexcept;
 

@@ -54,11 +54,11 @@ void* operator new[](size_t size) {
 
 #endif
 
-void* operator new(size_t size, char* filename, U64 line) {
+void* operator new(size_t size, const char* filename, U64 line) {
 	return MemoryManager::Instance()->Alloc(size, filename, line);
 }
 
-void* operator new[](size_t size, char* filename, U64 line) {
+void* operator new[](size_t size, const char* filename, U64 line) {
 	return MemoryManager::Instance()->Alloc(size, filename, line);
 }
 
@@ -241,12 +241,12 @@ void MemoryManager::Log(const char* msg, ...) {
 	va_end(params);
 }
 
-void* StaticAlloc(cross::S64 size, char* filename, U64 line) {
+void* StaticAlloc(cross::S64 size, const char* filename, U64 line) {
 	void* result = MemoryManager::Instance()->Alloc(size, filename, line);
 	return result;
 }
 
-void* StaticReAlloc(void* pointer, cross::S64 size, char* filename, U64 line) {
+void* StaticReAlloc(void* pointer, cross::S64 size, const char* filename, U64 line) {
 	void* result = MemoryManager::Instance()->ReAlloc(pointer, size, filename, line);
 	return result;
 }
