@@ -258,11 +258,11 @@ void StaticFree(void* pointer) {
 #else
 #include <stdlib.h>
 
-void* StaticAlloc(cross::S64 size, char* filename, cross::U64 line) {
+void* StaticAlloc(cross::S64 size, const char* filename, cross::U64 line) {
 	return malloc((cross::Size)size);
 }
 
-void* StaticReAlloc(void* pointer, cross::S64 size, char* filename, cross::U64 line) {
+void* StaticReAlloc(void* pointer, cross::S64 size, const char* filename, cross::U64 line) {
 	return realloc(pointer, (cross::Size)size);
 }
 void StaticFree(void* pointer) {
