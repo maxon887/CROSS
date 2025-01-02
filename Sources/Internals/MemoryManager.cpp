@@ -36,24 +36,6 @@ using namespace cross;
 
 std::mutex mut;
 
-#ifdef CROSS_GLOBAL_MEMORY_PROFILE
-
-void* operator new(size_t size) {
-	mut.lock();
-	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
-	mut.unlock();
-	return result;
-}
-
-void* operator new[](size_t size) {
-	mut.lock();
-	void* result = MemoryManager::Instance()->Alloc(size, __FILE__, __LINE__);
-	mut.unlock();
-	return result;
-}
-
-#endif
-
 void* operator new(size_t size, const char* filename, U64 line) {
 	return MemoryManager::Instance()->Alloc(size, filename, line);
 }
