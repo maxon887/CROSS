@@ -44,6 +44,10 @@ void ShowLastError() {
 }
 
 int OpenGL_Main() {
+#ifdef CROSS_MEMORY_PROFILE
+	MemoryManager::dead = false;
+#endif // CROSS_MEMORY_PROFILE
+
 	HWND wnd = WinCreate();
 	MSG msg;
 
@@ -111,13 +115,14 @@ int OpenGL_Main() {
 	}
 	game->GetCurrentScreen()->Stop();
 	game->Stop();
-	Debugger::Release();
 	delete gfxGL;
 	delete game;
 	delete audio;
 	delete os;
+	Debugger::Release();
 #ifdef CROSS_MEMORY_PROFILE
 	MemoryManager::Instance()->Dump();
+	MemoryManager::dead = true;
 #endif // CROSS_MEMORY_PROFILE
 	return (int)msg.wParam;
 }

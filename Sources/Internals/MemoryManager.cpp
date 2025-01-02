@@ -70,6 +70,14 @@ void operator delete[](void* p) noexcept {
 	MemoryManager::Instance()->Free(p);
 }
 
+void operator delete(void* p, const char* filename, cross::U64 line) {
+	MemoryManager::Instance()->Free(p);
+}
+
+void operator delete[](void* p, const char* filename, cross::U64 line) {
+	MemoryManager::Instance()->Free(p);
+}
+
 
 const U64				MemoryManager::check_code	= 0x12345678;
 bool					MemoryManager::dead			= true;

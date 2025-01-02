@@ -37,6 +37,8 @@ void* operator new(size_t size, const char* filename, cross::U64 line);
 void* operator new[](size_t size, const char* filename, cross::U64 line);
 void operator delete(void* p) noexcept;
 void operator delete[](void* p) noexcept;
+void operator delete(void* p, const char* filename, cross::U64 line);
+void operator delete[](void* p, const char* filename, cross::U64 line);
 
 #define new new(__FILE__, __LINE__)
 

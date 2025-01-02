@@ -33,6 +33,9 @@ using namespace cross;
 CrossEGL* crossEGL = nullptr;
 
 int GLES_Main(){
+#ifdef CROSS_MEMORY_PROFILE
+	MemoryManager::dead = false;
+#endif // CROSS_MEMORY_PROFILE
 
 	crossEGL = new CrossEGL();
 	crossEGL->BindWindow(WinCreate());
@@ -73,16 +76,17 @@ int GLES_Main(){
 
 	game->GetCurrentScreen()->Stop();
 	game->Stop();
-	Debugger::Release();
 	delete gfxGL;
 	crossEGL->DestroyContext(true);
 	delete crossEGL;
 	delete audio;
 	delete game;
 	delete cross::os;
+	Debugger::Release();
 #ifdef CROSS_MEMORY_PROFILE
 	MemoryManager::Instance()->Dump();
-#endif
+	MemoryManager::dead = true;
+#endif // CROSS_MEMORY_PROFILE
 	return 0;
 }
 

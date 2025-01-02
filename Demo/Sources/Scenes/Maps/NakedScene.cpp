@@ -58,5 +58,5 @@ void NakedScene::Stop() {
 
 void NakedScene::Update(float sec) {
 	DemoScene::Update(sec);
-	light->GetTransform()->SetPosition(Vector3D(cos(game->GetRunTime() / 2.f)*3.f, 2.f, sin(game->GetRunTime() / 2.f)*3.f));
+	light->GetTransform()->SetPosition(Vector3D(cosf(game->GetRunTime() / 2.f)*3.f, 2.f, sinf(game->GetRunTime() / 2.f)*3.f));
 }
