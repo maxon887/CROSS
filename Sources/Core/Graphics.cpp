@@ -16,8 +16,13 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics.h"
 #include "System.h"
+#include "Game.h"
+#include "Scene.h"
+#include "Entity.h"
 #include "Factory.h"
 #include "File.h"
+#include "Mesh.h"
+#include "Material.h"
 #include "Shaders/Shader.h"
 #include "Shaders/SingleLightShader.h"
 
@@ -34,6 +39,24 @@ Graphics::Graphics()
 
 Graphics::~Graphics() {
 	delete shader_factory;
+}
+
+void Graphics::Start() {
+	game->ScreenChanged.Connect(this, &Graphics::OnScreenChanged);
+}
+
+void Graphics::Stop() {
+
+}
+
+void Graphics::Update()
+{
+	for(Mesh* mesh : opaque_meshes) {
+		mesh->Draw();
+	}
+	for(Mesh* mesh : transparent_meshes) {
+		mesh->Draw();
+	}
 }
 
 Shader* Graphics::LoadShader(const String& shaderfile) {
@@ -86,4 +109,35 @@ Shader* Graphics::LoadShader(const String& shaderfile) {
 	}
 
 	return shader;
+}
+
+void Graphics::OnScreenChanged(Screen* newScreen)
+{
+	opaque_meshes.Clear();
+	transparent_meshes.Clear();
+	Scene* newScene = dynamic_cast<Scene*>(newScreen);
+	if(newScene) {
+		newScene->EntityAdded.Connect(this, &Graphics::OnEntityAdded);
+		FindAllMeshes(newScene->GetRoot());
+	}
+}
+
+void Graphics::OnEntityAdded(Entity* newEntity)
+{
+	FindAllMeshes(newEntity);
+}
+
+void Graphics::FindAllMeshes(Entity* entity)
+{
+	Mesh* mesh = entity->GetComponent<Mesh>();
+	if(mesh) {
+		if(mesh->GetMaterial()->IsTransparent()) {
+			transparent_meshes.Add(mesh);
+		} else {
+			opaque_meshes.Add(mesh);
+		}
+	}
+	for(Entity* child : entity->GetChildren()) {
+		FindAllMeshes(child);
+	}
 }

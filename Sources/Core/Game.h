@@ -36,13 +36,13 @@ public:
 	virtual ~Game();
 
 	/* Called once when core modules initialized. Before first Screen()::Start() function. */
-	virtual void Start() { }
+	virtual void Start();
 	/* Called once before release all engine resources */
-	virtual void Stop() { }
+	virtual void Stop();
 	/* Called before regular Game::Update() */
 	virtual void PreUpdate(float sec) { }
 	/* Called every frame update. This Update will be called in any game Screen */
-	virtual void Update(float sec) { }
+	virtual void Update(float sec);
 	/* Called after regular Game::Update() */
 	virtual void PostUpdate(float sec) { }
 	/* Called when game needs to be paused. For example input call or window lost focus */

@@ -58,6 +58,18 @@ Game::~Game() {
 	delete gfx;
 }
 
+void Game::Start() {
+	gfx->Start();
+}
+
+void Game::Stop() {
+	gfx->Stop();
+}
+
+void Game::Update(float sec) {
+	gfx->Update();
+}
+
 void Game::SetScreen(Screen* screen) {
 	next_screen = screen;
 	if(!current_screen) {	//in this case we need instantly load new screen
@@ -160,10 +172,11 @@ void Game::LoadNextScreen() {
 
 	current_screen = next_screen;
 	next_screen = nullptr;
-	current_screen->Start();
 
 	timestamp = os->GetTime();
-	float loadTime = Debugger::Instance()->GetTimeCheck();
-	os->LogIt("Screen(#) loaded in #ms", current_screen == nullptr? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
 	ScreenChanged.Emit(current_screen);
+	current_screen->Start();
+
+	float loadTime = Debugger::Instance()->GetTimeCheck();
+	os->LogIt("Screen(#) loaded in #ms", current_screen == nullptr ? "" : current_screen->GetName(), String(loadTime, "%0.1f", 10));
 }

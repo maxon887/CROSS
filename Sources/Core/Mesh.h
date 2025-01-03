@@ -41,8 +41,6 @@ public:
 	~Mesh();
 
 	void Initialize(Scene* scene) override;
-	/* Will be drawn on update */
-	void Update(float sec) override;
 	/* Creates new Mesh from this Mesh's data */
 	Mesh* Clone() const override;
 	/* Enables Mesh Component for drawing */

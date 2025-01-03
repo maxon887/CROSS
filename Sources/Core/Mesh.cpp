@@ -68,10 +68,6 @@ void Mesh::Initialize(Scene* scene) {
 	}
 }
 
-void Mesh::Update(float sec) {
-	Draw();
-}
-
 Mesh* Mesh::Clone() const {
 	Mesh* mesh = CREATE Mesh();
 	mesh->Copy(this);
