@@ -32,8 +32,6 @@ using namespace cross;
 #   include "Windows.h"
 #endif
 
-#undef new
-
 std::mutex mut;
 
 void* operator new(size_t size, const char* filename, U64 line) {

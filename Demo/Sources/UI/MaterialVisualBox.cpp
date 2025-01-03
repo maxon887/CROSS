@@ -72,7 +72,7 @@ void MaterialVisualBox::Update() {
 							prop.GetValue().texture = game->GetCurrentScene()->GetTexture(textureFilename);
 						} else {
 							delete texture;
-							texture = new Texture();
+							texture = CREATE Texture();
 							texture->Load(textureFilename);
 							prop.GetValue().texture = texture;
 						}
@@ -112,7 +112,7 @@ void MaterialVisualBox::OnFileSelected(String filename) {
 			mat = scene->GetMaterial(filename);
 			loaded_from_scene = true;
 		} else {
-			mat = new Material();
+			mat = CREATE Material();
 			bool success = mat->Load(filename, nullptr);
 			loaded_from_scene = false;
 			if(!success) {

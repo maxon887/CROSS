@@ -349,7 +349,7 @@ float ArrayTestView::IterrationStdFunc(const std::vector<S32>& integers) {
 void ArrayTest::Start() {
 	demo->GetMenuBar()->CloseAllViews();
 
-	view = new ArrayTestView();
+	view = CREATE ArrayTestView();
 	view->Show();
 }
 

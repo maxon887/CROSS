@@ -51,7 +51,7 @@ int OpenGL_Main() {
 	HWND wnd = WinCreate();
 	MSG msg;
 
-	WINSystem* winSys = new WINSystem(wnd);
+	WINSystem* winSys = CREATE WINSystem(wnd);
 	os = winSys;
 	game = CrossMain();
 
@@ -99,8 +99,8 @@ int OpenGL_Main() {
 
 	ShowWindow(wnd, TRUE);
 
-	audio = new Audio();
-	gfxGL = new GraphicsGL();
+	audio = CREATE Audio();
+	gfxGL = CREATE GraphicsGL();
 	game->Start();
 
 	ZeroMemory(&msg, sizeof(MSG));

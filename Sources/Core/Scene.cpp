@@ -35,8 +35,8 @@ using namespace tinyxml2;
 
 Scene::Scene()
 {
-	root = new Entity("Root");
-	root->AddComponent(new Transform(), this);
+	root = CREATE Entity("Root");
+	root->AddComponent(CREATE Transform(), this);
 }
 
 void Scene::Start() {
@@ -268,7 +268,7 @@ Material* Scene::GetMaterial(const String& xmlFile) {
 	if(matIt != materials.end()) {
 		return (*matIt).second;
 	} else {
-		Material* mat = new Material();
+		Material* mat = CREATE Material();
 		bool success = mat->Load(xmlFile, this);
 		if(success) {
 			materials[hash] = mat;
@@ -290,7 +290,7 @@ Texture* Scene::GetTexture(const String& textureFile) {
 	if(textureIt != textures.end()) {
 		return (*textureIt).second;
 	} else {
-		Texture* texture = new Texture();
+		Texture* texture = CREATE Texture();
 		texture->Load(textureFile);
 		textures[hash] = texture;
 		return texture;
@@ -302,7 +302,7 @@ Texture* Scene::GetTexture(const String& textureFile, Texture::Filter filter) {
 	auto textureIt = textures.find(hash);
 	CROSS_RETURN(textureIt == textures.end(), nullptr, "Texture already loaded. Can't load it second time");
 
-	Texture* texture = new Texture();
+	Texture* texture = CREATE Texture();
 	texture->Load(textureFile, filter);
 	textures[hash] = texture;
 	return texture;
@@ -314,7 +314,7 @@ Model* Scene::GetModel(const String& modelFile, bool calcTangents /* = false*/) 
 	if(modelIt != models.end()) {
 		return (*modelIt).second;
 	} else {
-		Model* model = new Model();
+		Model* model = CREATE Model();
 		bool success = model->Load(modelFile, calcTangents);
 		if(success) {
 			models[hash] = model;
@@ -339,7 +339,7 @@ void Scene::SetAmbientColor(const Color& color) {
 bool Scene::LoadEntity(Entity* parent, XMLElement* objectXML) {
 	const char* name = objectXML->Attribute("name");
 	CROSS_RETURN(name, false, "Attribute 'name' not contain in Entity node");
-	Entity* entity = new Entity(name);
+	Entity* entity = CREATE Entity(name);
 	parent->AddChild(entity);
 
 	XMLElement* componentsXML = objectXML->FirstChildElement("Components");
@@ -397,10 +397,10 @@ void Scene::OnWindowResize(S32 width, S32 height){
 }
 
 void Scene::CreateDefaultCamera() {
-	Entity* camEntity = new Entity("Camera");
-	Transform* transComp = new Transform(Vector3D(0.f, 0.f, -2.f));
+	Entity* camEntity = CREATE Entity("Camera");
+	Transform* transComp = CREATE Transform(Vector3D(0.f, 0.f, -2.f));
 	transComp->SetDirection(Vector3D(0.f, 0.f, 1.f));
-	Camera* camComp = new Camera();
+	Camera* camComp = CREATE Camera();
 	Matrix projection = Matrix::CreatePerspectiveProjection(45.f, os->GetAspectRatio(), 0.1f, 100.f);
 	camComp->SetProjectionMatrix(projection);
 	camEntity->AddComponent(transComp);

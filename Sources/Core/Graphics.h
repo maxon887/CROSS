@@ -31,6 +31,8 @@ public:
 	Shader* LoadShader(const String& shaderfile);
 
 private:
+	Array<Mesh*> opaque_meshes;
+	Array<Mesh*> transparent_meshes;
 	Factory<Shader>* shader_factory = nullptr;
 };
 

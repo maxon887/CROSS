@@ -56,8 +56,6 @@ private:
 };
 
 //implementation
-#pragma push_macro("new")
-#undef new
 
 template<class T>
 Array<T>::Array()
@@ -216,7 +214,5 @@ void Array<T>::Copy(const Array<T>& other) {
 	//	Add(other[i]);
 	//}
 }
-
-#pragma pop_macro("new")
 
 }

@@ -30,14 +30,14 @@ void TransparencyScene::Start(){
 	SetAmbientColor(Color(0.15f));
 
 	//lights
-	Light* lightComponent = new Light(Light::Type::POINT);
+	Light* lightComponent = CREATE Light(Light::Type::POINT);
 	lightComponent->SetIntensity(0.01f);
-	light = new Entity("PointLight");
-	light->AddComponent(new Transform());
+	light = CREATE Entity("PointLight");
+	light->AddComponent(CREATE Transform());
 	light->AddComponent(lightComponent);
 	AddEntity(light);
 
-	road_shader = new LightsShader();
+	road_shader = CREATE LightsShader();
 	road_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	road_shader->AddMacro("USE_DIFFUSE_MAP");
 	road_shader->AddMacro("USE_TILLING_FACTOR");
@@ -48,7 +48,7 @@ void TransparencyScene::Start(){
 	road_shader->Compile();
 	Texture* roadDiffuse = GetTexture("Textures/RoadDiffuse.png");
 	roadDiffuse->SetTilingMode(Texture::TilingMode::REPEAT);
-	road_mat = new Material(road_shader);
+	road_mat = CREATE Material(road_shader);
 	road_mat->SetPropertyValue("Diffuse Texture", roadDiffuse);
 	road_mat->SetPropertyValue("Tilling Factor", 3.f);
 	Entity* road = LoadPrimitive(Model::Primitive::PLANE);
@@ -56,7 +56,7 @@ void TransparencyScene::Start(){
 	road->GetTransform()->SetScale(15.f);
 	AddEntity(road);
 
-	grass_shader = new LightsShader();
+	grass_shader = CREATE LightsShader();
 	grass_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	grass_shader->AddMacro("USE_DIFFUSE_MAP");
 	grass_shader->AddMacro("USE_CUTOUT");
@@ -65,7 +65,7 @@ void TransparencyScene::Start(){
 	grass_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	grass_shader->Compile();
 	Entity* grass = LoadPrimitive(Model::Primitive::PLANE);
-	grass_mat = new Material(grass_shader);
+	grass_mat = CREATE Material(grass_shader);
 	grass_mat->SetPropertyValue("Diffuse Texture", GetTexture("Textures/GrassDiffuse.png"));
 	grass_mat->EnableTransparency(true);
 	grass->GetComponent<Mesh>()->SetMaterial(grass_mat);
@@ -81,14 +81,14 @@ void TransparencyScene::Start(){
 		AddEntity(clone);
 	}
 
-	sphere_shader = new LightsShader();
+	sphere_shader = CREATE LightsShader();
 	sphere_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	sphere_shader->AddProperty("Color", "uDiffuseColor", Color::Blue);
 	sphere_shader->AddProperty("Specular", "uSpecular", 0.5f);
 	sphere_shader->AddProperty("Shininess", "uShininess", 0.5f * 128.f);
 	sphere_shader->Compile();
 
-	sphere_mat = new Material(sphere_shader);
+	sphere_mat = CREATE Material(sphere_shader);
 	sphere_mat->SetPropertyValue("Transparency", 0.5f);
 	sphere_mat->EnableTransparency(true);
 

@@ -28,25 +28,25 @@ void DirectionalLightScene::Start(){
 
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -8.f));
 
-	Entity* light = new Entity("DirectionalLight");
-	light->AddComponent(new Transform(Vector3D(0.f, 0.f, 1.f)));
-	light->AddComponent(new Light(Light::Type::POINT));
+	Entity* light = CREATE Entity("DirectionalLight");
+	light->AddComponent(CREATE Transform(Vector3D(0.f, 0.f, 1.f)));
+	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = new SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
+	shader = CREATE SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
 	shader->AddMacro("DIRECT_LIGHT");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
-	material = new Material(shader);
+	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));
 	material->SetPropertyValue("Specular Map", GetTexture("Textures/ContainerSpecular.png"));
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
-	Entity* cubes = new Entity("Cubes");
-	cubes->AddComponent(new Transform());
+	Entity* cubes = CREATE Entity("Cubes");
+	cubes->AddComponent(CREATE Transform());
 	AddEntity(cubes);
 	for(U32 i = 0; i < 10; ++i){
 		Entity* clone = cube->Clone();

@@ -74,5 +74,5 @@ bool Sound::IsPlaying() const {
 }
 
 Sound* Sound::Clone() const {
-	return new Sound(*this);
+	return CREATE Sound(*this);
 }

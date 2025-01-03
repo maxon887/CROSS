@@ -53,7 +53,7 @@ void Light::SetColor(const Color& color) {
 }
 
 Light* Light::Clone() const {
-	return new Light(*this);
+	return CREATE Light(*this);
 }
 
 Light::Type Light::GetType() const {

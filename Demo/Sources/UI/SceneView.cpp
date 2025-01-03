@@ -181,7 +181,7 @@ void SceneView::ContextMenu() {
 	if(ImGui::BeginPopupContextWindow("SceneOptions")) {
 		bool haveScene = game->GetCurrentScene() != nullptr;
 		if(ImGui::MenuItem("New Entity", nullptr, false, haveScene)) {
-			Entity* newEntity = new Entity("NewEntity");
+			Entity* newEntity = CREATE Entity("NewEntity");
 			game->GetCurrentScene()->AddEntity(newEntity);
 		}
 		bool entitySelected = haveScene && selected_entity != nullptr;

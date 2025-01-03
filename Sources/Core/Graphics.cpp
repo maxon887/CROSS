@@ -26,8 +26,9 @@
 using namespace cross;
 using namespace tinyxml2;
 
-Graphics::Graphics() {
-	shader_factory = new Factory<Shader>();
+Graphics::Graphics()
+{
+	shader_factory = CREATE Factory<Shader>();
 	shader_factory->Register<SingleLightShader>("SingleLightShader");
 }
 
@@ -52,7 +53,7 @@ Shader* Graphics::LoadShader(const String& shaderfile) {
 		const char* classname = classXML->Attribute("name");
 		shader = shader_factory->Create(classname);
 	} else {
-		shader = new Shader();
+		shader = CREATE Shader();
 	}
 	shader->SetFilename(shaderfile);
 

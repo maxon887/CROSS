@@ -37,11 +37,11 @@ int GLES_Main(){
 	MemoryManager::dead = false;
 #endif // CROSS_MEMORY_PROFILE
 
-	crossEGL = new CrossEGL();
+	crossEGL = CREATE CrossEGL();
 	crossEGL->BindWindow(WinCreate());
 
 	srand((U32)time(0));
-	WINSystem* winSys = new WINSystem(crossEGL->GetWindow());
+	WINSystem* winSys = CREATE WINSystem(crossEGL->GetWindow());
 	cross::os = winSys;
 	game = CrossMain();
 	input->KeyReleased.Connect(winSys, &WINSystem::KeyReleasedHandle);
@@ -56,8 +56,8 @@ int GLES_Main(){
 
 	ShowWindow(crossEGL->GetWindow(), TRUE);
 
-	audio = new Audio();
-	gfxGL = new GraphicsGL();
+	audio = CREATE Audio();
+	gfxGL = CREATE GraphicsGL();
 	game->Start();
 
 	MSG msg;

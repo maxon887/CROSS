@@ -93,5 +93,5 @@ void VertexBuffer::Free() {
 }
 
 VertexBuffer* VertexBuffer::Clone() const {
-	return new VertexBuffer(*this);
+	return CREATE VertexBuffer(*this);
 }

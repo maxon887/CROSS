@@ -178,7 +178,7 @@ Shader::Property::Value& Shader::Property::GetValue() {
 }
 
 Shader::Property* Shader::Property::Clone() const {
-	return new Shader::Property(*this);
+	return CREATE Shader::Property(*this);
 }
 
 GLint Shader::Property::GetID() const {
@@ -455,7 +455,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 		GLsizei len;
 		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
 
-		char* log = new char[len + 1];
+		char* log = CREATE char[len + 1];
 		glGetShaderInfoLog(handle, len, &len, log);
 		CROSS_RETURN(false, 0, "Shader: #\n#Shader", file->name, log);
 	} else {
@@ -463,7 +463,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 		GLsizei len;
 		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &len);
 		if(len > 1){
-			char* log = new char[len + 1];
+			char* log = CREATE char[len + 1];
 			glGetShaderInfoLog(handle, len, &len, log);
 			log[len] = 0;
 			CROSS_ASSERT(false, "Shader compilation:\n#", log);
@@ -483,7 +483,7 @@ void Shader::CompileProgram() {
 		GLsizei len;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
 
-		char* log = new char[len + 1];
+		char* log = CREATE char[len + 1];
 		glGetProgramInfoLog(program, len, &len, log);
 		CROSS_FAIL(false, "Shader program compilation failed:\n #", log);
 	}

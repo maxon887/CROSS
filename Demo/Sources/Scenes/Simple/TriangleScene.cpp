@@ -26,7 +26,7 @@ void TriangleScene::Start(){
 
 	Material* material = GetMaterial("Materials/SimpleRed.mat");
 
-	VertexBuffer* vertexBuffer = new VertexBuffer();
+	VertexBuffer* vertexBuffer = CREATE VertexBuffer();
 
 	Vector3D verticesData[3];
 	verticesData[0].x = 0.0f;  verticesData[0].y = 1.f;  verticesData[0].z = 0.0f;
@@ -40,7 +40,7 @@ void TriangleScene::Start(){
 	indices.Add(1);
 	indices.Add(2);
 
-	Mesh* triangle = new Mesh();
+	Mesh* triangle = CREATE Mesh();
 	triangle->PushData(vertexBuffer, indices);
 	triangle->InitializeVideoData();
 	triangle->SetMaterial(material);
@@ -48,8 +48,8 @@ void TriangleScene::Start(){
 	
 	delete vertexBuffer;
 
-	Entity* entity = new Entity("Triangle");
-	entity->AddComponent(new Transform());
+	Entity* entity = CREATE Entity("Triangle");
+	entity->AddComponent(CREATE Transform());
 	entity->AddComponent(triangle);
 	AddEntity(entity);
 }

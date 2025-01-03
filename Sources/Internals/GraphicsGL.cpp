@@ -25,7 +25,7 @@ using namespace cross;
 void GraphicsGL::CheckGLError(const char* file, U32 line) {
 	GLenum err = glGetError();
 	while(err != GL_NO_ERROR) {
-		char* error = new char[255];
+		char* error = CREATE char[255];
 		switch(err) {
 		case GL_INVALID_OPERATION:	
 			strcpy(error, "INVALID_OPERATION");	  

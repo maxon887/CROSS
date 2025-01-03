@@ -49,7 +49,7 @@ bool Model::Load(const String& filename, bool calcTangents, bool initializeVideo
 	initialize_video = initializeVideoData;
 	mesh_id = 0;
 	this->filename = filename;
-	Entity* root = new Entity("ModelRoot");
+	Entity* root = CREATE Entity("ModelRoot");
 	hierarchy = root;
 	File* file = os->LoadAssetFile(filename);
 	CROSS_RETURN(file, false, "Can not load model file");
@@ -108,7 +108,7 @@ bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 void Model::ProcessNode(Entity* entity, aiNode* node) {
 	Matrix modelMat = Matrix::Zero;
 	memcpy(modelMat.m, &node->mTransformation.a1, sizeof(float) * 16);
-	Transform* transform = new Transform();
+	Transform* transform = CREATE Transform();
 	transform->SetPosition(modelMat.GetTranslation());
 	transform->SetScale(modelMat.GetScale());
 	transform->SetRotate(modelMat.GetRotation());
@@ -123,7 +123,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 	}
 
 	for(U32 i = 0; i < node->mNumChildren; ++i) {
-		Entity* child = new Entity(node->mChildren[i]->mName.C_Str());
+		Entity* child = CREATE Entity(node->mChildren[i]->mName.C_Str());
 		child->SetParent(entity);
 		ProcessNode(child, node->mChildren[i]);
 		entity->AddChild(child);
@@ -131,7 +131,7 @@ void Model::ProcessNode(Entity* entity, aiNode* node) {
 }
 
 Mesh* Model::ProcessMesh(aiMesh* mesh) {
-	VertexBuffer* vertexBuffer = new VertexBuffer();
+	VertexBuffer* vertexBuffer = CREATE VertexBuffer();
 	if(mesh->mTextureCoords[0]) {
 		vertexBuffer->UVEnabled(true);
 	}
@@ -172,7 +172,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh) {
 		}
 	}
 	os->LogIt("\tMesh loaded with # polygons and # bytes consumed", mesh->mNumFaces, vertexBuffer->GetDataSize());
-	Mesh* crsMesh = new Mesh(filename, mesh_id);
+	Mesh* crsMesh = CREATE Mesh(filename, mesh_id);
 	crsMesh->PushData(vertexBuffer, indices);
 	delete vertexBuffer;
 	if(initialize_video) {

@@ -64,12 +64,12 @@ void LaunchView::PreUpdate() {
 void LaunchView::Update(float sec) {
 	if(ImGui::CollapsingHeader("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
 		if(ImGui::Button("New Scene", ImVec2(-1, 0))) {
-			Scene* scene = new DemoScene();
+			Scene* scene = CREATE DemoScene();
 			game->SetScreen(scene);
 		}
 		if(ImGui::TreeNode("Simple")) {
 			if(ImGui::MenuButton("Triangle")) {
-				game->SetScreen(new TriangleScene());
+				game->SetScreen(CREATE TriangleScene());
 			}
 			if(ImGui::MenuButton("Solid Model")) {
 				const String filename = "Scenes/Cube.scn";
@@ -87,49 +87,49 @@ void LaunchView::Update(float sec) {
 		}
 		if(ImGui::TreeNode("Light")) {
 			if(ImGui::MenuButton("Material")) {
-				game->SetScreen(new MaterialScene());
+				game->SetScreen(CREATE MaterialScene());
 			}
 			if(ImGui::MenuButton("Directional Light")) {
-				game->SetScreen(new DirectionalLightScene());
+				game->SetScreen(CREATE DirectionalLightScene());
 			}
 			if(ImGui::MenuButton("Point Light")) {
-				game->SetScreen(new PointLightScene());
+				game->SetScreen(CREATE PointLightScene());
 			}
 			if(ImGui::MenuButton("Spot Light")) {
-				game->SetScreen(new SpotLightScene());
+				game->SetScreen(CREATE SpotLightScene());
 			}
 			if(ImGui::MenuButton("Multi-Light")) {
-				game->SetScreen(new MultiLightScene());
+				game->SetScreen(CREATE MultiLightScene());
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Maps")) {
 			if(ImGui::MenuButton("Naked")) {
-				game->SetScreen(new NakedScene());
+				game->SetScreen(CREATE NakedScene());
 			}
 			if(ImGui::MenuButton("Diffuse")) {
-				game->SetScreen(new DiffuseScene());
+				game->SetScreen(CREATE DiffuseScene());
 			}
 			if(ImGui::MenuButton("Specular")) {
-				game->SetScreen(new SpecularScene());
+				game->SetScreen(CREATE SpecularScene());
 			}
 			if(ImGui::MenuButton("Roughness")) {
-				game->SetScreen(new RoughnessScene());
+				game->SetScreen(CREATE RoughnessScene());
 			}
 			if(ImGui::MenuButton("Normal")) {
-				game->SetScreen(new NormalScene());
+				game->SetScreen(CREATE NormalScene());
 			}
 			ImGui::TreePop();
 		}
 		if(ImGui::TreeNode("Misc")) {
 			if(ImGui::MenuButton("Depth Test")) {
-				game->SetScreen(new DepthScene());
+				game->SetScreen(CREATE DepthScene());
 			}
 			if(ImGui::MenuButton("Transparency")) {
-				game->SetScreen(new TransparencyScene());
+				game->SetScreen(CREATE TransparencyScene());
 			}
 			if(ImGui::MenuButton("Skybox")) {
-				game->SetScreen(new SkyboxScene());
+				game->SetScreen(CREATE SkyboxScene());
 			}
 			ImGui::TreePop();
 		}
@@ -140,20 +140,20 @@ void LaunchView::Update(float sec) {
 		cursorPos.x += ImGui::GetStyle().IndentSpacing;
 		ImGui::SetCursorPos(cursorPos);
 		if(ImGui::MenuButton("String Test")) {
-			game->SetScreen(new StringTest());
+			game->SetScreen(CREATE StringTest());
 		}
 		cursorPos = ImGui::GetCursorPos();
 		cursorPos.x += ImGui::GetStyle().IndentSpacing;
 		ImGui::SetCursorPos(cursorPos);
 		if(ImGui::MenuButton("Array Test")) {
-			game->SetScreen(new ArrayTest());
+			game->SetScreen(CREATE ArrayTest());
 		}
 	}
 	if(ImGui::Button("Audio", ImVec2(-1, 0))) {
-		game->SetScreen(new AudioScreen());
+		game->SetScreen(CREATE AudioScreen());
 	}
 	if(ImGui::Button("GUI", ImVec2(-1, 0))) {
-		game->SetScreen(new ImGuiScreen());
+		game->SetScreen(CREATE ImGuiScreen());
 	}
 }
 
@@ -165,7 +165,7 @@ void LaunchView::PostUpdate() {
 }
 
 bool LaunchView::LoadScene(const String& filename) {
-	DemoScene* scene = new DemoScene();
+	DemoScene* scene = CREATE DemoScene();
 	if(scene->Load(filename)) {
 		game->SetScreen(scene);
 		return true;

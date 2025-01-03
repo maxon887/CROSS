@@ -111,7 +111,7 @@ bool Material::Load(const String& filename, Scene* scene) {
 						Texture* texture = scene->GetTexture(textureFilename);
 						prop->SetValue(texture);
 					} else {
-						Texture* texture = new Texture();
+						Texture* texture = CREATE Texture();
 						texture->Load(textureFilename);
 						prop->SetValue(texture);
 					}
@@ -313,7 +313,7 @@ void Material::EnableTransparency(bool yes) {
 }
 
 Material* Material::Clone() const {
-	return new Material(*this);
+	return CREATE Material(*this);
 }
 
 void Material::SetName(const String& name) {

@@ -29,12 +29,12 @@ void RoughnessScene::Start(){
 	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
 	FreeCameraScene::LookAtTarget(Vector3D(0.f, 0.3f, 0.f));
 	//lights
-	light = new Entity("Point Light");
-	light->AddComponent(new Transform());
-	light->AddComponent(new Light(Light::Type::POINT));
+	light = CREATE Entity("Point Light");
+	light->AddComponent(CREATE Transform());
+	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = new LightsShader();
+	shader = CREATE LightsShader();
 	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
@@ -46,7 +46,7 @@ void RoughnessScene::Start(){
 	shader->AddProperty("Shininess Multiplier", "uShininessMultiplier", 64.f);
 	shader->Compile();
 
-	material = new Material(shader);
+	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Models/Camaro/Diffuse.png"));
 	material->SetPropertyValue("Specular Map", GetTexture("Models/Camaro/Specular.png"));
 	material->SetPropertyValue("Shininess Map", GetTexture("Models/Camaro/Shininess.png"));

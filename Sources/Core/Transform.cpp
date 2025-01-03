@@ -30,7 +30,7 @@ Transform::Transform(const Vector3D& position) : Component("Transform") {
 }
 
 Component* Transform::Clone() const {
-	Transform* result = new Transform();
+	Transform* result = CREATE Transform();
 	result->position = this->position;
 	result->scale = this->scale;
 	result->rotation = this->rotation;

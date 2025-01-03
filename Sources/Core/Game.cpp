@@ -40,10 +40,10 @@ Config*		cross::config	= nullptr;
 
 Game::Game() {
 	os->LogIt("Game::Game()");
-	gfx = new Graphics();
-	input = new Input();
-	config = new Config();
-	component_factory = new Factory<Component>();
+	gfx = CREATE Graphics();
+	input = CREATE Input();
+	config = CREATE Config();
+	component_factory = CREATE Factory<Component>();
 	component_factory->Register<Transform>("Transform");
 	component_factory->Register<Mesh>("Mesh");
 	component_factory->Register<Camera>("Camera");

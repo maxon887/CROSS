@@ -47,8 +47,8 @@ void DemoScene::Start() {
 		OnOrientationChanged(System::Orientation::PORTRAIT);
 	}
 
-	service_root = new Entity("ServiceRoot");
-	service_root->AddComponent(new Transform());
+	service_root = CREATE Entity("ServiceRoot");
+	service_root->AddComponent(CREATE Transform());
 	AddEntity(service_root);
 }
 

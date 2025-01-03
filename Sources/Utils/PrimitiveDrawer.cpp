@@ -95,7 +95,7 @@ void PrimitiveDrawer::DrawCircle(const Vector2D& center, float radius, Color& co
 	U32 vertexCount = accuracy;
 
 	// Create a buffer for vertex data
-	float* buffer = new float[vertexCount * 2];
+	float* buffer = CREATE float[vertexCount * 2];
 	U32 idx = 0;
 
 	// Center vertex for triangle fan

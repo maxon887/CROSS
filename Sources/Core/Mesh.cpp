@@ -73,7 +73,7 @@ void Mesh::Update(float sec) {
 }
 
 Mesh* Mesh::Clone() const {
-	Mesh* mesh = new Mesh();
+	Mesh* mesh = CREATE Mesh();
 	mesh->Copy(this);
 	return mesh;
 }

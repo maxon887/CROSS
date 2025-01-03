@@ -32,12 +32,12 @@ File* System::LoadFile(const String& filename) {
 	FILE* f = fopen(filename.ToCStr(), "rb");
 	CROSS_RETURN(f, nullptr, "Can not open file '#'\nerror code - #\nDescription - #",
 					filename.ToCStr(), errno, strerror(errno));
-	File* file = new File();
+	File* file = CREATE File();
 	file->name = filename;
 	fseek(f, 0, SEEK_END);
 	file->size = (U32)ftell(f);
 	fseek(f, 0, SEEK_SET);
-	file->data = new Byte[(Size)file->size];
+	file->data = CREATE Byte[(Size)file->size];
 	U64 read = fread(file->data, sizeof(Byte), (Size)file->size, f);
 	CROSS_ASSERT(file->size == read, "File # not read properly", file->name.ToCStr());
 	fclose(f);

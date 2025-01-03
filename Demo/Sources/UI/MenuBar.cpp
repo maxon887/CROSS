@@ -33,11 +33,11 @@
 #include "ThirdParty/ImGui/imgui.h"
 
 MenuBar::MenuBar() {
-	CameraController* cameraController = new CameraController();
-	FilesView* filesView = new FilesView();
-	SceneView* sceneView = new SceneView();
-	ComponentsView* componentsView = new ComponentsView(sceneView);
-	PropertiesView* propertiesView = new PropertiesView(filesView);
+	CameraController* cameraController = CREATE CameraController();
+	FilesView* filesView = CREATE FilesView();
+	SceneView* sceneView = CREATE SceneView();
+	ComponentsView* componentsView = CREATE ComponentsView(sceneView);
+	PropertiesView* propertiesView = CREATE PropertiesView(filesView);
 	views.Add(filesView);
 	views.Add(sceneView);
 	views.Add(componentsView);
@@ -49,9 +49,9 @@ MenuBar::MenuBar() {
 		}
 	}
 
-	log = new Log();
-	stats = new Stats();
-	about = new About();
+	log = CREATE Log();
+	stats = CREATE Stats();
+	about = CREATE About();
 }
 
 MenuBar::~MenuBar() {
@@ -93,14 +93,14 @@ void MenuBar::ShowMenu() {
 
 		if(ImGui::BeginMenu("File")) {
 			if(ImGui::MenuItem("New Scene")) {
-				Scene* scene = new DemoScene();
+				Scene* scene = CREATE DemoScene();
 				game->SetScreen(scene);
 			}
 
 			if(ImGui::MenuItem("Open Scene")) {
 				String sceneFile = os->OpenFileDialog("*.scn");
 				if(sceneFile != "") {
-					Scene* scene = new DemoScene();
+					Scene* scene = CREATE DemoScene();
 					if(!scene->Load(sceneFile)) {
 						delete scene;
 						CROSS_ASSERT(false, "Can not load scene file, sorry");

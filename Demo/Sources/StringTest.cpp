@@ -406,7 +406,7 @@ float StringTestView::ReplaceStdString() {
 void StringTest::Start() {
 	demo->GetMenuBar()->CloseAllViews();
 
-	view = new StringTestView();
+	view = CREATE StringTestView();
 	view->Show();
 }
 

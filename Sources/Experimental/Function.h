@@ -99,14 +99,14 @@ Function<Ret(Input...)>::operator bool() const {
 template<class Ret, class... Input>
 template<class Lambda>
 void Function<Ret(Input...)>::Init(const Lambda& other) {
-	lambda = new Lambda(other);
+	lambda = CREATE Lambda(other);
 
 	executer = [](void* lamb, Input... args) -> Ret {
 		return ((Lambda*)lamb)->operator()(args...);
 	};
 
 	copier = [](void* source) -> void* {
-		return new Lambda(*(Lambda*)source);
+		return CREATE Lambda(*(Lambda*)source);
 	};
 
 	deleter = [](void* lamb) {

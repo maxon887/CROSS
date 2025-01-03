@@ -180,7 +180,7 @@ void Texture::Save(const String& filename) {
 	File file;
 	file.name = filename;
 	file.size = GetWidth() * GetHeight() * GetChannels();
-	file.data = new Byte[(Size)file.size * GetChannels()];
+	file.data = CREATE Byte[(Size)file.size * GetChannels()];
 	SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)GetID()));
 	SAFE(glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, file.data));
 	SAFE(glBindTexture(GL_TEXTURE_2D, 0));
@@ -250,7 +250,7 @@ void Texture::AddMipmapLevel(U32 level, U32 dataLen, Byte* data, U32 w, U32 h, T
 }
 
 Texture* Texture::Clone() const{
-	return new Texture(*this);
+	return CREATE Texture(*this);
 }
 
 void Texture::LoadRAW(const String& filename, Texture::Filter filter) {
@@ -283,7 +283,7 @@ void Texture::LoadKTX(const String& filename, Texture::Filter filter) {
 	memcpy(&imageSize, file->data + offset, sizeof(U32));
 	offset += sizeof(U32);
 
-	Byte* imageData = new Byte[imageSize];
+	Byte* imageData = CREATE Byte[imageSize];
 	memcpy(imageData, file->data + offset, imageSize);
 	offset += imageSize;
 

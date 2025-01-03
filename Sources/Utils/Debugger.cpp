@@ -23,7 +23,7 @@ Debugger* Debugger::instance = nullptr;
 
 Debugger* Debugger::Instance() {
 	if(!instance) {
-		instance = new Debugger();
+		instance = CREATE Debugger();
 	}
 	return instance;
 }

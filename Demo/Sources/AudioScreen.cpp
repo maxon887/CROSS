@@ -10,9 +10,9 @@ using namespace cross;
 
 void AudioScreen::Start(){
 	Screen::Start();
-	bck_music = new Sound("Audio/Music.mp3", true, true);
-	jaguar = new Sound("Audio/Jaguar.wav", false, false);
-	truck = new Sound("Audio/Truck.wav", true, false);
+	bck_music = CREATE Sound("Audio/Music.mp3", true, true);
+	jaguar = CREATE Sound("Audio/Jaguar.wav", false, false);
+	truck = CREATE Sound("Audio/Truck.wav", true, false);
 }
 
 void AudioScreen::Stop(){

@@ -29,12 +29,12 @@ void DiffuseScene::Start(){
 	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
 	FreeCameraScene::LookAtTarget(Vector3D(0.f, 0.3f, 0.f));
 	//lights
-	light = new Entity("PointLight");
-	light->AddComponent(new Transform());
-	light->AddComponent(new Light(Light::Type::POINT));
+	light = CREATE Entity("PointLight");
+	light->AddComponent(CREATE Transform());
+	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = new LightsShader();
+	shader = CREATE LightsShader();
 	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
@@ -42,7 +42,7 @@ void DiffuseScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
-	material = new Material(shader);
+	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Models/Camaro/Diffuse.png"));
 	material->SetPropertyValue("Specular", 2.f);
 	material->SetPropertyValue("Shininess", 64.f);

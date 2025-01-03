@@ -30,30 +30,30 @@ void SpotLightScene::Start(){
 	GetCamera()->SetPosition(Vector3D(-8.f, 0.f, -15.f));
 	GetCamera()->GetTransform()->LookAt(Vector3D::Zero);
 
-	Entity* light = new Entity("SpotLight");
-	light->AddComponent(new Transform());
-	Light* lightComponent = new Light(Light::Type::SPOT);
+	Entity* light = CREATE Entity("SpotLight");
+	light->AddComponent(CREATE Transform());
+	Light* lightComponent = CREATE Light(Light::Type::SPOT);
 	light->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -8.f));
 	light->GetTransform()->LookAt(Vector3D(0.f));
 	lightComponent->SetCutOff(20.f);
 	light->AddComponent(lightComponent);
 	AddEntity(light);
 
-	shader = new SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
+	shader = CREATE SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
 	shader->AddMacro("SPOT_LIGHT");
 	shader->AddMacro("POINT_OR_SPOT_LIGHT");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
-	material = new Material(shader);
+	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));
 	material->SetPropertyValue("Specular Map", GetTexture("Textures/ContainerSpecular.png"));
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
-	Entity* cubes = new Entity("Cubes");
-	cubes->AddComponent(new Transform());
+	Entity* cubes = CREATE Entity("Cubes");
+	cubes->AddComponent(CREATE Transform());
 	AddEntity(cubes);
 
 	for(U32 i = 0; i < 40; ++i){

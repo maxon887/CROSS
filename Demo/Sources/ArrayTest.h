@@ -9,10 +9,10 @@ using namespace cross;
 class Hard {
 public:
 	Hard() {
-		data = new char[data_size];
+		data = CREATE char[data_size];
 	}
 	Hard(const Hard& other) {
-		data = new char[data_size];
+		data = CREATE char[data_size];
 		memcpy(data, other.data, data_size);
 	}
 	Hard(Hard&& other) {

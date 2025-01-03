@@ -30,9 +30,9 @@ void MultiLightScene::Start(){
 	GetCamera()->SetPosition(Vector3D(0.f, 0.f, -30.f));
 
 	for(U32 i = 0; i < 8; ++i){
-		Entity* light = new Entity("PointLight_" + String(i));
-		light->AddComponent(new Transform());
-		Light* lightComponent = new Light(Light::Type::POINT);
+		Entity* light = CREATE Entity("PointLight_" + String(i));
+		light->AddComponent(CREATE Transform());
+		Light* lightComponent = CREATE Light(Light::Type::POINT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		lightComponent->SetColor(Color::Red);
 		light->AddComponent(lightComponent);
@@ -40,9 +40,9 @@ void MultiLightScene::Start(){
 	}
 
 	for(U32 i = 0; i < 1; ++i){
-		Entity* light = new Entity("DirectionalLight_" + String(i));
-		light->AddComponent(new Transform());
-		Light* lightComponent = new Light(Light::Type::DIRECTIONAL);
+		Entity* light = CREATE Entity("DirectionalLight_" + String(i));
+		light->AddComponent(CREATE Transform());
+		Light* lightComponent = CREATE Light(Light::Type::DIRECTIONAL);
 		light->GetTransform()->SetDirection(Vector3D(Random(-1.f, 1.f), Random(-1.f, 1.f), Random(-1.f, 1.f)));
 		lightComponent->SetColor(Color::Green);
 		light->AddComponent(lightComponent);
@@ -50,9 +50,9 @@ void MultiLightScene::Start(){
 	}
 
 	for(U32 i = 0; i < 4; ++i){
-		Entity* light = new Entity("SpotLight_" + String(i));
-		light->AddComponent(new Transform());
-		Light* lightComponent = new Light(Light::Type::SPOT);
+		Entity* light = CREATE Entity("SpotLight_" + String(i));
+		light->AddComponent(CREATE Transform());
+		Light* lightComponent = CREATE Light(Light::Type::SPOT);
 		light->GetTransform()->SetPosition(Vector3D(Random(-10.f, 10.f), Random(-10.f, 10.f), Random(-10.f, 10.f)));
 		light->GetTransform()->LookAt(Vector3D(0.f));
 		lightComponent->SetColor(Color::Blue);
@@ -60,7 +60,7 @@ void MultiLightScene::Start(){
 		AddEntity(light);
 	}
 
-	shader = new LightsShader();
+	shader = CREATE LightsShader();
 	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
@@ -69,14 +69,14 @@ void MultiLightScene::Start(){
 	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 
-	material = new Material(shader);
+	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));
 	material->SetPropertyValue("Specular Map", GetTexture("Textures/ContainerSpecular.png"));
 	material->SetPropertyValue("Shininess", 0.5f * 128.f);
 	cube = LoadPrimitive(Model::Primitive::CUBE);
 	cube->GetComponent<Mesh>()->SetMaterial(material);
-	Entity* cubes = new Entity("Cubes");
-	cubes->AddComponent(new Transform());
+	Entity* cubes = CREATE Entity("Cubes");
+	cubes->AddComponent(CREATE Transform());
 	AddEntity(cubes);
 	for(U32 i = 0; i < 50; ++i){
 		Entity* clone = cube->Clone();

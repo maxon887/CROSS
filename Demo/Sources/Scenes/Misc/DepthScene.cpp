@@ -29,17 +29,17 @@ void DepthScene::Start(){
 
 	SetAmbientColor(Color(0.1f));
 
-	shader = new Shader("Shaders/DepthTest.vert", "Shaders/DepthTest.frag");
+	shader = CREATE Shader("Shaders/DepthTest.vert", "Shaders/DepthTest.frag");
 	shader->AddProperty("Far", "uFar", 30.f);
 	shader->AddProperty("Near", "uNear", 0.1f);
 	shader->Compile();
 
-	car_mat = new Material(shader);
+	car_mat = CREATE Material(shader);
 	Entity* camaro = GetModel("Models/Camaro/Camaro.fbx")->GetHierarchy();
 	ApplyMaterial(camaro, car_mat);
 	AddEntity(camaro);
 	
-	road_mat = new Material(shader);
+	road_mat = CREATE Material(shader);
 	Entity* road = LoadPrimitive(Model::Primitive::PLANE);
 	road->GetTransform()->SetScale(15.f);
 	road->GetComponent<Mesh>()->SetMaterial(road_mat);

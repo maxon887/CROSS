@@ -41,7 +41,7 @@ private:
 template<class BaseClass>
 template<class AdvancedClass>
 void Factory<BaseClass>::Register(const String& name) {
-	functions.insert(std::make_pair(name, []() -> BaseClass* { return new AdvancedClass(); }));
+	functions.insert(std::make_pair(name, []() -> BaseClass* { return CREATE AdvancedClass(); }));
 }
 
 template<class BaseClass>

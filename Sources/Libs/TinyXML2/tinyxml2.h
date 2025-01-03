@@ -94,8 +94,6 @@ distribution.
 #   define TIXMLASSERT( x )               {}
 #endif
 
-#undef new
-
 /* Versioning, past 1.0.14:
 	http://semver.org/
 */

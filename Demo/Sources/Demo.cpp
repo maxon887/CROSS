@@ -61,7 +61,7 @@ const char* Demo::GetClipboardString(void* userData) {
 }
 
 Game* CrossMain() {
-    return new Demo();
+    return CREATE Demo();
 }
 
 void Demo::Start() {
@@ -127,8 +127,8 @@ void Demo::Start() {
 		style.GrabMinSize = 20 * os->GetScreenScale();
 	}
 
-	menu = new MenuBar();
-	launch_view = new LaunchView();
+	menu = CREATE MenuBar();
+	launch_view = CREATE LaunchView();
 
 	ToMain();
 
@@ -190,7 +190,7 @@ void Demo::SetScreen(Screen* screen) {
 }
 
 void Demo::ToMain() {
-	Screen* mainScreen = new Screen();
+	Screen* mainScreen = CREATE Screen();
 	mainScreen->SetName("Main");
 	mainScreen->SetBackground(Color(0.3f));
 	SetScreen(mainScreen);
@@ -257,7 +257,7 @@ bool Demo::CreateFontsTexture() {
 	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 	os->LogIt("Creating font texture(#x#)", width, height);
-	font_texture = new Texture();
+	font_texture = CREATE Texture();
 	font_texture->Create(pixels, 4, width, height,
 		Texture::Filter::LINEAR,
 		Texture::Compression::NONE,

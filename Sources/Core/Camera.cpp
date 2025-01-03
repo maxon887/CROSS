@@ -39,7 +39,7 @@ void Camera::Update(float sec){
 }
 
 Component* Camera::Clone() const {
-	return new Camera(*this);
+	return CREATE Camera(*this);
 }
 
 float Camera::GetViewDistance() const {
