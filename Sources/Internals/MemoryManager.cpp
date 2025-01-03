@@ -147,11 +147,7 @@ void MemoryManager::Free(void* address) {
 				return;
 			}
 		}
-#ifdef CROSS_GLOBAL_MEMORY_PROFILE
-		assert(false && "Attempt to delete bad pointer\n");
-#else
 		free(address);
-#endif
 		mut.unlock();
 	} else {
 		free(address);
