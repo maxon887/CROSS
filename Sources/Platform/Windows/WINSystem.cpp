@@ -254,7 +254,7 @@ String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDia
 		return filepath;
 	}
 
-	return FromAbsoluteToAssetPath(filepath);
+	return File::FromAbsoluteToAssetPath(filepath);
 }
 
 void WINSystem::SetAssetPath(const String& path) {
@@ -333,24 +333,6 @@ void WINSystem::KeyReleasedHandle(Key key) {
 	default:
 		break;
 	}
-}
-
-String WINSystem::FromAbsoluteToAssetPath(const String& absolutePath) {
-	char currentDir[512];
-	GetCurrentDirectory(511, currentDir);
-
-	char pathToAssets[512];
-	String winAssetsPath = AssetsPath();
-		winAssetsPath.Replace("/", "\\");
-	PathCombine(pathToAssets, currentDir, winAssetsPath);
-
-	char relativePath[512];
-	PathRelativePathTo(relativePath, pathToAssets, FILE_ATTRIBUTE_DIRECTORY, absolutePath, FILE_ATTRIBUTE_NORMAL);
-
-	String result = relativePath;
-	result.Replace("\\", "/");
-	result.Remove("./");
-	return result;
 }
 
 String WINSystem::GetLastErrorString(DWORD err) {
