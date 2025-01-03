@@ -225,7 +225,7 @@ int main(int c, char **args) {
 #ifdef CROSS_MEMORY_PROFILE
 	cross::MemoryManager::dead = false;
 #endif
-    cross::os = new MacSystem(args[0]);
+    cross::os = CREATE MacSystem(args[0]);
 
     if(!glfwInit()) {
         cout<<"Failed to initialize GLFW"<<endl;
@@ -246,8 +246,8 @@ int main(int c, char **args) {
 
     glfwMakeContextCurrent(window);
 
-    audio = new Audio();
-    gfxGL = new GraphicsGL();
+    audio = CREATE Audio();
+    gfxGL = CREATE GraphicsGL();
     game = CrossMain();
 
 	int windowWidth = config->GetInt("WindowWidth", 800);
