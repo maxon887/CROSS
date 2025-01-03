@@ -52,6 +52,7 @@ File* AndroidSystem::LoadAssetFile(const String& filename) {
     AAsset* asset = AAssetManager_open(asset_manager, filename, AASSET_MODE_STREAMING);
     CROSS_RETURN(asset, NULL, "Can not open file #", filename);
     File* file = new File();
+    file->name = filename;
     file->size = AAsset_getLength(asset);
     file->data = new Byte[file->size];
     int read = AAsset_read(asset, file->data, file->size);

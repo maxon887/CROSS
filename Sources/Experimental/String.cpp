@@ -257,6 +257,7 @@ void String::Insert(S32 pos, const String& str) {
 
 String String::SubString(S32 first, S32 last) const {
 	S32 len = last - first;
+	CROSS_RETURN(len >= 0, String(), "Substring is less than 0");
 	String result("", len, len);
 	char* newData = result.ToCStr();
 	memcpy(newData, data + first, (Size)len);
