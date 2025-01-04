@@ -98,6 +98,7 @@ GraphicsGL::GraphicsGL() {
 
 	os->WindowResized.Connect(this, &GraphicsGL::WindowResizeHandle);
 
+	SAFE(glFrontFace(GL_CW));
 	SAFE(glCullFace(GL_FRONT));
 }
 

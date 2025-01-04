@@ -85,7 +85,7 @@ U32 Model::GetMeshesCount() const {
 bool Model::ProcessScene(Entity* root, File* file, bool calcTangents) {
 	Assimp::Importer importer;
 
-	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate;
+	unsigned int flags = aiProcess_JoinIdenticalVertices | aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_MakeLeftHanded;
 	if(calcTangents) {
 		flags |= aiProcess_CalcTangentSpace;
 	}
