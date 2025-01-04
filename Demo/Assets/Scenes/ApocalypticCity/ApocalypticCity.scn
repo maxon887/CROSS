@@ -2,14 +2,14 @@
     <Objects>
         <Object name="Camera">
             <Components>
+                <Transform>
+                    <Position type="Vector3D" x="6.0475998" y="0.91068316" z="1.2975748"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="-0.055010669" y="-0.23189898" z="0.013135258" w="0.97109431"/>
+                </Transform>
                 <Camera>
                     <ViewDistance type="Float" value="100"/>
                 </Camera>
-                <Transform>
-                    <Position type="Vector3D" x="2.6975598" y="2.6100976" z="1.7885327"/>
-                    <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="-0.067442663" y="0.92888677" z="-0.21111211" w="0.29673654"/>
-                </Transform>
             </Components>
         </Object>
         <Object name="ApocalypticCity">
@@ -269,7 +269,7 @@
                         <Mesh>
                             <ID type="Int" value="18"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
-                            <Material type="String" value="Engine/Default.mat"/>
+                            <Material type="String" value="\Scenes\ApocalypticCity\Materials\PlantFront.mat"/>
                         </Mesh>
                     </Components>
                 </Object>
