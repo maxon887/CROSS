@@ -18,12 +18,10 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Graphics.h"
-#include "System.h"
 #include "Light.h"
 #include "Entity.h"
 #include "Material.h"
 #include "Mesh.h"
-#include "Shaders/LightsShader.h"
 #include "File.h"
 #include "Transform.h"
 #include "Factory.h"
@@ -71,8 +69,7 @@ void Scene::Stop() {
 
 bool Scene::Load(const String& file) {
 	filename = file;
-	File* xmlFile = nullptr;
-	xmlFile = os->LoadAssetFile(file);
+	File* xmlFile = os->LoadAssetFile(file);
 	CROSS_RETURN(xmlFile, false, "Can not load scene xml file");
 	XMLDocument doc;
 	XMLError error = doc.Parse((const char*)xmlFile->data, (Size)xmlFile->size);
