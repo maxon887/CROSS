@@ -90,10 +90,6 @@ Texture::Filter Config::GetTextureFilter() const {
 	return texture_filter;
 }
 
-bool Config::IsOffscreenRender() const {
-	return offscreen_render;
-}
-
 const String& Config::GetString(const String& key) const {
 	auto entry = user_prefs.find(key);
 	if(entry != user_prefs.end()) {
@@ -128,10 +124,6 @@ void Config::LoadGameConfig() {
 
 		if(name == "TextureFilter") {
 			texture_filter = Texture::StringToFilter(strValue);
-		}
-
-		if(name == "OffscreenRender") {
-			offscreen_render = strValue == "true";
 		}
 
 		element = element->NextSiblingElement("Property");
@@ -184,11 +176,6 @@ void Config::SaveGameConfig() {
 	property = doc.NewElement("Property");
 	property->SetAttribute("name", "TextureFilter");
 	property->SetAttribute("value", Texture::FilterToString(texture_filter));
-	element->LinkEndChild(property);
-
-	property = doc.NewElement("Property");
-	property->SetAttribute("name", "OffscreenRender");
-	property->SetAttribute("value", offscreen_render ? "true" : "false");
 	element->LinkEndChild(property);
 
 	XMLPrinter printer;

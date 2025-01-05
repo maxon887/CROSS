@@ -53,8 +53,6 @@ public:
 	bool UseCompressedTextures() const;
 	/* Returns texture filter that should be applied by default */
 	Texture::Filter GetTextureFilter() const;
-	/* Returns true if offscreen render enabled */
-	bool IsOffscreenRender() const;
 
 //internals
     void SaveGameConfig();
@@ -67,7 +65,6 @@ protected:
 	System::Orientation orientation		= System::AUTO;
 	bool use_compressed_textures		= false;
 	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
-	bool offscreen_render				= false;
 
 	Dictionary<String, String> user_prefs = Dictionary<String, String>();
 
