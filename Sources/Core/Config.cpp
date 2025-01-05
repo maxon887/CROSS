@@ -15,7 +15,6 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Config.h"
-#include "System.h"
 #include "File.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
@@ -74,14 +73,6 @@ bool Config::GetBool(const String& key, bool def) const {
 	return GetInt(key, def) != 0;
 }
 
-System::Orientation Config::GetOrientation() const {
-	return orientation;
-}
-
-void Config::SetOrientation(System::Orientation ori) {
-	orientation = ori;
-}
-
 bool Config::UseCompressedTextures() const {
 	return use_compressed_textures;
 }
@@ -113,10 +104,6 @@ void Config::LoadGameConfig() {
 	while(element) {
 		String name = element->Attribute("name");
 		String strValue = element->Attribute("value");
-
-		if(name == "Orientation") {
-			orientation = (System::Orientation)strValue.ToInt();
-		}
 
 		if(name == "UseCompressedTextures") {
 			use_compressed_textures = strValue == "true";
@@ -164,11 +151,6 @@ void Config::SaveGameConfig() {
 	doc.LinkEndChild(element);
 
 	XMLElement* property = doc.NewElement("Property");
-	property->SetAttribute("name", "Orientation");
-	property->SetAttribute("value", String(orientation));
-	element->LinkEndChild(property);
-
-	property = doc.NewElement("Property");
 	property->SetAttribute("name", "UseCompressedTextures");
 	property->SetAttribute("value", use_compressed_textures ? "true" : "false");
 	element->LinkEndChild(property);
@@ -183,7 +165,7 @@ void Config::SaveGameConfig() {
 	doc.Accept(&printer);
 	File gameConfig;
 	gameConfig.name = "GameConfig.xml";
-	gameConfig.size = printer.CStrSize();
+	gameConfig.size = printer.CStrSize() - 1;//-1 because we don't need to save null-terminated string
 	gameConfig.data = (Byte*)printer.CStr();
 	os->SaveDataFile(&gameConfig);
 	gameConfig.data = nullptr;
@@ -208,7 +190,7 @@ void Config::SaveUserConfig() {
 	doc.Accept(&printer);
 	File userConfig;
 	userConfig.name = "UserConfig.xml";
-	userConfig.size = printer.CStrSize();
+	userConfig.size = printer.CStrSize() - 1;//-1 because we don't need to save null-terminated string
 	userConfig.data = (Byte*)printer.CStr();
 	os->SaveDataFile(&userConfig);
 	userConfig.data = nullptr;

@@ -25,9 +25,7 @@ class System {
 public:
 	enum Orientation {
 		LANDSCAPE,
-		PORTRAIT,
-		AUTO,
-		COUNT
+		PORTRAIT
 	};
 	/* Occurs when window size changed */
 	Event<S32, S32> WindowResized;

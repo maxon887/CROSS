@@ -45,10 +45,6 @@ public:
 	/* Gets custom user property as bool */
 	bool GetBool(const String& key, bool def) const;
 
-	/* Gets application orientation */
-	System::Orientation GetOrientation() const;
-	/* Sets application orientation */
-	void SetOrientation(System::Orientation orientation);
 	/* Returns true if engine suppose to use compressed textures */
 	bool UseCompressedTextures() const;
 	/* Returns texture filter that should be applied by default */
@@ -62,7 +58,6 @@ public:
 	void LoadUserConfig();
 
 protected:
-	System::Orientation orientation		= System::AUTO;
 	bool use_compressed_textures		= false;
 	Texture::Filter texture_filter		= Texture::Filter::NEAREST;
 

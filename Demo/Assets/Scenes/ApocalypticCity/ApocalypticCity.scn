@@ -2,14 +2,14 @@
     <Objects>
         <Object name="Camera">
             <Components>
-                <Transform>
-                    <Position type="Vector3D" x="6.0475998" y="0.91068316" z="1.2975748"/>
-                    <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="-0.055010669" y="-0.23189898" z="0.013135258" w="0.97109431"/>
-                </Transform>
                 <Camera>
                     <ViewDistance type="Float" value="100"/>
                 </Camera>
+                <Transform>
+                    <Position type="Vector3D" x="-0.93642086" y="1.1401541" z="-2.612119"/>
+                    <Scale type="Vector3D" x="1" y="1" z="1"/>
+                    <Rotation type="Quaternion" x="-0.079897083" y="-0.42507589" z="0.037700925" w="0.90083605"/>
+                </Transform>
             </Components>
         </Object>
         <Object name="ApocalypticCity">
@@ -347,4 +347,3 @@
         </Object>
     </Objects>
 </Scene>
- 

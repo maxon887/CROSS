@@ -172,7 +172,7 @@ void Scene::Save(const String& filename) {
 	doc.Accept(&printer);
 	File saveFile;
 	saveFile.name = filename;
-	saveFile.size = printer.CStrSize();
+	saveFile.size = printer.CStrSize() - 1;//-1 because we don't need to save null-terminated string
 	saveFile.data = (Byte*)printer.CStr();
 	os->SaveFile(&saveFile);
 	saveFile.data = nullptr;
