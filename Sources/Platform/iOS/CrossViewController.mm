@@ -87,22 +87,6 @@ CrossViewController* instance = nil;
     }
 }
 
-- (NSUInteger)supportedInterfaceOrientations{
-    if(config){
-        switch(cross::config->GetOrientation()){
-            case System::Orientation::AUTO:
-                return UIInterfaceOrientationMaskAll;
-            case System::Orientation::LANDSCAPE:
-                return UIInterfaceOrientationMaskLandscape;
-            case System::Orientation::PORTRAIT:
-                return UIInterfaceOrientationMaskPortrait;
-            default:
-                CROSS_RETURN(false, 0, "Unknown device orientation");
-        }
-    }
-    return UIInterfaceOrientationMaskAll;
-}
-
 - (void)dealloc{
     NSLog(@"Dealloc");
 }
