@@ -45,15 +45,6 @@ android {
             }
         }
     }
-	/* Uncomment for release signed builds
-    signingConfigs {
-        release {
-            storeFile file("d:/littlekeystore")
-            storePassword "**********"
-            keyAlias "littel man"
-            keyPassword '**********'
-        }
-    }*/
 
     buildTypes {
         release {
