@@ -39,7 +39,6 @@ Quaternion Lerp(const Quaternion& v1, const Quaternion& v2, float t);
 bool PointInRect(const Vector2D& p, const Rect& rect);
 bool PointInTriangle(const Vector2D& pt, const Vector2D& v1, const Vector2D& v2, const Vector2D& v3);
 bool PointInCircle(const Vector2D& p, const Vector2D& center, float radius);
-bool CircleOnCollision(const Vector2D& p1, float r1, const Vector2D& p2, float r2);
 float Distance(const Vector2D &v1, const Vector2D &v2);
 float DistanceSq(const Vector2D &v1, const Vector2D &v2);
 float Distance(const Vector3D &v1, const Vector3D &v2);

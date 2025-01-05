@@ -24,9 +24,6 @@
 // This functional will help you not to forget call delete for your variables by asserting at the exit moment of application. For old style memory
 // malloc and free there are CROSS_ALLOC, CROSS_REALLOC and CROSS_FREE macros. Should not be turned on in Release mode.
 
-// CROSS_STD_REPLACEMENT - replaces all basics std types for custom ones.
-
-
 /*	Access modifier that allow usage only inside engine classes */
 #define engineonly protected: CROSS_FRIENDLY protected
 

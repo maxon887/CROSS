@@ -72,13 +72,6 @@ bool cross::PointInCircle(const Vector2D& p, const  Vector2D& center, float radi
 	else return false;
 }
 
-bool cross::CircleOnCollision(const Vector2D& p1, float r1, const Vector2D& p2, float r2) {
-	float distance = Distance(p1, p2);
-	if(distance < (r1 + r2))
-		return true;
-	else return false;
-}
-
 float cross::Distance(const Vector2D &v1, const Vector2D &v2){
 	return sqrtf((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
 }
