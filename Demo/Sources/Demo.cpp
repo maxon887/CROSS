@@ -24,19 +24,13 @@
 #include "UI/LaunchView.h"
 #include "Utils/Debugger.h"
 #include "Tester.h"
+
+#include "ThirdParty/ImGui/imgui.h"
+
 #ifdef WIN
 #	include "Platform/Windows/WINSystem.h"
 #elif ANDROID
 #	include "Platform/Android/AndroidSystem.h"
-#endif
-
-#if defined(USE_FREETYPE) && defined(WIN)
-#	pragma comment(lib, "freetype.lib")
-#endif
-
-#include "ThirdParty/ImGui/imgui.h"
-#ifdef USE_FREETYPE
-#	include "ThirdParty/ImGui/imgui_freetype.h"
 #endif
 
 #define DEFAULT_FONT_SIZE 13.f
@@ -230,7 +224,7 @@ bool Demo::CreateFontsTexture() {
 	io.Fonts->Clear();
 
 	ImFontConfig fontConfig;
-	float fontScale = (float)(int)(os->GetScreenScale() + 0.5f);
+	float fontScale = (float)(os->GetScreenScale() + 0.5f);
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	String fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";
@@ -251,9 +245,7 @@ bool Demo::CreateFontsTexture() {
 
 	unsigned char* pixels;
 	int width, height;
-#ifdef USE_FREETYPE
-	ImGuiFreeType::BuildFontAtlas(io.Fonts);
-#endif
+
 	// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
 	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 	os->LogIt("Creating font texture(#x#)", width, height);
