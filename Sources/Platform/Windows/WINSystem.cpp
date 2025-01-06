@@ -214,7 +214,7 @@ void WINSystem::OpenFileExternal(const String& filename) {
 	S64 result = (S64)ShellExecuteA(NULL, NULL, fullpath.ToCStr(), NULL, NULL, SW_SHOW);
 	if(result < 32) {
 		LPSTR messageBuffer = nullptr;
-		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 			NULL, (DWORD)result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
 		CROSS_ASSERT(false, String("Can not open file with external editor\nerror:") + messageBuffer);
 	}

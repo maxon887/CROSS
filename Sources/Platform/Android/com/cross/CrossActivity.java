@@ -45,8 +45,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		System.loadLibrary("fmod");
         System.loadLibrary("assimp");
 		System.loadLibrary("cross");
-		//optional library
-		//System.loadLibrary("freetype2");
 		cross = new Cross();
 
 		FMOD.init(this);
@@ -54,9 +52,6 @@ public class CrossActivity extends Activity implements SurfaceHolder.Callback{
 		asset_manager = getResources().getAssets();
 
 		cross.OnCreate(this, asset_manager, dataPath);
-		//rate it
-	    RateThisApp.onStart(this);
-	    RateThisApp.showRateDialogIfNeeded(this);
 	}
 
 	@Override
