@@ -32,6 +32,8 @@ int Random(int max);
 int Random(int min, int max);
 float Random(float max);
 float Random(float min, float max);
+/* Return closest whole number. Mathematical round rules */
+float Round(float val);
 float Lerp(float v1, float v2, float t);
 Vector3D Lerp(const Vector3D& v1, const Vector3D& v2, float t);
 Quaternion Lerp(const Quaternion& v1, const Quaternion& v2, float t);

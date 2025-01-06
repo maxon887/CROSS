@@ -224,7 +224,7 @@ bool Demo::CreateFontsTexture() {
 	io.Fonts->Clear();
 
 	ImFontConfig fontConfig;
-	float fontScale = (float)(os->GetScreenScale() + 0.5f);
+	float fontScale = Round(os->GetScreenScale());
 	CROSS_ASSERT(fontScale != 0, "Font scale == 0");
 	fontConfig.SizePixels = DEFAULT_FONT_SIZE * fontScale;
 	String fontName = "ProggyClean.ttf, " + String((int)fontConfig.SizePixels) + "px";

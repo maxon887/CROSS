@@ -20,7 +20,7 @@
 #include <errno.h>
 #include <string.h>
 
-#if defined(WIN) || defined(EDITOR) || defined(MACOS)
+#if defined(WIN) || defined(MACOS)
 #	define DEFAULT_SCREEN_DPI 96.f
 #else
 #	define DEFAULT_SCREEN_DPI 160.f
