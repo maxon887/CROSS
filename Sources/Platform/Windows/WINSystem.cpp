@@ -254,6 +254,7 @@ String WINSystem::OpenFileDialog(const String& extension /* *.* */, bool saveDia
 		return filepath;
 	}
 
+    filepath.Replace("\\", "/");
 	return File::FromAbsoluteToAssetPath(filepath);
 }
 

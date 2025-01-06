@@ -63,10 +63,6 @@ void LaunchView::PreUpdate() {
 
 void LaunchView::Update(float sec) {
 	if(ImGui::CollapsingHeader("Scenes", ImGuiTreeNodeFlags_DefaultOpen)) {
-		if(ImGui::Button("New Scene", ImVec2(-1, 0))) {
-			Scene* scene = CREATE DemoScene();
-			game->SetScreen(scene);
-		}
 		if(ImGui::TreeNode("Simple")) {
 			if(ImGui::MenuButton("Triangle")) {
 				game->SetScreen(CREATE TriangleScene());

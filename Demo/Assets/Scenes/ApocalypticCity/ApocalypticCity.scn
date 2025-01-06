@@ -6,9 +6,9 @@
                     <ViewDistance type="Float" value="100"/>
                 </Camera>
                 <Transform>
-                    <Position type="Vector3D" x="-0.93642086" y="1.1401541" z="-2.612119"/>
+                    <Position type="Vector3D" x="-0.37087238" y="0.95637608" z="-2.8191841"/>
                     <Scale type="Vector3D" x="1" y="1" z="1"/>
-                    <Rotation type="Quaternion" x="-0.079897083" y="-0.42507589" z="0.037700925" w="0.90083605"/>
+                    <Rotation type="Quaternion" x="-0.10392165" y="-0.31699085" z="0.034967851" w="0.94206917"/>
                 </Transform>
             </Components>
         </Object>
@@ -269,7 +269,7 @@
                         <Mesh>
                             <ID type="Int" value="18"/>
                             <Model type="String" value="Scenes/ApocalypticCity/ApocalypticCity.obj"/>
-                            <Material type="String" value="\Scenes\ApocalypticCity\Materials\PlantFront.mat"/>
+                            <Material type="String" value="Scenes/ApocalypticCity/Materials/PlantFront.mat"/>
                         </Mesh>
                     </Components>
                 </Object>
