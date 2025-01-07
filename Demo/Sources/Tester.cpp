@@ -36,6 +36,10 @@ int NotDebuggable()
 
 void RunTest()
 {
+    Array<int> TestArray;
+    TestArray.Add(23);
+    TestArray.Add(22);
+
 	String test = "Blah";
 	test.Uppercase();
 	int val2 = NotDebuggable();
