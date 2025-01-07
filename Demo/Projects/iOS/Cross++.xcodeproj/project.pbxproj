@@ -31,6 +31,7 @@
 		50424D5A2C57BDC300CE0055 /* Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D4B2C57BDC300CE0055 /* Stats.cpp */; };
 		50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */; };
 		50424D602C57BEE500CE0055 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */; };
+		50CDC7BE2D2D266000E1A41D /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */; };
 		50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D4DB782C5A6615007E066E /* AVFoundation.framework */; };
 		50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */; };
 		9D33C12F20D02B92007EF97F /* ImGuiScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D33C12E20D02B92007EF97F /* ImGuiScreen.cpp */; };
@@ -96,7 +97,6 @@
 		9DDFFF141F46EF1700A6E782 /* CrossViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA51F46EF1700A6E782 /* CrossViewController.mm */; };
 		9DDFFF151F46EF1700A6E782 /* IOSSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEA71F46EF1700A6E782 /* IOSSystem.mm */; };
 		9DDFFF171F46EF1700A6E782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DDFFEAA1F46EF1700A6E782 /* Main.storyboard */; };
-		9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */; };
 		9DDFFF1E1F46EF1700A6E782 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECA1F46EF1700A6E782 /* Shader.cpp */; };
 		9DDFFF1F1F46EF1700A6E782 /* SingleLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDFFECC1F46EF1700A6E782 /* SingleLightShader.cpp */; };
 		D46A234E1AF9EF8400B77AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A234D1AF9EF8400B77AC8 /* main.m */; };
@@ -158,6 +158,8 @@
 		50424D5C2C57BEBD00CE0055 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
 		50424D5F2C57BEE500CE0055 /* ArrayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
+		50CDC7BC2D2D266000E1A41D /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
+		50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightShader.cpp; sourceTree = "<group>"; };
 		50D4DB782C5A6615007E066E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
 		50F0BA7D2C56D0E0005832F5 /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
@@ -387,8 +389,6 @@
 		9DDFFEA61F46EF1700A6E782 /* IOSSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSSystem.h; sourceTree = "<group>"; };
 		9DDFFEA71F46EF1700A6E782 /* IOSSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSSystem.mm; sourceTree = "<group>"; };
 		9DDFFEAA1F46EF1700A6E782 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightsShader.cpp; sourceTree = "<group>"; };
-		9DDFFEC91F46EF1700A6E782 /* LightsShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightsShader.h; sourceTree = "<group>"; };
 		9DDFFECA1F46EF1700A6E782 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		9DDFFECB1F46EF1700A6E782 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		9DDFFECC1F46EF1700A6E782 /* SingleLightShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleLightShader.cpp; sourceTree = "<group>"; };
@@ -931,8 +931,8 @@
 		9DDFFEC71F46EF1700A6E782 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				9DDFFEC81F46EF1700A6E782 /* LightsShader.cpp */,
-				9DDFFEC91F46EF1700A6E782 /* LightsShader.h */,
+				50CDC7BC2D2D266000E1A41D /* MultiLightShader.h */,
+				50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */,
 				9DDFFECA1F46EF1700A6E782 /* Shader.cpp */,
 				9DDFFECB1F46EF1700A6E782 /* Shader.h */,
 				9DDFFECC1F46EF1700A6E782 /* SingleLightShader.cpp */,
@@ -1107,6 +1107,7 @@
 				9DDFFF071F46EF1700A6E782 /* Matrix.cpp in Sources */,
 				9D54BBAA1FBC433C009E8469 /* Camera.cpp in Sources */,
 				9DDFFF051F46EF1700A6E782 /* tinyxml2.cpp in Sources */,
+				50CDC7BE2D2D266000E1A41D /* MultiLightShader.cpp in Sources */,
 				50424D4F2C57BDC300CE0055 /* Log.cpp in Sources */,
 				50424D4D2C57BDC300CE0055 /* About.cpp in Sources */,
 				9DDFFF0A1F46EF1700A6E782 /* Vector2D.cpp in Sources */,
@@ -1145,7 +1146,6 @@
 				9D54BBB21FBC433C009E8469 /* Input.cpp in Sources */,
 				9D33C16520D02B9F007EF97F /* MaterialScene.cpp in Sources */,
 				9D5884DB20236236002820F2 /* GraphicsGL.cpp in Sources */,
-				9DDFFF1D1F46EF1700A6E782 /* LightsShader.cpp in Sources */,
 				50424D602C57BEE500CE0055 /* ArrayTest.cpp in Sources */,
 				9DDFFF0B1F46EF1700A6E782 /* Vector3D.cpp in Sources */,
 				9D54BBB91FBC433C009E8469 /* Sound.cpp in Sources */,
