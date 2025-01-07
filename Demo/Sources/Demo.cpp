@@ -22,7 +22,6 @@
 #include "Shaders/Shader.h"
 #include "UI/MenuBar.h"
 #include "UI/LaunchView.h"
-#include "Utils/Debugger.h"
 #include "Tester.h"
 
 #include "ThirdParty/ImGui/imgui.h"
