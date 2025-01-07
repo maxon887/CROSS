@@ -192,9 +192,6 @@
     <ClCompile Include="..\..\..\Sources\Shaders\SingleLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Shaders\LightsShader.cpp">
-      <Filter>Cross\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -345,6 +342,9 @@
     <ClCompile Include="..\..\Sources\Tester.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Shaders\MultiLightShader.cpp">
+      <Filter>Cross\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\Demo.h">
@@ -487,9 +487,6 @@
       <Filter>Cross\Libs\TinyXML</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Shaders\SingleLightShader.h">
-      <Filter>Cross\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Shaders\LightsShader.h">
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h">
@@ -653,6 +650,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\Tester.h">
       <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Shaders\MultiLightShader.h">
+      <Filter>Cross\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

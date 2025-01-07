@@ -19,7 +19,7 @@
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
-#include "Shaders/LightsShader.h"
+#include "Shaders/MultiLightShader.h"
 #include "Transform.h"
 #include "System.h"
 #include "Camera.h"
@@ -35,7 +35,7 @@ void NakedScene::Start() {
 	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = CREATE LightsShader();
+	shader = CREATE MultiLightShader();
 	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddProperty("Diffuse Color", "uDiffuseColor");
 	shader->AddProperty("Specular", "uSpecular");

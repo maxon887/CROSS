@@ -19,7 +19,7 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Camera.h"
-#include "Shaders/LightsShader.h"
+#include "Shaders/MultiLightShader.h"
 #include "Mesh.h"
 #include "Texture.h"
 #include "Transform.h"
@@ -60,7 +60,7 @@ void MultiLightScene::Start(){
 		AddEntity(light);
 	}
 
-	shader = CREATE LightsShader();
+	shader = CREATE MultiLightShader();
 	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");

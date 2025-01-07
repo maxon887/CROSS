@@ -282,8 +282,8 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\..\Sources\Platform\Windows\Native.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\OpenGL.cpp" />
     <ClCompile Include="..\..\..\Sources\Platform\Windows\WINSystem.cpp" />
+    <ClCompile Include="..\..\..\Sources\Shaders\MultiLightShader.cpp" />
     <ClCompile Include="..\..\..\Sources\Shaders\SingleLightShader.cpp" />
-    <ClCompile Include="..\..\..\Sources\Shaders\LightsShader.cpp" />
     <ClCompile Include="..\..\..\Sources\Shaders\Shader.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp" />
     <ClCompile Include="..\..\..\Sources\Utils\Debugger.cpp" />
@@ -385,8 +385,8 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\..\Sources\Platform\Windows\OpenGL.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\resource.h" />
     <ClInclude Include="..\..\..\Sources\Platform\Windows\WINSystem.h" />
+    <ClInclude Include="..\..\..\Sources\Shaders\MultiLightShader.h" />
     <ClInclude Include="..\..\..\Sources\Shaders\SingleLightShader.h" />
-    <ClInclude Include="..\..\..\Sources\Shaders\LightsShader.h" />
     <ClInclude Include="..\..\..\Sources\Shaders\Shader.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h" />
     <ClInclude Include="..\..\..\Sources\Utils\Debugger.h" />

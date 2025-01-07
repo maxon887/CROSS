@@ -17,7 +17,7 @@
 #include "TransparencyScene.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/LightsShader.h"
+#include "Shaders/MultiLightShader.h"
 #include "Game.h"
 #include "Material.h"
 #include "Texture.h"
@@ -37,7 +37,7 @@ void TransparencyScene::Start(){
 	light->AddComponent(lightComponent);
 	AddEntity(light);
 
-	road_shader = CREATE LightsShader();
+	road_shader = CREATE MultiLightShader();
 	road_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	road_shader->AddMacro("USE_DIFFUSE_MAP");
 	road_shader->AddMacro("USE_TILLING_FACTOR");
@@ -56,7 +56,7 @@ void TransparencyScene::Start(){
 	road->GetTransform()->SetScale(15.f);
 	AddEntity(road);
 
-	grass_shader = CREATE LightsShader();
+	grass_shader = CREATE MultiLightShader();
 	grass_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	grass_shader->AddMacro("USE_DIFFUSE_MAP");
 	grass_shader->AddMacro("USE_CUTOUT");
@@ -81,7 +81,7 @@ void TransparencyScene::Start(){
 		AddEntity(clone);
 	}
 
-	sphere_shader = CREATE LightsShader();
+	sphere_shader = CREATE MultiLightShader();
 	sphere_shader->AddProperty("Transparency", "uTransparency", 1.f);
 	sphere_shader->AddProperty("Color", "uDiffuseColor", Color::Blue);
 	sphere_shader->AddProperty("Specular", "uSpecular", 0.5f);
