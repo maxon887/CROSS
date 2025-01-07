@@ -15,45 +15,30 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include <vector>
-#include <string>
 #include "Cross.h"
 
-class Sexy {
-public:
-    Sexy(int a, int b) : ass(a), boobs(b) { }
+using namespace cross;
 
-	int boobs = 8;
-	int ass = 9;
-};
+int Debuggable(String str)
+{
+	int i = 0;
+	i += i * 2;
+	return i;
+}
 
-void StringConsumer(const cross::String& str)
+int NotDebuggable()
 {
 	int i = 0;
 	i++;
+	i++;
+	return i;
 }
 
 void RunTest()
 {
-	Sexy Olga{ 7, 8 };
-	Sexy Gosha{ 6, 6 };
-	Sexy Lisiao { 9, 10 };
-
-	std::vector<Sexy> stdArray;
-	stdArray.push_back(Olga);
-	stdArray.push_back(Gosha);
-	stdArray.push_back(Lisiao);
-
-	cross::Array<Sexy> crossArray;
-	crossArray.Add(Olga);
-	crossArray.Add(Gosha);
-	crossArray.Add(Lisiao);
-
-	std::string stdString = "Some std user text here";
-	cross::String crossString = "Cross could do the string to";
-
-	StringConsumer("In place created string");
-	
-	int IntegerNumber = 11;
-	IntegerNumber++;
+	String test = "Blah";
+	test.Uppercase();
+	int val2 = NotDebuggable();
+	int val = Debuggable(test + "Money");
+	val++;
 }

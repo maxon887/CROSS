@@ -1,0 +1,2 @@
+command script import /Users/max/My/GameDev/Cross/Demo/Projects/MacOS/cross_lldb.py
+settings set target.process.thread.step-avoid-regexp String::.*|cross::operator.*
