@@ -171,7 +171,7 @@ void FilesView::ContextMenu() {
 		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
 			input->IsPressed(Key::ENTER)) {
 
-			os->CreateDirectory(current_path + "/" + buffer);
+			os->CreateDirectory(current_path + buffer);
 
 			Refresh();
 
