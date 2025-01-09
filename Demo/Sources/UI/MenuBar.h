@@ -40,4 +40,6 @@ protected:
 	View* log					= nullptr;
 	View* stats					= nullptr;
 	View* about					= nullptr;
+
+	void UpdateDocking();
 };

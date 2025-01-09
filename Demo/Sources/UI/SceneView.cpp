@@ -27,7 +27,7 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-SceneView::SceneView() : View("Scene")
+SceneView::SceneView() : View("Scene", true)
 {
 	game->ScreenChanged.Connect(this, &SceneView::OnSceneChanged);
 }

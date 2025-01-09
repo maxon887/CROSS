@@ -31,6 +31,7 @@
 #include "File.h"
 
 #include "ThirdParty/ImGui/imgui.h"
+#include "ThirdParty/ImGui/imgui_internal.h"
 
 MenuBar::MenuBar() {
 	CameraController* cameraController = CREATE CameraController();
@@ -66,11 +67,12 @@ MenuBar::~MenuBar() {
 }
 
 void MenuBar::Update(float sec) {
+	UpdateDocking();
 	for(View* v : views) {
 		v->Run(sec);
 	}
 	if(show_style_editor) {
-		ImGui::Begin("Style Editor", &show_style_editor);// ImVec2(ImGui::GetWindowWidth() / 2.f, ImGui::GetWindowHeight() / 2.f));
+		ImGui::Begin("Style Editor", &show_style_editor);
 		ImGui::ShowStyleEditor();
 		ImGui::End();
 	}
@@ -182,4 +184,63 @@ void MenuBar::CloseAllViews() {
 
 float MenuBar::GetHeight() const {
 	return menu_height;
+}
+
+void MenuBar::UpdateDocking() {
+	ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
+
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+	ImGui::SetNextWindowPos(viewport->WorkPos);
+	ImGui::SetNextWindowSize(viewport->WorkSize);
+	ImGui::SetNextWindowViewport(viewport->ID);
+
+	ImGuiWindowFlags host_window_flags = 0;
+	host_window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDocking;
+	host_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+	if(dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+		host_window_flags |= ImGuiWindowFlags_NoBackground;
+
+	char label[32];
+	ImFormatString(label, IM_ARRAYSIZE(label), "DockSpaceViewport_%08X", viewport->ID);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin(label, NULL, host_window_flags);
+	ImGui::PopStyleVar(3);
+
+	ImGuiID dockspaceID = ImGui::GetID("DockSpace");
+
+	ImGuiDockNode* DockNode = ImGui::DockBuilderGetNode(dockspaceID);
+
+	if(!DockNode)	//default docking configuration
+	{
+		ImGui::DockBuilderRemoveNode(dockspaceID);
+		ImGui::DockBuilderAddNode(dockspaceID, ImGuiDockNodeFlags_DockSpace);
+		ImGui::DockBuilderSetNodeSize(dockspaceID, ImGui::GetMainViewport()->Size);
+
+
+		ImGuiID dockspace_id_copy = dockspaceID;
+		ImGuiID left = ImGui::DockBuilderSplitNode(dockspace_id_copy, ImGuiDir_Left, 0.3f, nullptr, &dockspace_id_copy);
+		ImGuiID right = ImGui::DockBuilderSplitNode(dockspace_id_copy, ImGuiDir_Right, 0.45f, nullptr, &dockspace_id_copy);
+		for(View* v : views) {
+			switch(v->GetDefaultDockPosition())
+			{
+			case View::DockPosition::LEFT:
+				ImGui::DockBuilderDockWindow(v->GetName(), left);
+				break;
+			case View::DockPosition::RIGHT:
+				ImGui::DockBuilderDockWindow(v->GetName(), right);
+				break;
+			default:
+				break;
+			}
+		}
+		ImGui::DockBuilderFinish(dockspaceID);
+	}
+
+	ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspace_flags, NULL);
+	ImGui::End();
 }

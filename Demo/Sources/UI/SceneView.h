@@ -31,6 +31,8 @@ public:
 	void Update(float sec) override;
 	void PostUpdate() override;
 
+	DockPosition GetDefaultDockPosition() const override { return DockPosition::LEFT; }
+
 	Entity* GetSelectedEntity();
 	
 private:

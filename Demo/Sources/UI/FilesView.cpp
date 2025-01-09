@@ -30,7 +30,7 @@
 
 #undef CreateDirectory
 
-FilesView::FilesView() : View("Files") { }
+FilesView::FilesView() : View("Files", true) { }
 
 void FilesView::Shown() {
 	if(!file_tree.initialized) {

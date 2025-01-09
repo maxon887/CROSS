@@ -28,6 +28,8 @@ public:
 
 	void Update(float sec) override;
 
+	DockPosition GetDefaultDockPosition() const override { return DockPosition::RIGHT; }
+
 protected:
 	TransformVisualBox tranform_box;
 	MeshVisualBox mesh_box;

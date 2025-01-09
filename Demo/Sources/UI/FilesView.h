@@ -28,6 +28,8 @@ public:
 
 	void Update(float sec) override;
 
+	DockPosition GetDefaultDockPosition() const override { return DockPosition::LEFT; }
+
 private:
 	struct Node {
 		String path = "";

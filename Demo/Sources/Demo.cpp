@@ -163,7 +163,6 @@ void Demo::PreUpdate(float sec) {
 
 	// Start the frame
 	ImGui::NewFrame();
-	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 }
 
 void Demo::Update(float sec) {

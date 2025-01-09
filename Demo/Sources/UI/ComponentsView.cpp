@@ -26,7 +26,7 @@
 #include "ThirdParty/ImGui/imgui.h"
 
 ComponentsView::ComponentsView(SceneView* sceneView) :
-	View("Components")
+	View("Components", true)
 {
 	scene_view = sceneView;
 	scene_view->EntitySelected.Connect(&tranform_box, &TransformVisualBox::EntitySelected);

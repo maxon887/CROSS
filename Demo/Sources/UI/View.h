@@ -21,7 +21,13 @@ using namespace cross;
 
 class View {
 public:
-	View(const String& name);
+	enum DockPosition {
+		LEFT,
+		RIGHT,
+		NONE
+	};
+
+	View(const String& name, bool defaultVisibility = false);
 	virtual ~View();
 
 	virtual void Shown() { }
@@ -33,6 +39,8 @@ public:
 
 	virtual bool VisibleInMenu() { return true; }
 	virtual bool AvailableInMenu() { return true; }
+
+	virtual DockPosition GetDefaultDockPosition() const { return DockPosition::NONE; }
 
 	void Show();
 	void Hide();
@@ -47,6 +55,6 @@ protected:
 private:
 	String landscape_name = "View##Landscape";
 	String portrait_name = "View##Portrait";
-	bool visible = false;
 	U32 flags = 0;
+	bool visible = false;
 };
