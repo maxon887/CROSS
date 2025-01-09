@@ -267,6 +267,8 @@ int main(int c, char **args) {
     if(!monitor) {
         monitor = glfwGetPrimaryMonitor();
     }
+	const char* monitorName = glfwGetMonitorName(monitor);
+	os->LogIt("Monitor - #", monitorName);
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
     glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
     float dpi = mode->width * frame_to_window_ratio / (widthMM / 25.4);
