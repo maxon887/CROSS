@@ -20,6 +20,7 @@
 #include "Demo.h"
 #include "System.h"
 #include "Graphics.h"
+#include "FileUtils.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -28,6 +29,9 @@ ShaderVisualBox::ShaderVisualBox() {
 		Shader::Property::Type type = (Shader::Property::Type)i;
 		type_names.Add(Shader::Property::TypeToString(type));
 	}
+
+	all_available_vertex_files = FileUtils::GetAllFilesOfType("vert");
+	all_available_fragment_files = FileUtils::GetAllFilesOfType("frag");
 }
 
 ShaderVisualBox::~ShaderVisualBox() {
@@ -47,16 +51,49 @@ void ShaderVisualBox::Update() {
 		ImGui::PopFont();
 
 		//vertex file
-		ImGui::Text("Vertex File:");
-		ImGui::SameLine(SCALED(120.f));
-		String vertexFile = shader->GetVertexFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", vertexFile.ToCStr());
+		char* selectableItems[256];
+		Array<String> shaderNames(all_available_vertex_files.Size(), "");
+		for(int i = 0; i < all_available_vertex_files.Size(); i++) {
+			shaderNames[i] = File::FileFromPath(all_available_vertex_files[i]);
+			selectableItems[i] = shaderNames[i].ToCStr();
+		}
+		ImGui::Combo("Vertex File:", &selected_vertex_file, selectableItems, all_available_vertex_files.Size());
 
 		//fragment file
-		ImGui::Text("Fragment File:");
-		ImGui::SameLine(SCALED(120.f));
-		String fragmentFile = shader->GetFragmentFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", fragmentFile.ToCStr());
+		for(int i = 0; i < all_available_vertex_files.Size(); i++) {
+			shaderNames[i] = File::FileFromPath(all_available_fragment_files[i]);
+			selectableItems[i] = shaderNames[i].ToCStr();
+		}
+		ImGui::Combo("Fragment File:", &selected_fragment_file, selectableItems, all_available_fragment_files.Size());
+
+		ImGui::NewLine();
+
+		float availableWidth = ImGui::GetColumnWidth();
+		ImGui::Text("Macrosies");
+		ImGui::Separator();
+		int textBoxID = 0;
+		for(auto it = macrosies.begin(); it != macrosies.end();) {
+			String& macro = *it;
+			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
+			ImGui::PushID(String::Format("MacroEdit #", textBoxID++));
+			ImGui::InputText("##Macro", macro.ToCStr(), macro.Capacity());
+			ImGui::PopID();
+			ImGui::SameLine(availableWidth - SCALED(20.f));
+
+			ImGui::PushID(String::Format("RemoveMacroButton #", textBoxID++));
+			if(ImGui::Button("-", ImVec2(-1, 0))) {
+				it = macrosies.erase(it);
+			} else {
+				it++;
+			}
+			ImGui::PopID();
+		}
+
+		if(ImGui::Button("New Macro", ImVec2(-1, 0))) {
+			String newMacroString("", 0, 256);
+			newMacroString += "NEW_MACRO";
+			macrosies.push_back(newMacroString);
+		}
 
 		ImGui::NewLine();
 
@@ -86,7 +123,7 @@ void ShaderVisualBox::Update() {
 				values[i] = type_names[i].ToCStr();
 			}
 
-			float availableWidth = ImGui::GetColumnWidth();
+			availableWidth = ImGui::GetColumnWidth();
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
 			if(ImGui::BeginCombo("##" + prop.GetName(), Shader::Property::TypeToString(prop.GetType()))) {
 
@@ -94,18 +131,15 @@ void ShaderVisualBox::Update() {
 					Shader::Property::Type type = (Shader::Property::Type)i;
 					bool selected = type == prop.GetType();
 					if(ImGui::Selectable(values[i], selected)) {
-
+						CROSS_ASSERT(false, "Functional not Implemented");
 					}
-					//	current_item_2 = items[n];
-					//if (is_selected)
-					//	ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
 				}
 
 				ImGui::EndCombo();
 			}
 			ImGui::SameLine(availableWidth - SCALED(20.f));
 			if(ImGui::Button("-", ImVec2(-1, 0))) {
-
+				CROSS_ASSERT(false, "Functional not Implemented");
 			}
 
 			ImGui::NextColumn();
@@ -115,19 +149,18 @@ void ShaderVisualBox::Update() {
 
 		ImGui::PushItemWidth(-1);
 		if(ImGui::Button("New Property", ImVec2(-1, 0))) {
-
+			CROSS_ASSERT(false, "Functional not Implemented");
 		}
 
-		float availableWidth = ImGui::GetWindowWidth();
+		availableWidth = ImGui::GetWindowWidth();
 		ImGui::NewLine();
 		ImGui::SameLine(availableWidth / 2);
 		if(ImGui::Button("Revert", ImVec2(availableWidth / 4 - SCALED(10.f), 0))) {
-
+			CROSS_ASSERT(false, "Functional not Implemented");
 		}
-		//ImGui::SameLine(availableWidth / 2 + SCALED(110.f));
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
-
+			CROSS_ASSERT(false, "Functional not Implemented");
 		}
 
 		ImGui::PopStyleVar();
@@ -138,6 +171,10 @@ void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
 	if(File::ExtensionFromFile(filename) == "sha") {
 		shader = gfx->LoadShader(filename);
+		String vertexFile = shader->GetVertexFilename();
+		String fragmentFile = shader->GetFragmentFilename();
+		selected_vertex_file = all_available_vertex_files.Find(vertexFile);
+		selected_fragment_file = all_available_fragment_files.Find(fragmentFile);
 	} else {
 		shader = nullptr;
 	}

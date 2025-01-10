@@ -31,4 +31,11 @@ public:
 private:
 	Shader* shader = nullptr;
 	Array<String> type_names;
+
+	Array<String> all_available_vertex_files;
+	Array<String> all_available_fragment_files;
+
+	int selected_vertex_file = 0;
+	int selected_fragment_file = 0;
+	List<String> macrosies;
 };

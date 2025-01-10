@@ -457,7 +457,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
 
 		char* log = CREATE char[len + 1];
 		glGetShaderInfoLog(handle, len, &len, log);
-		CROSS_RETURN(false, 0, "Shader: #\n#Shader", file->name, log);
+		CROSS_RETURN(false, 0, "Shader Compilation Failed: #\n#Shader", file->name, log);
 	} else {
 #ifdef CROSS_DEBUG
 		GLsizei len;
