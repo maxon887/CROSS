@@ -19,8 +19,10 @@
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/MultiLightShader.h"
+#include "Texture.h"
+#include "Transform.h"
 #include "Camera.h"
-#include "Graphics.h"
 
 void RoughnessScene::Start(){
 	DemoScene::Start();
@@ -32,7 +34,8 @@ void RoughnessScene::Start(){
 	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = gfx->LoadShader("Engine/Shaders/MultiLight.sha");
+	shader = CREATE MultiLightShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
 	shader->AddMacro("USE_SHININESS_MAP");

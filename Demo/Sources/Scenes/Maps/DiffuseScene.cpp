@@ -19,8 +19,10 @@
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
+#include "Shaders/MultiLightShader.h"
+#include "Texture.h"
+#include "Transform.h"
 #include "Camera.h"
-#include "Graphics.h"
 
 void DiffuseScene::Start(){
 	DemoScene::Start();
@@ -32,7 +34,8 @@ void DiffuseScene::Start(){
 	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = gfx->LoadShader("Engine/Shaders/MultiLight.sha");
+	shader = CREATE MultiLightShader();
+	shader->AddProperty("Transparency", "uTransparency", 1.f);
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular", "uSpecular");

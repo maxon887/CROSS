@@ -15,6 +15,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Graphics.h"
+#include "System.h"
 #include "Game.h"
 #include "Scene.h"
 #include "Entity.h"
@@ -22,8 +23,8 @@
 #include "File.h"
 #include "Mesh.h"
 #include "Material.h"
+#include "Shaders/Shader.h"
 #include "Shaders/SingleLightShader.h"
-#include "Shaders/MultiLightShader.h"
 
 #include "Libs/TinyXML2/tinyxml2.h"
 
@@ -34,7 +35,6 @@ Graphics::Graphics()
 {
 	shader_factory = CREATE Factory<Shader>();
 	shader_factory->Register<SingleLightShader>("SingleLightShader");
-	shader_factory->Register<MultiLightShader>("MultiLightShader");
 }
 
 Graphics::~Graphics() {
@@ -92,7 +92,7 @@ Shader* Graphics::LoadShader(const String& shaderfile) {
 		XMLElement* macroXML = macrosiesXML->FirstChildElement("Macro");
 		while(macroXML) {
 			const char* text = macroXML->GetText();
-			shader->AddAvailableMacro(text);
+			shader->AddMacro(text);
 			macroXML = macroXML->NextSiblingElement("Macro");
 		}
 	}

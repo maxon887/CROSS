@@ -66,9 +66,9 @@ void MultiLightShader::Compile(S32 pointCount, S32 spotCount, S32 directionalCou
 	uPointLights.Clear();
 	uDirectionalLights.Clear();
 	uPointLights.Clear();
-	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount);
-	AddMacro("POINT_LIGHT_COUNT", pointCount);
-	AddMacro("SPOT_LIGHT_COUNT", spotCount);
+	AddMacro("DIRECTIONAL_LIGHT_COUNT", directionalCount, true);
+	AddMacro("POINT_LIGHT_COUNT", pointCount, true);
+	AddMacro("SPOT_LIGHT_COUNT", spotCount, true);
 
 	Shader::Compile();
 	for(S32 i = 0; i < pointCount; ++i) {
