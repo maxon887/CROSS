@@ -18,11 +18,9 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/SingleLightShader.h"
 #include "Camera.h"
 #include "Mesh.h"
-#include "Texture.h"
-#include "Transform.h"
+#include "Graphics.h"
 	
 void PointLightScene::Start(){
 	DemoScene::Start();
@@ -34,12 +32,11 @@ void PointLightScene::Start(){
 	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = CREATE SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
+	shader = gfx->LoadShader("Engine/Shaders/SingleLight.sha");
 	shader->AddMacro("POINT_LIGHT");
 	shader->AddMacro("POINT_OR_SPOT_LIGHT");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
-	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));

@@ -120,7 +120,6 @@ public:
 	virtual ~Shader();
 
 	virtual void Use();
-	virtual void Save(const String& file);
 	virtual void Compile();
 	virtual void OnDraw() { }
 
@@ -133,10 +132,9 @@ public:
 	void SetFragmentFilename(const String& filename);
 
 	void AddVersion(const String& version);
-	void AddMacro(const String& macro, bool os = false);
-	void AddMacro(const String& macro, int value, bool os = false);
-	Array<String>& GetMacrosies();
-	void ClearMacrosies();
+	void AddAvailableMacro(const String& macro);
+	void AddMacro(const String& macro);
+	void AddMacro(const String& macro, int value);
 
 	void AddProperty(const String& name, const String& glName);
 	void AddProperty(const String& name, const String& glName, Property::Type type);
@@ -163,12 +161,12 @@ protected:
 		GLint outer_cut_off		= -1;
 	};
 
-	GLuint program				= 0;
-	Array<String> macrosies		= Array<String>();
-	Array<String> user_macro	= Array<String>();
-	bool compiled				= false;
+	GLuint program						= 0;
+	Array<String> available_macrosies	= Array<String>();
+	Array<String> macrosies				= Array<String>();
+	bool compiled						= false;
 	//custom uniforms
-	Array<Property> properties	= Array<Property>();
+	Array<Property> properties			= Array<Property>();
 
 	GLuint GetProgram() const;
 
@@ -179,7 +177,7 @@ private:
 	String fragment_filename	= "";
 	File* vertex_file			= nullptr;
 	File* fragment_file			= nullptr;
-	U32 makro_len				= 0;
+	U32 macro_len				= 0;
 	String filename				= "noname";
 
 	GLuint CompileShader(GLuint type, File* file);

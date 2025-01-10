@@ -19,10 +19,8 @@
 #include "Material.h"
 #include "Game.h"
 #include "Entity.h"
-#include "Shaders/MultiLightShader.h"
-#include "Texture.h"
-#include "Transform.h"
 #include "Camera.h"
+#include "Graphics.h"
 
 void SpecularScene::Start() {
 	DemoScene::Start();
@@ -34,8 +32,7 @@ void SpecularScene::Start() {
 	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = CREATE MultiLightShader();
-	shader->AddProperty("Transparency", "uTransparency", 1.f);
+	shader = gfx->LoadShader("Engine/Shaders/MultiLight.sha");
 	shader->AddMacro("USE_DIFFUSE_MAP");
 	shader->AddMacro("USE_SPECULAR_MAP");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");

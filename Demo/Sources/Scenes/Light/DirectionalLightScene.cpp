@@ -18,10 +18,9 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/SingleLightShader.h"
 #include "Camera.h"
 #include "Mesh.h"
-#include "Transform.h"
+#include "Graphics.h"
 
 void DirectionalLightScene::Start(){
 	DemoScene::Start();
@@ -33,11 +32,10 @@ void DirectionalLightScene::Start(){
 	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
 
-	shader = CREATE SingleLightShader("Engine/Shaders/Sources/SingleLight.vert", "Engine/Shaders/Sources/SingleLight.frag");
+	shader = gfx->LoadShader("Engine/Shaders/SingleLight.sha");
 	shader->AddMacro("DIRECT_LIGHT");
 	shader->AddProperty("Diffuse Texture", "uDiffuseTexture");
 	shader->AddProperty("Specular Map", "uSpecularMap");
-	shader->AddProperty("Shininess", "uShininess");
 	shader->Compile();
 	material = CREATE Material(shader);
 	material->SetPropertyValue("Diffuse Texture", GetTexture("Textures/ContainerDiffuse.png"));

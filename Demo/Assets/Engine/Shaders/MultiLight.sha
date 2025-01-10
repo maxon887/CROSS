@@ -1,10 +1,15 @@
 <Shader>
+	<Class name="MultiLightShader"/>
 	<Vertex filename="Engine/Shaders/Sources/MultiLight.vert"/>
 	<Fragment filename="Engine/Shaders/Sources/MultiLight.frag"/>
 	<Properties>
 		<Property name="Transparency" glName="uTransparency" type="Float"/>
-		<Property name="Diffuse Color" glName="uDiffuseColor" type="Color"/>
-		<Property name="Specular" glName="uSpecular" type="Float" value="2.0"/>
-		<Property name="Shininess" glName="uShininess" type="Float" value="64.0"/>
 	</Properties>
+	<Macrosies>
+		<Macro>USE_TILLING_FACTOR</Macro>
+		<Macro>USE_NORMAL_MAP</Macro>
+		<Macro>USE_DIFFUSE_MAP</Macro>
+		<Macro>USE_SPECULAR_MAP</Macro>
+		<Macro>USE_SHININESS_MAP</Macro>
+	</Macrosies>
 </Shader>
