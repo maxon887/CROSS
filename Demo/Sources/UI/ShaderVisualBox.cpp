@@ -170,7 +170,7 @@ void ShaderVisualBox::Update() {
 			}
 			shader->ClearMacrosies();
 			for(const String& macro : macrosies) {
-				shader->AddMacro(macro);
+				shader->AddMacro(macro.ToCStr());//it is important here to firstly cast to C-style string. because we were writing bytes directly into cross::String buffers will case memory corruption in future
 			}
 			shader->Save(os->AssetsPath() + shader_filename);
 		}
@@ -188,6 +188,11 @@ void ShaderVisualBox::OnFileSelected(String filename) {
 		String fragmentFile = shader->GetFragmentFilename();
 		selected_vertex_file = all_available_vertex_files.Find(vertexFile);
 		selected_fragment_file = all_available_fragment_files.Find(fragmentFile);
+		for(const String& macro : shader->GetMacrosies()) {
+			String newMacroString("", 0, 256);
+			newMacroString += macro;
+			macrosies.push_back(newMacroString);
+		}
 	} else {
 		shader = nullptr;
 	}
