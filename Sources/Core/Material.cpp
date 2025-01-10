@@ -148,7 +148,7 @@ void Material::Save(const String& filename) {
 
 	for(const Shader::Property& prop : properties) {
 		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop.GetName());
+		propertyXML->SetAttribute("name", prop.name);
 		switch(prop.GetType()) {
 		case Shader::Property::Type::COLOR: {
 			String color = prop.value.color.ToString();

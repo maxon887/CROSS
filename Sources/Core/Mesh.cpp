@@ -141,7 +141,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 	for(Shader::Property& prop : material->GetProperties()) {
 		if(prop.glId == -1) {
 			//late shader compilation produce this, trying to assign compiled id to the material id
-			Shader::Property* shaderProp = shader->GetProperty(prop.GetName());
+			Shader::Property* shaderProp = shader->GetProperty(prop.name);
 			prop.glId = shaderProp->GetID();
 			CROSS_FAIL(prop.glId != -1, "Broken shader property");
 		}
@@ -175,7 +175,7 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 			material->active_texture_slot++;
 			break;
 		default:
-			CROSS_ASSERT(false, "Unknown property type(#)", prop.GetName());
+			CROSS_ASSERT(false, "Unknown property type(#)", prop.name);
 		}
 	}
 	material->active_texture_slot = 0;

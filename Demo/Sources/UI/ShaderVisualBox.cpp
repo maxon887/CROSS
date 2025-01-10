@@ -71,16 +71,14 @@ void ShaderVisualBox::Update() {
 		float availableWidth = ImGui::GetColumnWidth();
 		ImGui::Text("Macrosies");
 		ImGui::Separator();
-		int textBoxID = 0;
+		int index = 0;
 		for(auto it = macrosies.begin(); it != macrosies.end();) {
 			String& macro = *it;
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
-			ImGui::PushID(String::Format("MacroEdit #", textBoxID++));
+			ImGui::PushID(String::Format("MacroEdit #", index++));
 			ImGui::InputText("##Macro", macro.ToCStr(), macro.Capacity());
-			ImGui::PopID();
 			ImGui::SameLine(availableWidth - SCALED(20.f));
 
-			ImGui::PushID(String::Format("RemoveMacroButton #", textBoxID++));
 			if(ImGui::Button("-", ImVec2(-1, 0))) {
 				it = macrosies.erase(it);
 			} else {
@@ -107,15 +105,21 @@ void ShaderVisualBox::Update() {
 		ImGui::Separator();
 
 		String buffer("", 0, 256);
-		for(Shader::Property& prop : shader->GetProperties()) {
-            ImGui::PushID(prop.GetName());
-			buffer = prop.GetName();
+		index = 0;
+		for(auto it = properties.begin(); it != properties.end();) {
+			Shader::Property& prop = *it;
+			ImGui::PushID(String::Format("PropertyNameID #", index++));
+
+			buffer = prop.name;
 			ImGui::PushItemWidth(-1);
 			ImGui::InputText("##Name", buffer.ToCStr(), buffer.Capacity());
+			prop.name = buffer.ToCStr();
+
 			ImGui::NextColumn();
-			buffer = prop.GetGLName();
+			buffer = prop.glName;
 			ImGui::PushItemWidth(-1);
 			ImGui::InputText("##GlName", buffer.ToCStr(), buffer.Capacity());
+			prop.glName = buffer.ToCStr();
 			ImGui::NextColumn();
 
 			char* values[Shader::Property::Type::UNKNOWN];
@@ -125,7 +129,7 @@ void ShaderVisualBox::Update() {
 
 			availableWidth = ImGui::GetColumnWidth();
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
-			if(ImGui::BeginCombo("##" + prop.GetName(), Shader::Property::TypeToString(prop.GetType()))) {
+			if(ImGui::BeginCombo("##Type", Shader::Property::TypeToString(prop.GetType()))) {
 
 				for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
 					Shader::Property::Type type = (Shader::Property::Type)i;
@@ -139,7 +143,9 @@ void ShaderVisualBox::Update() {
 			}
 			ImGui::SameLine(availableWidth - SCALED(20.f));
 			if(ImGui::Button("-", ImVec2(-1, 0))) {
-				CROSS_ASSERT(false, "Functional not Implemented");
+				it = properties.erase(it);
+			} else {
+				it++;
 			}
 
 			ImGui::NextColumn();
@@ -149,14 +155,15 @@ void ShaderVisualBox::Update() {
 
 		ImGui::PushItemWidth(-1);
 		if(ImGui::Button("New Property", ImVec2(-1, 0))) {
-			CROSS_ASSERT(false, "Functional not Implemented");
+			Shader::Property newProperty("NewProperty", "glNewProperty", Shader::Property::Type::INT);
+			properties.push_back(newProperty);
 		}
 
 		availableWidth = ImGui::GetWindowWidth();
 		ImGui::NewLine();
 		ImGui::SameLine(availableWidth / 2);
 		if(ImGui::Button("Revert", ImVec2(availableWidth / 4 - SCALED(10.f), 0))) {
-			CROSS_ASSERT(false, "Functional not Implemented");
+			OnFileSelected(shader_filename);
 		}
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
@@ -172,6 +179,11 @@ void ShaderVisualBox::Update() {
 			for(const String& macro : macrosies) {
 				shader->AddMacro(macro.ToCStr());//it is important here to firstly cast to C-style string. because we were writing bytes directly into cross::String buffers will case memory corruption in future
 			}
+			shader->ClearProperties();
+			for(const Shader::Property& prop : properties) {
+				shader->AddProperty(prop);
+			}
+
 			shader->Save(os->AssetsPath() + shader_filename);
 		}
 
@@ -182,6 +194,7 @@ void ShaderVisualBox::Update() {
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
 	macrosies.clear();
+	properties.clear();
 	selected_vertex_file = 0;
 	selected_fragment_file = 0;
 	if(File::ExtensionFromFile(filename) == "sha") {
@@ -195,6 +208,9 @@ void ShaderVisualBox::OnFileSelected(String filename) {
 			String newMacroString("", 0, 256);
 			newMacroString += macro;
 			macrosies.push_back(newMacroString);
+		}
+		for(const Shader::Property& prop : shader->GetProperties()) {
+			properties.push_back(prop);
 		}
 	} else {
 		shader = nullptr;

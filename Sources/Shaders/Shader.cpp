@@ -189,14 +189,6 @@ Shader::Property::Type Shader::Property::GetType() const {
 	return type;
 }
 
-const String& Shader::Property::GetName() const {
-	return name;
-}
-
-const String& Shader::Property::GetGLName() const {
-	return glName;
-}
-
 Shader::Shader(const String& vertexFile, const String& fragmentFile) {
 	vertex_filename = vertexFile;
 	fragment_filename = fragmentFile;
@@ -233,8 +225,8 @@ void Shader::Save(const String& file) {
 
 	for(const Property& prop : properties){
 		XMLElement* propertyXML = doc.NewElement("Property");
-		propertyXML->SetAttribute("name", prop.GetName());
-		propertyXML->SetAttribute("glName", prop.GetGLName());
+		propertyXML->SetAttribute("name", prop.name);
+		propertyXML->SetAttribute("glName", prop.glName);
 		propertyXML->SetAttribute("type", Property::TypeToString(prop.GetType()));
 		propertiesXML->LinkEndChild(propertyXML);
 	}

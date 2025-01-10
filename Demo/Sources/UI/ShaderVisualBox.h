@@ -16,6 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Shaders/Shader.h"
 
 using namespace cross;
 
@@ -39,4 +40,5 @@ private:
 	int selected_vertex_file = 0;
 	int selected_fragment_file = 0;
 	List<String> macrosies;
+	List<Shader::Property> properties;
 };

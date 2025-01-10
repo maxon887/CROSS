@@ -49,11 +49,11 @@ void MaterialVisualBox::Update() {
 		ImGui::Separator();
 
 		for(Shader::Property& prop : mat->GetProperties()) {
-			ImGui::TextUnformatted(prop.GetName());
+			ImGui::TextUnformatted(prop.name);
 			ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 			switch(prop.GetType()) {
 			case Shader::Property::Type::COLOR: {
-				ImGui::ColorEdit4(prop.GetName(), prop.GetValue().color.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+				ImGui::ColorEdit4(prop.name, prop.GetValue().color.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
 				break;
 			}
 			case Shader::Property::Type::TEXTURE: {

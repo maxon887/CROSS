@@ -62,6 +62,9 @@ public:
 		static String TypeToString(Type t);
 		static Type StringToType(const String& type);
 
+		String name		= String();
+		String glName	= String();
+
 		Property(const String& name, const String& glName);
 		Property(const String& name, const String& glName, Type type);
 		Property(const String& name, const String& glName, S32 value);
@@ -87,18 +90,12 @@ public:
 
 		GLint GetID() const;
 		Type GetType() const;
-		const String& GetName() const;
-		const String& GetGLName() const;
 
 	engineonly:
 		GLint glId = -1;
 		Type type = UNKNOWN;
 
 		Value value;
-
-	private:
-		String name		= String();
-		String glName	= String();
 	};
 
 	//general attributes
