@@ -222,7 +222,7 @@ void Shader::Save(const String& file) {
 
 	XMLElement* macrosiesXML = doc.NewElement("Macrosies");
 	shaderXML->LinkEndChild(macrosiesXML);
-	for(const String& macro : user_macro){
+	for(const String& macro : macrosies){
 		XMLElement* macroXML = doc.NewElement("Macro");
 		macroXML->SetText(macro);
 		macrosiesXML->LinkEndChild(macroXML);
@@ -323,35 +323,24 @@ void Shader::AddVersion(const String& ver) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	String fullStr = "#version " + ver + " es\n";
 	macrosies.Add(fullStr);
-	makro_len += fullStr.Length();
 }
 
-void Shader::AddMacro(const String& makro, bool os) {
+void Shader::AddMacro(const String& macro) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	String makroString = "#define " + makro + "\n";
-	macrosies.Add(makroString);
-	makro_len += makroString.Length();
-	if(!os){
-		user_macro.Add(makro);
-	}
+	macrosies.Add(macro);
 }
 
-void Shader::AddMacro(const String& makro, int value, bool os) {
+void Shader::AddMacro(const String& macro, int value) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
-	String makroString = "#define " + makro + " " + String(value) + "\n";
-	macrosies.Add(makroString);
-	makro_len += makroString.Length();
-	if(!os) {
-		CROSS_ASSERT(false, "Do not implement yet");
-	}
+	macrosies.Add(macro + " " + String(value));
 }
 
 Array<String>& Shader::GetMacrosies() {
-	return user_macro;
+	return macrosies;
 }
 
 void Shader::ClearMacrosies() {
-	user_macro.Clear();
+	macrosies.Clear();
 }
 
 void Shader::AddProperty(const String& name, const String& glName) {
@@ -428,18 +417,16 @@ GLuint Shader::GetProgram() const {
 
 GLuint Shader::CompileShader(GLuint type, File* file) {
 	CROSS_RETURN(file, 0, "Attempt to compile shader without a file");
+	CROSS_RETURN(!compiled, 0, "Shader already compiled");
+	String source;
 #if defined(IOS) || defined(ANDROID) || defined(GLES)
     if(type == GL_FRAGMENT_SHADER) {
-        CROSS_RETURN(!compiled, 0, "Shader already compiled");
-        String fullStr = "precision mediump float;\n";
-		macrosies.Add(fullStr);
-        makro_len += fullStr.Length();
+		source += "precision mediump float;\n";
     }
 #endif
 
-	String source;
-	for(String makro : macrosies) {
-		source += makro;
+	for(String macro : macrosies) {
+		source += "#define " + macro + "\n";
 	}
 
 	source += String((char*)file->data, (char*)(file->data + file->size));

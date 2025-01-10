@@ -98,7 +98,6 @@ void FilesView::BuildNote(Node& node) {
 	}
 
 	for(const pair<String, String>& file : node.files) {
-		//String filesize = Demo::GetCompactSize(os->GetFileSize(filepath));
 		ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file.first, flags);
 		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
@@ -112,10 +111,6 @@ void FilesView::BuildNote(Node& node) {
 			filepath.Remove(os->AssetsPath());
 			FileDoubleClicked(filepath);
 		}
-
-		//ImVec2 labelSize = ImGui::CalcTextSize(filesize);
-		//ImGui::SameLine(ImGui::GetWindowWidth() - labelSize.x - SCALED(15.f));
-		//ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.f), filesize);
 	}
 }
 
@@ -135,11 +130,15 @@ void FilesView::FileDoubleClicked(const String& filename) {
 
 void FilesView::ContextMenu() {
 	static bool newFolder = false;
+	static bool newShader = false;
 	static bool newMaterial = false;
 	static bool deleteFile = false;
 	if(ImGui::BeginPopupContextWindow("FileOptions")) {
 		if(ImGui::MenuItem("New Folder")) {
 			newFolder = true;
+		}
+		if(ImGui::MenuItem("New Shader")) {
+			newShader = true;
 		}
 		if(ImGui::MenuItem("New Material")) {
 			newMaterial = true;
@@ -147,10 +146,10 @@ void FilesView::ContextMenu() {
 		if(ImGui::MenuItem("Delete")) {
 			deleteFile = true;
 		}
-
 		ImGui::EndPopup();
 	}
 
+	//New Folder dialog
 	if(newFolder) {
 		ImGui::OpenPopup("Folder Name");
 		newFolder = false;
@@ -181,13 +180,41 @@ void FilesView::ContextMenu() {
 		ImGui::EndPopup();
 	}
 
+	//New Shader dialog
+	if(newShader) {
+		ImGui::OpenPopup("New Shader");
+		newShader = false;
+	}
+	if(ImGui::BeginPopupModal("New Shader", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+		static char buffer[256];
+		ImGui::Text("Enter Shader name");
+		ImGui::InputText("##ShaderName", buffer, 256);
+
+		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
+		   input->IsPressed(Key::ESCAPE)) {
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SameLine();
+		if(ImGui::Button("Ok", ImVec2(120, 0)) || input->IsPressed(Key::ENTER)) {
+
+			Shader* shader = CREATE Shader();
+			shader->Save(current_path + "//" + String(buffer) + ".sha");
+			delete shader;
+
+			Refresh();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}
+
+	//New Material dialog
 	if(newMaterial) {
 		ImGui::OpenPopup("New Material");
 		newMaterial = false;
 		all_shader_files = FileUtils::GetAllFilesOfType("sha");
 	}
 	if(ImGui::BeginPopupModal("New Material", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
-		//Materia name
+		//Material name
 		static char buffer[256];
 		ImGui::Text("Enter Material name");
 		ImGui::InputText("##MaterialName", buffer, 256);
@@ -203,21 +230,19 @@ void FilesView::ContextMenu() {
 		static int selectedShader = 0;
 		ImGui::Combo("ShaderFile", &selectedShader, selectableItems, shaderNames.Size());
 
-		if(ImGui::Button("Cancel", ImVec2(120, 0)) ||
-			input->IsPressed(Key::ESCAPE)) {
+		if(ImGui::Button("Cancel", ImVec2(120, 0)) || input->IsPressed(Key::ESCAPE)) {
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SameLine();
-		if(ImGui::Button("Ok", ImVec2(120, 0)) ||
-			input->IsPressed(Key::ENTER)) {
+		if(ImGui::Button("Ok", ImVec2(120, 0)) || input->IsPressed(Key::ENTER)) {
 
-			Shader* newShader = gfx->LoadShader(all_shader_files[selectedShader]);
-			newShader->Compile();
-			Material* newMaterial = CREATE Material(newShader);
-			newMaterial->Save(current_path + "//" + String(buffer) + ".mat");
+			Shader* shader = gfx->LoadShader(all_shader_files[selectedShader]);
+			shader->Compile();
+			Material* material = CREATE Material(shader);
+			material->Save(current_path + "//" + String(buffer) + ".mat");
 
-			delete newMaterial;
-			delete newShader;
+			delete material;
+			delete shader;
 
 			Refresh();
 			ImGui::CloseCurrentPopup();
@@ -225,7 +250,7 @@ void FilesView::ContextMenu() {
 
 		ImGui::EndPopup();
 	}
-
+	//Delete dialog
 	if(deleteFile) {
 		ImGui::OpenPopup("Delete?");
 		deleteFile = false;
@@ -233,16 +258,6 @@ void FilesView::ContextMenu() {
 	if(ImGui::BeginPopupModal("Delete?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::Text("Are you shure you what to delete this file?");
-		//ImGui::Separator();
-
-		//static int dummy_i = 0;
-		//ImGui::Combo("Combo", &dummy_i, "Delete\0Delete harder\0");
-
-		//static bool dont_ask_me_next_time = false;
-		//ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
-		//ImGui::Checkbox("Don't ask me next time", &dont_ask_me_next_time);
-		//ImGui::PopStyleVar();
-
 		if(ImGui::Button("OK", ImVec2(120, 0))) {
 			ImGui::CloseCurrentPopup(); 
 			os->Delete(current_path);

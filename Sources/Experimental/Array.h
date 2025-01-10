@@ -38,6 +38,7 @@ public:
 	T& Last();
 	void RemoveLast();
 	T* GetData();
+	bool IsInRange(S32 index) const;
 
 	T* begin() const;
 	T* end() const;
@@ -164,6 +165,15 @@ void Array<T>::RemoveLast() {
 template<class T>
 T* Array<T>::GetData() {
 	return data;
+}
+
+template<class T>
+bool Array<T>::IsInRange(S32 index) const {
+	if(index < 0) {
+		return false;
+	} else {
+		return index < Size();
+	}
 }
 
 template<class T>

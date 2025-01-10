@@ -30,6 +30,7 @@ public:
 
 private:
 	Shader* shader = nullptr;
+	String shader_filename;
 	Array<String> type_names;
 
 	Array<String> all_available_vertex_files;

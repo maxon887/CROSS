@@ -160,7 +160,19 @@ void ShaderVisualBox::Update() {
 		}
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
-			CROSS_ASSERT(false, "Functional not Implemented");
+			if(all_available_vertex_files.IsInRange(selected_vertex_file)) {
+				String vertexFile = all_available_vertex_files[selected_vertex_file];
+				shader->SetVertexFilename(vertexFile);
+			}
+			if(all_available_fragment_files.IsInRange(selected_fragment_file)) {
+				String fragmentFile = all_available_fragment_files[selected_fragment_file];
+				shader->SetFragmentFilename(fragmentFile);
+			}
+			shader->ClearMacrosies();
+			for(const String& macro : macrosies) {
+				shader->AddMacro(macro);
+			}
+			shader->Save(os->AssetsPath() + shader_filename);
 		}
 
 		ImGui::PopStyleVar();
@@ -170,6 +182,7 @@ void ShaderVisualBox::Update() {
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
 	if(File::ExtensionFromFile(filename) == "sha") {
+		shader_filename = filename;
 		shader = gfx->LoadShader(filename);
 		String vertexFile = shader->GetVertexFilename();
 		String fragmentFile = shader->GetFragmentFilename();
