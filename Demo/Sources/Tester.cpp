@@ -19,30 +19,16 @@
 
 using namespace cross;
 
-int Debuggable(String str)
-{
-	int i = 0;
-	i += i * 2;
-	return i;
-}
-
-int NotDebuggable()
-{
-	int i = 0;
-	i++;
-	i++;
-	return i;
-}
-
 void RunTest()
 {
-    Array<int> TestArray;
-    TestArray.Add(23);
-    TestArray.Add(22);
+    Array<Byte> TestArray;
+	TestArray.Add(1);
+	TestArray.Add(2);
+	TestArray.Add(3);
+	TestArray.Add(4);
 
-	String test = "Blah";
-	test.Uppercase();
-	int val2 = NotDebuggable();
-	int val = Debuggable(test + "Money");
-	val++;
+	TestArray.Remove(1);
+
+	int s = 0;
+	s++;
 }

@@ -106,8 +106,8 @@ void ShaderVisualBox::Update() {
 
 		String buffer("", 0, 256);
 		index = 0;
-		for(auto it = properties.begin(); it != properties.end();) {
-			Shader::Property& prop = *it;
+		for(int i = 0; i < shader->GetProperties().Size(); i++) {
+			Shader::Property& prop = shader->GetProperties()[i];
 			ImGui::PushID(String::Format("PropertyNameID #", index++));
 
 			buffer = prop.name;
@@ -143,20 +143,19 @@ void ShaderVisualBox::Update() {
 			}
 			ImGui::SameLine(availableWidth - SCALED(20.f));
 			if(ImGui::Button("-", ImVec2(-1, 0))) {
-				it = properties.erase(it);
-			} else {
-				it++;
+				shader->GetProperties().Remove(i);
+				i--;
 			}
 
 			ImGui::NextColumn();
-            ImGui::PopID();
+			ImGui::PopID();
 		}
 		ImGui::Columns(1);
 
 		ImGui::PushItemWidth(-1);
 		if(ImGui::Button("New Property", ImVec2(-1, 0))) {
 			Shader::Property newProperty("NewProperty", "glNewProperty", Shader::Property::Type::INT);
-			properties.push_back(newProperty);
+			shader->AddProperty(newProperty);
 		}
 
 		availableWidth = ImGui::GetWindowWidth();
@@ -179,10 +178,6 @@ void ShaderVisualBox::Update() {
 			for(const String& macro : macrosies) {
 				shader->AddMacro(macro.ToCStr());//it is important here to firstly cast to C-style string. because we were writing bytes directly into cross::String buffers will case memory corruption in future
 			}
-			shader->ClearProperties();
-			for(const Shader::Property& prop : properties) {
-				shader->AddProperty(prop);
-			}
 
 			shader->Save(os->AssetsPath() + shader_filename);
 		}
@@ -194,7 +189,6 @@ void ShaderVisualBox::Update() {
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
 	macrosies.clear();
-	properties.clear();
 	selected_vertex_file = 0;
 	selected_fragment_file = 0;
 	if(File::ExtensionFromFile(filename) == "sha") {
@@ -208,9 +202,6 @@ void ShaderVisualBox::OnFileSelected(String filename) {
 			String newMacroString("", 0, 256);
 			newMacroString += macro;
 			macrosies.push_back(newMacroString);
-		}
-		for(const Shader::Property& prop : shader->GetProperties()) {
-			properties.push_back(prop);
 		}
 	} else {
 		shader = nullptr;

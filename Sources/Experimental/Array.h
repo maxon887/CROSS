@@ -38,7 +38,10 @@ public:
 	T& Last();
 	void RemoveLast();
 	T* GetData();
+	/* Checks that index inside the Array range. Index should be no less than 0 and less than array size */
 	bool IsInRange(S32 index) const;
+	/* Remove index item from Array. Right part of the array will be offset to the left. This function uses 1 memory allocation and 2 memory copy operation so use it with caution */
+	void Remove(S32 index);
 
 	T* begin() const;
 	T* end() const;
@@ -174,6 +177,20 @@ bool Array<T>::IsInRange(S32 index) const {
 	} else {
 		return index < Size();
 	}
+}
+
+template<class T>
+void Array<T>::Remove(S32 index) {
+	T* item = &data[index];
+	item->~T();
+
+	//safe path with intermediate buffer
+	S32 leftOverPartSize = sizeof(T) * (size - index - 1);
+	Byte* buffer = (Byte*)CROSS_ALLOC(leftOverPartSize);
+	memcpy(buffer, data + index + 1, leftOverPartSize);
+	memcpy(data + index, buffer, leftOverPartSize);
+	CROSS_FREE(buffer);
+	size--;
 }
 
 template<class T>
