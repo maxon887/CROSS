@@ -181,6 +181,9 @@ void ShaderVisualBox::Update() {
 
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
+	macrosies.clear();
+	selected_vertex_file = 0;
+	selected_fragment_file = 0;
 	if(File::ExtensionFromFile(filename) == "sha") {
 		shader_filename = filename;
 		shader = gfx->LoadShader(filename);
