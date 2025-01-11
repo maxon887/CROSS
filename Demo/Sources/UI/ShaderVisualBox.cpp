@@ -66,23 +66,25 @@ void ShaderVisualBox::Update() {
 		}
 		ImGui::Combo("Fragment File:", &selected_fragment_file, selectableItems, all_available_fragment_files.Size());
 
+		//Macrosies block
 		ImGui::NewLine();
-
 		float availableWidth = ImGui::GetColumnWidth();
 		ImGui::Text("Macrosies");
 		ImGui::Separator();
 		int index = 0;
-		for(auto it = macrosies.begin(); it != macrosies.end();) {
-			String& macro = *it;
+		String buffer("", 0, 256);
+		for(int i = 0; i < shader->GetMacrosies().Size(); i++) {
+			String& macro = shader->GetMacrosies()[i];
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
 			ImGui::PushID(String::Format("MacroEdit #", index++));
-			ImGui::InputText("##Macro", macro.ToCStr(), macro.Capacity());
+			buffer = macro;
+			ImGui::InputText("##Macro", buffer.ToCStr(), buffer.Capacity());
+			macro = buffer.ToCStr();
 			ImGui::SameLine(availableWidth - SCALED(20.f));
 
 			if(ImGui::Button("-", ImVec2(-1, 0))) {
-				it = macrosies.erase(it);
-			} else {
-				it++;
+				shader->GetMacrosies().Remove(i);
+				i--;
 			}
 			ImGui::PopID();
 		}
@@ -90,11 +92,11 @@ void ShaderVisualBox::Update() {
 		if(ImGui::Button("New Macro", ImVec2(-1, 0))) {
 			String newMacroString("", 0, 256);
 			newMacroString += "NEW_MACRO";
-			macrosies.push_back(newMacroString);
+			shader->GetMacrosies().Add(newMacroString);
 		}
 
+		//Properties block 
 		ImGui::NewLine();
-
 		ImGui::Text("Properties");
 		ImGui::Separator();
 		ImGui::Columns(3, "Properties", false);
@@ -104,7 +106,6 @@ void ShaderVisualBox::Update() {
 		ImGui::Text("Type"); ImGui::NextColumn();
 		ImGui::Separator();
 
-		String buffer("", 0, 256);
 		index = 0;
 		for(int i = 0; i < shader->GetProperties().Size(); i++) {
 			Shader::Property& prop = shader->GetProperties()[i];
@@ -174,11 +175,6 @@ void ShaderVisualBox::Update() {
 				String fragmentFile = all_available_fragment_files[selected_fragment_file];
 				shader->SetFragmentFilename(fragmentFile);
 			}
-			shader->ClearMacrosies();
-			for(const String& macro : macrosies) {
-				shader->AddMacro(macro.ToCStr());//it is important here to firstly cast to C-style string. because we were writing bytes directly into cross::String buffers will case memory corruption in future
-			}
-
 			shader->Save(os->AssetsPath() + shader_filename);
 		}
 
@@ -188,7 +184,6 @@ void ShaderVisualBox::Update() {
 
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
-	macrosies.clear();
 	selected_vertex_file = 0;
 	selected_fragment_file = 0;
 	if(File::ExtensionFromFile(filename) == "sha") {
@@ -198,11 +193,6 @@ void ShaderVisualBox::OnFileSelected(String filename) {
 		String fragmentFile = shader->GetFragmentFilename();
 		selected_vertex_file = all_available_vertex_files.Find(vertexFile);
 		selected_fragment_file = all_available_fragment_files.Find(fragmentFile);
-		for(const String& macro : shader->GetMacrosies()) {
-			String newMacroString("", 0, 256);
-			newMacroString += macro;
-			macrosies.push_back(newMacroString);
-		}
 	} else {
 		shader = nullptr;
 	}

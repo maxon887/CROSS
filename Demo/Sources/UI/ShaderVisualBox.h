@@ -38,5 +38,4 @@ private:
 
 	int selected_vertex_file = 0;
 	int selected_fragment_file = 0;
-	List<String> macrosies;
 };
