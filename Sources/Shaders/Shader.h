@@ -145,7 +145,6 @@ public:
 	Property* GetProperty(const String& name);
 	Array<Property>& GetProperties();
 	void ClearProperties();
-	bool HaveProperty(const String& name) const;
 
 protected:
 	class LightUniforms {

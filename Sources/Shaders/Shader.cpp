@@ -337,43 +337,36 @@ void Shader::ClearMacrosies() {
 
 void Shader::AddProperty(const String& name, const String& glName) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
 	properties.CreateInside(name, glName);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Shader::Property::Type type) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
 	properties.CreateInside(name, glName, type);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, float defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
 	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Color& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
 	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, const Vector3D& defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
 	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const String& name, const String& glName, Cubemap* defValue) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(name), "Shader already contain that property");
 	properties.CreateInside(name, glName, defValue);
 }
 
 void Shader::AddProperty(const Property& prop) {
 	CROSS_FAIL(!compiled, "Can't add property to compiled shader");
-	CROSS_FAIL(!HaveProperty(prop.name), "Shader already contain that property");
 	properties.Add(prop);
 }
 
@@ -394,15 +387,6 @@ void Shader::ClearProperties() {
 	properties.Clear();
 }
 
-bool Shader::HaveProperty(const String& name) const {
-	for(const Property& prop : properties) {
-		if(prop.name == name) {
-			return true;
-		}
-	}
-	return false;
-}
-
 GLuint Shader::GetProgram() const {
 	return program;
 }
@@ -417,7 +401,7 @@ GLuint Shader::CompileShader(GLuint type, File* file) {
     }
 #endif
 
-	for(String macro : macrosies) {
+	for(const String& macro : macrosies) {
 		source += "#define " + macro + "\n";
 	}
 
