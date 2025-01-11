@@ -64,6 +64,7 @@ public:
 
 		String name		= String();
 		String glName	= String();
+		Type type = UNKNOWN;
 
 		Property(const String& name, const String& glName);
 		Property(const String& name, const String& glName, Type type);
@@ -89,11 +90,9 @@ public:
 		Property* Clone() const;
 
 		GLint GetID() const;
-		Type GetType() const;
 
 	engineonly:
 		GLint glId = -1;
-		Type type = UNKNOWN;
 
 		Value value;
 	};

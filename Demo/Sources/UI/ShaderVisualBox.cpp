@@ -130,13 +130,13 @@ void ShaderVisualBox::Update() {
 
 			availableWidth = ImGui::GetColumnWidth();
 			ImGui::PushItemWidth(availableWidth - SCALED(35.f));
-			if(ImGui::BeginCombo("##Type", Shader::Property::TypeToString(prop.GetType()))) {
+			if(ImGui::BeginCombo("##Type", Shader::Property::TypeToString(prop.type))) {
 
 				for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
 					Shader::Property::Type type = (Shader::Property::Type)i;
-					bool selected = type == prop.GetType();
+					bool selected = type == prop.type;
 					if(ImGui::Selectable(values[i], selected)) {
-						CROSS_ASSERT(false, "Functional not Implemented");
+						prop.type = type;
 					}
 				}
 

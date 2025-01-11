@@ -91,7 +91,7 @@ bool Material::Load(const String& filename, Scene* scene) {
 		CROSS_RETURN(name, false, "Property without name");
 		if(HaveProperty(name)) {
 			Shader::Property* prop = GetProperty(name);
-			switch(prop->GetType()) {
+			switch(prop->type) {
 			case Shader::Property::INT: {
 				int value = propertyXML->IntAttribute("value");
 				prop->SetValue(value);
@@ -149,7 +149,7 @@ void Material::Save(const String& filename) {
 	for(const Shader::Property& prop : properties) {
 		XMLElement* propertyXML = doc.NewElement("Property");
 		propertyXML->SetAttribute("name", prop.name);
-		switch(prop.GetType()) {
+		switch(prop.type) {
 		case Shader::Property::Type::COLOR: {
 			String color = prop.value.color.ToString();
 			propertyXML->SetAttribute("value", color);

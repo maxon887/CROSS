@@ -185,10 +185,6 @@ GLint Shader::Property::GetID() const {
 	return glId;
 }
 
-Shader::Property::Type Shader::Property::GetType() const {
-	return type;
-}
-
 Shader::Shader(const String& vertexFile, const String& fragmentFile) {
 	vertex_filename = vertexFile;
 	fragment_filename = fragmentFile;
@@ -227,7 +223,7 @@ void Shader::Save(const String& file) {
 		XMLElement* propertyXML = doc.NewElement("Property");
 		propertyXML->SetAttribute("name", prop.name);
 		propertyXML->SetAttribute("glName", prop.glName);
-		propertyXML->SetAttribute("type", Property::TypeToString(prop.GetType()));
+		propertyXML->SetAttribute("type", Property::TypeToString(prop.type));
 		propertiesXML->LinkEndChild(propertyXML);
 	}
 

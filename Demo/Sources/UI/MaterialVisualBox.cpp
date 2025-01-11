@@ -51,7 +51,7 @@ void MaterialVisualBox::Update() {
 		for(Shader::Property& prop : mat->GetProperties()) {
 			ImGui::TextUnformatted(prop.name);
 			ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
-			switch(prop.GetType()) {
+			switch(prop.type) {
 			case Shader::Property::Type::COLOR: {
 				ImGui::ColorEdit4(prop.name, prop.GetValue().color.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
 				break;
@@ -82,7 +82,7 @@ void MaterialVisualBox::Update() {
 				break;
 			}
 			default:
-				CROSS_ASSERT(false, "Can not display material property of type #", Shader::Property::TypeToString(prop.GetType()));
+				CROSS_ASSERT(false, "Can not display material property of type #", Shader::Property::TypeToString(prop.type));
 				break;
 			}
 		}
@@ -134,7 +134,7 @@ void MaterialVisualBox::OnScreenChanged(Screen* newScreen) {
 void MaterialVisualBox::DeleteMaterialIfNeeded() {
 	if(!loaded_from_scene && mat) {
 		for(Shader::Property& prop : mat->GetProperties()) {
-			if(prop.GetType() == Shader::Property::Type::TEXTURE) {
+			if(prop.type == Shader::Property::Type::TEXTURE) {
 				delete prop.GetValue().texture;
 			}
 		}
