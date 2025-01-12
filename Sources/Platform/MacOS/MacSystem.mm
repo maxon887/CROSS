@@ -1,12 +1,15 @@
 #include "MacSystem.h"
 
 #include "File.h"
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Weverything"
 #import <Cocoa/Cocoa.h>
-
+#pragma clang diagnostic pop
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <dirent.h>
+
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 using namespace cross;
 

@@ -214,13 +214,14 @@ MemoryManager::MemoryObject* MemoryManager::FindObject(void* address) {
 
 void MemoryManager::Log(const char* msg, ...) {
 	va_list params;
-	char buffer[4096];
+	constexpr int BufferSize = 4096;
+	char buffer[BufferSize];
 	va_start(params, msg);
-	vsprintf(buffer, msg, params);
+	vsnprintf(buffer, BufferSize, msg, params);
 #ifdef WIN
 	OutputDebugStringA(buffer);
 #else
-	printf(buffer);
+	printf("%s", buffer);
 #endif
 	va_end(params);
 }
