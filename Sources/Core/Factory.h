@@ -60,4 +60,4 @@ Array<String> Factory<BaseClass>::GetRegisteredComponentsName() {
 	return names;
 }
 
-};
+}

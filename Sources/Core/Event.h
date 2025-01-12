@@ -91,4 +91,4 @@ void Event<Args...>::Connect(U64 hash, const Function<void(Args...)>& func) {
 	connections.insert(std::make_pair(hash, func));
 }
 
-};
+}

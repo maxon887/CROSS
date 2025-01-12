@@ -51,4 +51,4 @@ protected:
 	void RecalcView();
 };
 
-};
+}

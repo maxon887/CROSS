@@ -52,4 +52,4 @@ private:
 	Sound(const Sound& obj);
 };
 
-};
+}
