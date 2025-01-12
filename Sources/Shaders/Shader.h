@@ -128,11 +128,9 @@ public:
 	String& GetFragmentFilename();
 	void SetFragmentFilename(const String& filename);
 
-	void AddVersion(const String& version);
 	void AddMacro(const String& macro);
 	void AddMacro(const String& macro, int value);
 	Array<String>& GetMacrosies();
-	void ClearMacrosies();
 
 	void AddProperty(const String& name, const String& glName);
 	void AddProperty(const String& name, const String& glName, Property::Type type);

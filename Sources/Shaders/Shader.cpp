@@ -307,12 +307,6 @@ void Shader::SetFragmentFilename(const String& filename) {
 	fragment_filename = filename;
 }
 
-void Shader::AddVersion(const String& ver) {
-	CROSS_FAIL(!compiled, "Shader already compiled");
-	String fullStr = "#version " + ver + " es\n";
-	macrosies.Add(fullStr);
-}
-
 void Shader::AddMacro(const String& macro) {
 	CROSS_FAIL(!compiled, "Shader already compiled");
 	macrosies.Add(macro);
@@ -325,10 +319,6 @@ void Shader::AddMacro(const String& macro, int value) {
 
 Array<String>& Shader::GetMacrosies() {
 	return macrosies;
-}
-
-void Shader::ClearMacrosies() {
-	macrosies.Clear();
 }
 
 void Shader::AddProperty(const String& name, const String& glName) {
