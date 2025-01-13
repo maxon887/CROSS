@@ -31,7 +31,7 @@ public:
 	DockPosition GetDefaultDockPosition() const override { return DockPosition::RIGHT; }
 
 protected:
-	TransformVisualBox tranform_box;
+	TransformVisualBox transform_box;
 	MeshVisualBox mesh_box;
 	SceneView* scene_view = nullptr;
 

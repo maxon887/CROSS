@@ -29,7 +29,7 @@ ComponentsView::ComponentsView(SceneView* sceneView) :
 	View("Components", true)
 {
 	scene_view = sceneView;
-	scene_view->EntitySelected.Connect(&tranform_box, &TransformVisualBox::EntitySelected);
+	scene_view->EntitySelected.Connect(&transform_box, &TransformVisualBox::EntitySelected);
 	//scene_view->EntitySelected.Connect(&mesh_box, &MeshVisualBox::EntitySelected);
 }
 
@@ -56,7 +56,7 @@ void ComponentsView::Update(float sec) {
 				ImGui::Separator();
 
 				if(dynamic_cast<Transform*>(component)) {
-					tranform_box.Show((Transform*)component);
+					transform_box.Show((Transform*)component);
 				} else if(dynamic_cast<Mesh*>(component)) {
 					mesh_box.Show((Mesh*)component);
 				} else {
