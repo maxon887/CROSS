@@ -80,26 +80,8 @@ bool Scene::Load(const String& file) {
 	CROSS_RETURN(scene, false, "Can not load scene. Root node Scene not found");
 	SetName(File::FileWithoutExtension(File::FileFromPath(file)));
 	int version = scene->IntAttribute("version");
-	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version missmatch");
-	//general lighting information
-	int pointLightCount = 0;
-	int spotLightCount = 0;
-	int directionalLightCount = 0;
-	XMLElement* lightXML = scene->FirstChildElement("Light");
-	if(lightXML) {
-		XMLElement* pointXML = lightXML->FirstChildElement("Point");
-		if(pointXML) {
-			pointLightCount = pointXML->IntAttribute("count");
-		}
-		XMLElement* spotXML = lightXML->FirstChildElement("Spot");
-		if(spotXML) {
-			spotLightCount = spotXML->IntAttribute("count");
-		}
-		XMLElement* directionalXML = lightXML->FirstChildElement("Directional");
-		if(directionalXML) {
-			directionalLightCount = directionalXML->IntAttribute("count");
-		}
-	}
+	CROSS_ASSERT(version <= scene_loader_version, "Scene loader version mismatch");
+
 	//objects loading
 	XMLElement* objectsXML = scene->FirstChildElement("Objects");
 	if(objectsXML) {
@@ -119,46 +101,6 @@ void Scene::Save(const String& filename) {
 	XMLElement* sceneXML = doc.NewElement("Scene");
 	sceneXML->SetAttribute("version", scene_saver_version);
 	doc.LinkEndChild(sceneXML);
-
-	//light sorting
-	List<Light*>& lights = GetLights();
-	U32 pointCount = 0;
-	U32 directionCount = 0;
-	U32 spotCount = 0;
-	for(Light* light : lights) {
-		switch(light->GetType()) {
-		case Light::POINT:
-			pointCount++;
-			break;
-		case Light::DIRECTIONAL:
-			directionCount++;
-			break;
-		case Light::SPOT:
-			spotCount++;
-			break;
-		default:
-			break;
-		}
-	}
-	if(pointCount || directionCount || spotCount) {
-		XMLElement* lightXML = doc.NewElement("Light");
-		if(pointCount > 0){
-			XMLElement* pointXML = doc.NewElement("Point");
-			pointXML->SetAttribute("count", pointCount);
-			lightXML->LinkEndChild(pointXML);
-		}
-		if(directionCount > 0) {
-			XMLElement* directionalXML = doc.NewElement("Directional");
-			directionalXML->SetAttribute("count", directionCount);
-			lightXML->LinkEndChild(directionalXML);
-		}
-		if(spotCount > 0) {
-			XMLElement* spotXML = doc.NewElement("Spot");
-			spotXML->SetAttribute("count", spotCount);
-			lightXML->LinkEndChild(spotXML);
-		}
-		sceneXML->LinkEndChild(lightXML);
-	}
 
 	if(root->children.size() > 0) {
 		XMLElement* objectsXML = doc.NewElement("Objects");
