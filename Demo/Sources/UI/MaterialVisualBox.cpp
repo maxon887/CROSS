@@ -52,6 +52,14 @@ void MaterialVisualBox::Update() {
 			ImGui::TextUnformatted(prop.name);
 			ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 			switch(prop.type) {
+			case Shader::Property::Type::INT: {
+				ImGui::DragInt("##IntProperty", &prop.GetValue().s32);
+				break;
+			}
+			case Shader::Property::Type::FLOAT: {
+				ImGui::DragFloat("##FloatProperty", &prop.GetValue().f, 0.1f);
+				break;
+			}
 			case Shader::Property::Type::COLOR: {
 				ImGui::ColorEdit4(prop.name, prop.GetValue().color.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
 				break;

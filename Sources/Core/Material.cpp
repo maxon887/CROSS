@@ -150,6 +150,14 @@ void Material::Save(const String& filename) {
 		XMLElement* propertyXML = doc.NewElement("Property");
 		propertyXML->SetAttribute("name", prop.name);
 		switch(prop.type) {
+		case Shader::Property::INT: {
+			propertyXML->SetAttribute("value", prop.value.s32);
+			break;
+		}
+		case Shader::Property::FLOAT: {
+			propertyXML->SetAttribute("value", prop.value.f);
+			break;
+		}
 		case Shader::Property::Type::COLOR: {
 			String color = prop.value.color.ToString();
 			propertyXML->SetAttribute("value", color);
