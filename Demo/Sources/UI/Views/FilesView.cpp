@@ -60,7 +60,7 @@ void FilesView::InitNode(Node& node) {
 		Node newNode;
 		newNode.path = path;
 		newNode.name = folder;
-		newNode.full_path = path + folder;
+		newNode.full_path = path + folder + "/";
 		node.folders.Add(newNode);
 	}
 	for(String& file : os->GetFilesInDirectory(path)) {
