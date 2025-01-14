@@ -15,10 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Mesh.h"
-#include "System.h"
 #include "VertexBuffer.h"
 #include "Scene.h"
-#include "Texture.h"
 #include "Entity.h"
 #include "Material.h"
 #include "Game.h"
@@ -26,10 +24,7 @@
 #include "Transform.h"
 #include "Utils/Cubemap.h"
 
-#include "Libs/TinyXML2/tinyxml2.h"
-
 using namespace cross;
-using namespace tinyxml2;
 
 Mesh::Mesh() : Component("Mesh")
 { }
