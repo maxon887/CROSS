@@ -35,6 +35,8 @@ protected:
 	String name;
 };
 
+/* Properties made for Scene loading mechanism. They allow Components to have variable fields
+ which will later be saved in a file. They also useful for viewing properties in UI */
 template<class T>
 class Property : public BaseProperty {
 public:
