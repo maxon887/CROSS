@@ -57,8 +57,6 @@ public:
 
 	/* Initialize Mesh data currently stored in CPU memory into GPU. CPU data will be freed */
 	void InitializeVideoData();
-	/* Copy video data from another mesh, VBO, EBO and indices */
-	void TransferVideoData(Mesh* mesh);
 	/* Add new data to this Mesh or push it on top if have some */
 	void PushData(VertexBuffer* vertexBuffer, const Array<U16>& indices);
 

@@ -165,10 +165,12 @@ String MacSystem::OpenFileDialog(const String& extension, bool saveDialog) {
 		[openDialog setAllowsMultipleSelection:NO];
 		[openDialog setCanChooseDirectories:NO];
 		
-		String shortExtension = extension.SubString(2, 5);
-		NSString* nsExtension = [NSString stringWithCString:shortExtension];
-		NSArray* fileTypes = [NSArray arrayWithObjects:nsExtension,nil];
-		[openDialog setAllowedFileTypes:fileTypes];
+		if(extension != "*.*") {
+			String shortExtension = extension.SubString(2, 5);
+			NSString* nsExtension = [NSString stringWithCString:shortExtension];
+			NSArray* fileTypes = [NSArray arrayWithObjects:nsExtension,nil];
+			[openDialog setAllowedFileTypes:fileTypes];
+		}
 		if([openDialog runModal] == NSOKButton) {
 			NSArray* urls = [openDialog URLs];
 			if([urls count] > 0) {

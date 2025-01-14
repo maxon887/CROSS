@@ -262,16 +262,6 @@ void Mesh::InitializeVideoData() {
 	initialized = true;
 }
 
-void Mesh::TransferVideoData(Mesh* mesh) {
-	VBO = mesh->VBO;
-	EBO = mesh->EBO;
-	indices = mesh->indices;
-	initialized = mesh->initialized;
-	indices = mesh->indices;
-	delete vertex_buffer;
-	vertex_buffer = mesh->vertex_buffer->Clone();
-}
-
 void Mesh::PushData(VertexBuffer* buffer, const Array<GLushort>& inds) {
 	if(vertex_buffer == nullptr) {
 		vertex_buffer = buffer->Clone();
