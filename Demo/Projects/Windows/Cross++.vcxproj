@@ -318,21 +318,21 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClCompile Include="..\..\Sources\ImGuiScreen.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_tables.cpp" />
     <ClCompile Include="..\..\Sources\ThirdParty\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="..\..\Sources\UI\About.cpp" />
-    <ClCompile Include="..\..\Sources\UI\CameraController.cpp" />
-    <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp" />
-    <ClCompile Include="..\..\Sources\UI\FilesView.cpp" />
-    <ClCompile Include="..\..\Sources\UI\LaunchView.cpp" />
-    <ClCompile Include="..\..\Sources\UI\Log.cpp" />
     <ClCompile Include="..\..\Sources\UI\MaterialVisualBox.cpp" />
     <ClCompile Include="..\..\Sources\UI\MeshVisualBox.cpp" />
-    <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp" />
     <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp" />
-    <ClCompile Include="..\..\Sources\UI\Stats.cpp" />
-    <ClCompile Include="..\..\Sources\UI\View.cpp" />
-    <ClCompile Include="..\..\Sources\UI\SceneView.cpp" />
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp" />
     <ClCompile Include="..\..\Sources\UI\TransformVisualBox.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\About.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\CameraController.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\ComponentsView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\FilesView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\LaunchView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\Log.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\PropertiesView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\SceneView.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\Stats.cpp" />
+    <ClCompile Include="..\..\Sources\UI\Views\View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Sources\Core\Camera.h" />
@@ -422,21 +422,21 @@ xcopy "$(ProjectDir)Binaries\x64\fmod.dll" "$(ProjectDir)Release\" /D</Command>
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_textedit.h" />
     <ClInclude Include="..\..\Sources\ThirdParty\ImGui\stb_truetype.h" />
     <ClInclude Include="..\..\Sources\ImGuiScreen.h" />
-    <ClInclude Include="..\..\Sources\UI\About.h" />
-    <ClInclude Include="..\..\Sources\UI\CameraController.h" />
-    <ClInclude Include="..\..\Sources\UI\ComponentsView.h" />
-    <ClInclude Include="..\..\Sources\UI\FilesView.h" />
-    <ClInclude Include="..\..\Sources\UI\LaunchView.h" />
-    <ClInclude Include="..\..\Sources\UI\Log.h" />
     <ClInclude Include="..\..\Sources\UI\MaterialVisualBox.h" />
     <ClInclude Include="..\..\Sources\UI\MeshVisualBox.h" />
-    <ClInclude Include="..\..\Sources\UI\PropertiesView.h" />
     <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h" />
-    <ClInclude Include="..\..\Sources\UI\Stats.h" />
-    <ClInclude Include="..\..\Sources\UI\View.h" />
-    <ClInclude Include="..\..\Sources\UI\SceneView.h" />
     <ClInclude Include="..\..\Sources\UI\MenuBar.h" />
     <ClInclude Include="..\..\Sources\UI\TransformVisualBox.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\About.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\CameraController.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\ComponentsView.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\FilesView.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\LaunchView.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\Log.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\PropertiesView.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\SceneView.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\Stats.h" />
+    <ClInclude Include="..\..\Sources\UI\Views\View.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

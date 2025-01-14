@@ -64,6 +64,9 @@
     <Filter Include="Demo\Scenes\Maps">
       <UniqueIdentifier>{ffe6128e-4736-4aec-a45c-2000131e3087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Demo\UI\Views">
+      <UniqueIdentifier>{280dfc66-2634-417f-bb2a-d16aca1c469a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Sources\Demo.cpp">
@@ -219,38 +222,14 @@
     <ClCompile Include="..\..\Sources\UI\MenuBar.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\View.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\CameraController.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\About.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\Stats.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Internals\GraphicsGL.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Internals\Audio.cpp">
       <Filter>Cross\Internals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\Log.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Experimental\String.cpp">
       <Filter>Cross\Experimental</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\FilesView.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\SceneView.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\ComponentsView.cpp">
-      <Filter>Demo\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Core\Property.cpp">
       <Filter>Cross\Core</Filter>
@@ -306,12 +285,6 @@
     <ClCompile Include="..\..\Sources\ImGuiScreen.cpp">
       <Filter>Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\LaunchView.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\PropertiesView.cpp">
-      <Filter>Demo\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\UI\ShaderVisualBox.cpp">
       <Filter>Demo\UI</Filter>
     </ClCompile>
@@ -344,6 +317,36 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Sources\Shaders\MultiLightShader.cpp">
       <Filter>Cross\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\About.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\CameraController.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\ComponentsView.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\FilesView.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\LaunchView.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\Log.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\PropertiesView.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\SceneView.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\Stats.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\View.cpp">
+      <Filter>Demo\UI\Views</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -525,26 +528,11 @@
     <ClInclude Include="..\..\Sources\UI\MenuBar.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\View.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\CameraController.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\About.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\Stats.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Internals\GraphicsGL.h">
       <Filter>Cross\Internals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Internals\Audio.h">
       <Filter>Cross\Internals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\Log.h">
-      <Filter>Demo\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Experimental\Array.h">
       <Filter>Cross\Experimental</Filter>
@@ -554,15 +542,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Experimental\Function.h">
       <Filter>Cross\Experimental</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\FilesView.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\SceneView.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\ComponentsView.h">
-      <Filter>Demo\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Core\Property.h">
       <Filter>Cross\Core</Filter>
@@ -618,12 +597,6 @@
     <ClInclude Include="..\..\Sources\ImGuiScreen.h">
       <Filter>Demo</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\LaunchView.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\PropertiesView.h">
-      <Filter>Demo\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\ShaderVisualBox.h">
       <Filter>Demo\UI</Filter>
     </ClInclude>
@@ -653,6 +626,36 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Shaders\MultiLightShader.h">
       <Filter>Cross\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\About.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\CameraController.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\ComponentsView.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\FilesView.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\LaunchView.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\Log.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\PropertiesView.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\SceneView.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\Stats.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\View.h">
+      <Filter>Demo\UI\Views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

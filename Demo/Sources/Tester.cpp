@@ -16,24 +16,11 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "Cross.h"
-#include "Event.h"
 
 using namespace cross;
 
-Event<> Something;
 
-class A {
-public:
-void EventResponce() {
-	int i = 0;
-	i++;
-}
-
-};
 
 void RunTest()
 {
-	A a;
-	Something.Connect(&a, &A::EventResponce);
-	Something.Emit();
 }
