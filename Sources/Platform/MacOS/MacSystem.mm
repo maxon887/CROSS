@@ -77,6 +77,10 @@ void MacSystem::CreateDirectory(const String &dirname) {
 	mkdir(dirname, 0775);
 }
 
+void MacSystem::Delete(const String& path) {
+	remove(path);
+}
+
 Array<String> MacSystem::GetSubDirectories(const String& filepath) {
 	Array<String> files;
 	DIR* dir = opendir(filepath);

@@ -14,6 +14,7 @@ public:
 	float GetScreenDPI() override;
 	bool IsDirectoryExists(const String& filepath) override;
 	void CreateDirectory(const String& dirname) override;
+	void Delete(const String& path) override;
 	Array<String> GetSubDirectories(const String& filepath) override;
 	Array<String> GetFilesInDirectory(const String& filepath) override;
 	bool Alert(const String& msg) override;
