@@ -78,7 +78,7 @@ public:
 	/* Returns ambient Scene Light Color */
 	Color GetAmbientColor() const;
 	/* Obtain loaded into scene Shader or load it by self in other way */
-	Shader* GetShader(const String& shaderfile);
+	Shader* GetShader(const String& shaderFile);
 	/* Obtain loaded into scene Material or load it by self in other way */
 	Material* GetMaterial(const String& xmlFile);
 	/* Returns default engine material */

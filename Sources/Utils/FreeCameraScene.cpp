@@ -52,11 +52,6 @@ void FreeCameraScene::MoveUp(float distance) {
 	destination.SetPosition(destination.GetPosition() + path);
 }
 
-void FreeCameraScene::MoveCameraUp(float distance) {
-	Vector3D path = destination.GetUp() * distance;
-	destination.SetPosition(destination.GetPosition() + path);
-}
-
 void FreeCameraScene::MoveCloser(float ratio) {
 	MoveForward(focus_distance * ratio);
 	focus_distance -= focus_distance * ratio;

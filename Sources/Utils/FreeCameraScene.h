@@ -35,7 +35,6 @@ public:
 	void MoveForward(float distance);
 	void MoveRight(float distance);
 	void MoveUp(float distance);
-	void MoveCameraUp(float distance);
 	void MoveCloser(float ratio);	//how close you will be compared with current distance
 
 	void LookRight(float degree);

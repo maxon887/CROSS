@@ -37,8 +37,8 @@ public:
 	};
 
 	Mesh();
-	Mesh(const String& modelfilename, S32 id);
-	~Mesh();
+	Mesh(const String& modelFile, S32 id);
+	~Mesh() override;
 
 	void Initialize(Scene* scene) override;
 	/* Creates new Mesh from this Mesh's data */

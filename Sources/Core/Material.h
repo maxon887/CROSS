@@ -21,14 +21,14 @@
 namespace cross{
 
 /*	Adjustable property of an object visualization. Shader must be provided in order to use Material.
-	Material life time managed by Scene. Use Scene::GetMaterial() to obtain new Material.
+	Material lifetime managed by Scene. Use Scene::GetMaterial() to obtain new Material.
 	Material can be used with Mesh class to provide visual representation of the Mesh */
 class Material {
 public:
 	Material() = default;
 	Material(Shader* shader);
 
-	/* Sets Shader to Material to be draw with. All previous one properties will be deleted */
+	/* Sets Shader to Material to be drawn with. All previous properties will be deleted */
 	void SetShader(Shader* shader);
 	/* Gets current Material's Shader */
 	Shader* GetShader();

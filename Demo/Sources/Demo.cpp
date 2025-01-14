@@ -26,12 +26,6 @@
 
 #include "ThirdParty/ImGui/imgui.h"
 
-#ifdef WIN
-#	include "Platform/Windows/WINSystem.h"
-#elif ANDROID
-#	include "Platform/Android/AndroidSystem.h"
-#endif
-
 #define DEFAULT_FONT_SIZE 13.f
 
 using namespace cross;
@@ -54,7 +48,7 @@ const char* Demo::GetClipboardString(void* userData) {
 }
 
 Game* CrossMain() {
-    return CREATE Demo();
+	return CREATE Demo();
 }
 
 void Demo::Start() {

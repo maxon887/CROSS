@@ -188,13 +188,13 @@ Color Scene::GetAmbientColor() const {
 	return ambient_color;
 }
 
-Shader* Scene::GetShader(const String& shaderfile) {
-	U64 hash = shaderfile.Hash();
+Shader* Scene::GetShader(const String& shaderFile) {
+	U64 hash = shaderFile.Hash();
 	auto shaderIt = shaders.find(hash);
 	if(shaderIt != shaders.end()) {
 		return (*shaderIt).second;
 	} else {
-		Shader* shader = gfx->LoadShader(shaderfile);
+		Shader* shader = gfx->LoadShader(shaderFile);
 		shader->Compile();
 		shaders[hash] = shader;
 		return shader;

@@ -24,7 +24,7 @@ struct aiScene;
 namespace cross{
 
 /*	Model is a hierarchy of Entities with Mesh Components. Hierarchy and Mesh data usually loaded from model file.
-	Model life time managed by Scene. To load Model you need to use Scene::GetModel(). Duplicated models won't be loaded */
+	Model lifetime managed by Scene. To load Model you need to use Scene::GetModel(). Duplicated models won't be loaded */
 class Model {
 public:
 	/* Primitives model. Can be loaded by engine without a file */

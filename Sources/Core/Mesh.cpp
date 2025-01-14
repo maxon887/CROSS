@@ -34,11 +34,11 @@ using namespace tinyxml2;
 Mesh::Mesh() : Component("Mesh")
 { }
 
-Mesh::Mesh(const String& modelfilename, S32 id) : 
+Mesh::Mesh(const String& modelFile, S32 id) :
 	Component("Mesh")
 {
 	this->id = id;
-	this->model_filename = modelfilename;
+	this->model_filename = modelFile;
 }
 
 Mesh::~Mesh() {
