@@ -21,7 +21,7 @@
 #include "Config.h"
 #include "Shaders/Shader.h"
 #include "UI/MenuBar.h"
-#include "UI/LaunchView.h"
+#include "UI/Views/LaunchView.h"
 #include "Tester.h"
 
 #include "ThirdParty/ImGui/imgui.h"

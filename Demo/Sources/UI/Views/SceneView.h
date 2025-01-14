@@ -16,7 +16,7 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "UI/View.h"
+#include "UI/Views/View.h"
 #include "Event.h"
 
 using namespace cross;

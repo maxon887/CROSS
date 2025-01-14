@@ -15,41 +15,27 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "UI/View.h"
-#include "Event.h"
+#include "UI/Views/View.h"
+#include "Property.h"
+#include "UI/TransformVisualBox.h"
+#include "UI/MeshVisualBox.h"
 
-class FilesView : public View {
+class SceneView;
+
+class ComponentsView : public View {
 public:
-	Event<String> FileSelected;
-
-	FilesView();
-
-	void Shown() override;
+	ComponentsView(SceneView* sceneView);
 
 	void Update(float sec) override;
 
-	DockPosition GetDefaultDockPosition() const override { return DockPosition::LEFT; }
+	DockPosition GetDefaultDockPosition() const override { return DockPosition::RIGHT; }
 
-private:
-	struct Node {
-		String path = "";
-		String name = "";
-		String full_path = "";
-		bool initialized = false;
-		//first string is filename second full paht + filename
-		Array<pair<String, String> > files;
-		Array<Node> folders;
-	};
+protected:
+	TransformVisualBox transform_box;
+	MeshVisualBox mesh_box;
+	SceneView* scene_view = nullptr;
 
-	Node file_tree;
-	String current_path;
+	void ShowProperty(BaseProperty* baseProperty);
 
-	Array<String> all_shader_files;
-
-	void InitNode(Node& node);
-	void Refresh();
-	void BuildNote(Node& node);
-	void FileDoubleClicked(const String& filename);
-
-	void ContextMenu();
+	void ContextMenu(Entity* selectedEntity);
 };

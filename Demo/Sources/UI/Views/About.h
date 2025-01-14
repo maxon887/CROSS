@@ -16,21 +16,13 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
-#include "View.h"
-#include "ShaderVisualBox.h"
-#include "MaterialVisualBox.h"
+#include "UI/Views/View.h"
 
-class FilesView;
+using namespace cross;
 
-class PropertiesView : public View {
+class About : public View {
 public:
-	PropertiesView(FilesView* fv);
-
+	About() : View("About") { }
+	
 	void Update(float sec) override;
-
-	DockPosition GetDefaultDockPosition() const override { return DockPosition::RIGHT; }
-
-private:
-	ShaderVisualBox shaderVB;
-	MaterialVisualBox materialVB;
 };

@@ -18,7 +18,7 @@
 #include "Entity.h"
 #include "Demo.h"
 #include "Scene.h"
-#include "MenuBar.h"
+#include "UI/MenuBar.h"
 #include "System.h"
 #include "Camera.h"
 #include "Transform.h"

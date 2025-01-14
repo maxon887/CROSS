@@ -15,27 +15,22 @@
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
-#include "UI/View.h"
-#include "Property.h"
-#include "TransformVisualBox.h"
-#include "MeshVisualBox.h"
+#include "Cross.h"
+#include "View.h"
+#include "UI/ShaderVisualBox.h"
+#include "UI/MaterialVisualBox.h"
 
-class SceneView;
+class FilesView;
 
-class ComponentsView : public View {
+class PropertiesView : public View {
 public:
-	ComponentsView(SceneView* sceneView);
+	PropertiesView(FilesView* fv);
 
 	void Update(float sec) override;
 
 	DockPosition GetDefaultDockPosition() const override { return DockPosition::RIGHT; }
 
-protected:
-	TransformVisualBox transform_box;
-	MeshVisualBox mesh_box;
-	SceneView* scene_view = nullptr;
-
-	void ShowProperty(BaseProperty* baseProperty);
-
-	void ContextMenu(Entity* selectedEntity);
+private:
+	ShaderVisualBox shaderVB;
+	MaterialVisualBox materialVB;
 };
