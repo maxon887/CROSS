@@ -32,7 +32,7 @@ Mesh::Mesh() : Component("Mesh")
 Mesh::Mesh(const String& modelFile, S32 id) :
 	Component("Mesh")
 {
-	this->id = id;
+	this->group_id = id;
 	this->model_filename = modelFile;
 }
 
@@ -46,9 +46,9 @@ Mesh::~Mesh() {
 
 void Mesh::Initialize(Scene* scene) {
 	if(!model_filename.value.IsEmpty()) {
-		CROSS_FAIL(id != -1, "Can not initialize Mesh with ID = -1");
+		CROSS_FAIL(group_id != -1, "Can not initialize Mesh with ID = -1");
 		Model* model = scene->GetModel(model_filename);
-		Copy(model->GetMesh(id));
+		Copy(model->GetMesh(group_id));
 
 		if(material_filename.value != "") {
 			Material* mat = scene->GetMaterial(material_filename);
@@ -300,28 +300,12 @@ void Mesh::EnableFaceCulling(bool yes) {
 	face_culling = yes;
 }
 
-VertexBuffer* Mesh::GetVertexBuffer() {
-	return vertex_buffer;
-}
-
-Array<GLushort>& Mesh::GetIndices() {
-	return indices;
-}
-
 S32 Mesh::GetID() const {
-	return id;
-}
-
-void Mesh::SetID(S32 index) {
-	id = index;
+	return group_id;
 }
 
 String Mesh::GetModelFileName() const {
 	return model_filename.value;
-}
-
-void Mesh::SetModelFileName(const String& filename) {
-	model_filename = filename;
 }
 
 String Mesh::GetMaterialFileName() const {
@@ -337,7 +321,7 @@ bool Mesh::IsEqual(Mesh* other) const {
 }
 
 void Mesh::Copy(const Mesh* m) {
-	id = m->id;
+	group_id = m->group_id;
 	model_filename = m->model_filename;
 	//filename should not be copied for propper model loading, look Mesh::Initialize
 	//material_filename = m->material_filename;

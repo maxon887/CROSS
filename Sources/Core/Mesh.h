@@ -75,29 +75,19 @@ public:
 	/* Enables face culling for mesh. If enabled triangles that oriented not in view won't be drawn */
 	void EnableFaceCulling(bool yes);
 
-	/* Returns vertex buffer of this Mesh. Can be empty if data already transferred into GPU */
-	VertexBuffer* GetVertexBuffer();
-	/* Returns array of indices for this Mesh */
-	Array<U16>& GetIndices();
-
-	/* Returns unique identifier of this Mesh in Model or -1 if there aren't*/
+	/* Returns unique identifier of this mesh group in Model file or -1 if there aren't */
 	S32 GetID() const;
-	/* Sets id of specific mesh group in model file*/
-	void SetID(S32 id);
 	/* Returns filename of the model from which downloaded current Mesh */
 	String GetModelFileName() const;
-	/* Sets filename from which current Mesh was loaded */
-	void SetModelFileName(const String& filename);
 	/* Returns filename of material associated with current Mesh */
 	String GetMaterialFileName() const;
 	/* Returns number of triangles in this Mesh */
 	U32 GetPolyCount() const;
-
 	/* Returns true if this mesh equal to other */
 	bool IsEqual(Mesh* other) const;
 
 private:
-	Property<S32> id					= Property<S32>(this, "ID", -1);
+	Property<S32> group_id				= Property<S32>(this, "ID", -1);
 	Property<String> model_filename		= Property<String>(this, "Model");
 	Property<String> material_filename	= Property<String>(this, "Material");
 
