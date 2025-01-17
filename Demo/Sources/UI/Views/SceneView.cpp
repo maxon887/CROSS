@@ -149,6 +149,21 @@ void SceneView::BuildNode(Entity* entity) {
 
 	} else {
 		open = ImGui::TreeNodeEx(entity->GetName(), flags);
+		if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+			ImGui::SetDragDropPayload("SceneViewDRAG", &entity, sizeof(Entity*));
+			ImGui::TextUnformatted(entity->GetName());
+			ImGui::EndDragDropSource();
+		}
+		if(ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SceneViewDRAG")) {
+				Entity* draggedEntity = nullptr;
+				memcpy(&draggedEntity, payload->Data, sizeof(Entity*));
+				Entity* parent = draggedEntity->GetParent();
+				parent->RemoveChild(draggedEntity);
+				entity->AddChild(draggedEntity);
+			}
+			ImGui::EndDragDropTarget();
+		}
 	}
 
 	if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
