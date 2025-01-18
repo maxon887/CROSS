@@ -21,7 +21,6 @@
 #include "Entity.h"
 #include "Shaders/MultiLightShader.h"
 #include "Transform.h"
-#include "System.h"
 #include "Camera.h"
 
 void NakedScene::Start() {

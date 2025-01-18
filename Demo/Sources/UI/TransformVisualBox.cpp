@@ -17,7 +17,6 @@
 #include "TransformVisualBox.h"
 #include "Entity.h"
 #include "Transform.h"
-#include "System.h"
 #include "Demo.h"
 
 #include "ThirdParty/ImGui/imgui.h"

@@ -19,10 +19,7 @@
 #include "Scene.h"
 #include "System.h"
 
-#include "Libs/TinyXML2/tinyxml2.h"
-
 using namespace cross;
-using namespace tinyxml2;
 
 Camera::Camera() : Component("Camera")
 { }

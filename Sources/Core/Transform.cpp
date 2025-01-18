@@ -17,10 +17,7 @@
 #include "Transform.h"
 #include "Entity.h"
 
-#include "Libs/TinyXML2/tinyxml2.h"
-
 using namespace cross;
-using namespace tinyxml2;
 
 Transform::Transform() : Component("Transform")
 { }

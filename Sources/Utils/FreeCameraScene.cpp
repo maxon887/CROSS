@@ -16,8 +16,6 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #include "FreeCameraScene.h"
 #include "Camera.h"
-#include "System.h"
-#include "Input.h"
 #include "Transform.h"
 
 using namespace cross;

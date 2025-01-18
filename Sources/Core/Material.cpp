@@ -21,9 +21,6 @@
 #include "Game.h"
 #include "Graphics.h"
 
-#include <iomanip>
-#include <algorithm>
-
 #include "Libs/TinyXML2/tinyxml2.h"
 
 using namespace cross;

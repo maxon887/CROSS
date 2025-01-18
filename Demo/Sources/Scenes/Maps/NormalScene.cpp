@@ -20,7 +20,6 @@
 #include "Game.h"
 #include "Entity.h"
 #include "Shaders/MultiLightShader.h"
-#include "Texture.h"
 #include "Transform.h"
 #include "Camera.h"
 

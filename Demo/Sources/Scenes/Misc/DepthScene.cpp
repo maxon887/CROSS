@@ -19,7 +19,6 @@
 #include "Light.h"
 #include "Game.h"
 #include "Material.h"
-#include "Texture.h"
 #include "Config.h"
 #include "Mesh.h"
 #include "Transform.h"

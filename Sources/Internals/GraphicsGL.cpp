@@ -17,7 +17,6 @@
 #include "GraphicsGL.h"
 #include "System.h"
 
-#include <algorithm>
 #include <cstring>
 
 using namespace cross;

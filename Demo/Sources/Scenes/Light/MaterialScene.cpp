@@ -18,7 +18,6 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Light.h"
-#include "Shaders/SingleLightShader.h"
 #include "Mesh.h"
 #include "Transform.h"
 
@@ -29,12 +28,6 @@ void MaterialScene::Start() {
 	light->AddComponent(CREATE Transform(Vector3D(10.f, 7.f, -5.f)));
 	light->AddComponent(CREATE Light(Light::Type::POINT));
 	AddEntity(light);
-	//scene setups
-	//shader = CREATE SingleLightShader("Shaders/specular.vert", "Shaders/specular.frag");
-	//shader->AddProperty("Diffuse Color", "uColor");
-	//shader->AddProperty("Specular Color", "uSpecularColor");
-	//shader->AddProperty("Shininess", "uShininess");
-	//shader->Compile();
 
 	Shader* shader = GetShader("Shaders/Specular.sha");
 
