@@ -22,11 +22,12 @@
 #include "Shaders/MultiLightShader.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "CameraController.h"
 
 void SpecularScene::Start() {
 	DemoScene::Start();
 	GetCamera()->GetTransform()->SetPosition(Vector3D(0.f, 0.f, -2.f));
-	FreeCameraScene::LookAtTarget(Vector3D(0.f, 0.3f, 0.f));
+	camera_controller->LookAtTarget(Vector3D(0.f, 0.3f, 0.f));
 	//lights
 	light = CREATE Entity("PointLight");
 	light->AddComponent(CREATE Transform());

@@ -18,7 +18,7 @@
 #include "System.h"
 #include "Demo.h"
 #include "Transform.h"
-#include "UI/Views/CameraController.h"
+#include "UI/Views/CameraControllerView.h"
 #include "UI/Views/SceneView.h"
 #include "UI/Views/FilesView.h"
 #include "UI/Views/ComponentsView.h"
@@ -34,7 +34,7 @@
 #include "ThirdParty/ImGui/imgui_internal.h"
 
 MenuBar::MenuBar() {
-	CameraController* cameraController = CREATE CameraController();
+	CameraControllerView* cameraController = CREATE CameraControllerView();
 	FilesView* filesView = CREATE FilesView();
 	SceneView* sceneView = CREATE SceneView();
 	ComponentsView* componentsView = CREATE ComponentsView(sceneView);

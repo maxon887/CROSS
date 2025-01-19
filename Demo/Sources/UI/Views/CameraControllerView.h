@@ -20,9 +20,9 @@
 
 using namespace cross;
 
-class CameraController : public View {
+class CameraControllerView : public View {
 public:
-	CameraController();
+	CameraControllerView();
 
 	void Shown() override;
 

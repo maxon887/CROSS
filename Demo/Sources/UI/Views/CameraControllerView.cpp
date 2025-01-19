@@ -14,28 +14,30 @@
 
 	You should have received a copy of the GNU General Public License
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
-#include "CameraController.h"
+#include "CameraControllerView.h"
 #include "Demo.h"
 #include "System.h"
 #include "Camera.h"
-#include "Utils/FreeCameraScene.h"
+#include "Scene.h"
+#include "Entity.h"
+#include "CameraController.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
-CameraController::CameraController() : View("Camera")
+CameraControllerView::CameraControllerView() : View("Camera")
 {
 	window_width = SCALED(170.f);
 	window_height = SCALED(160.f);
 }
 
-void CameraController::Shown() {
-	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
-	if(scene) {
-		scene->LookAtCamera(false);
+void CameraControllerView::Shown() {
+	CameraController* cameraController = game->GetCurrentScene()->GetCamera()->GetEntity()->GetComponent<CameraController>();
+	if(cameraController) {
+		cameraController->LookAtCamera(false);
 	}
 }
 
-void CameraController::PreUpdate() {
+void CameraControllerView::PreUpdate() {
 	ImGui::SetNextWindowSize(ImVec2(window_width, window_height));
 	ImGui::SetNextWindowPos(ImVec2(os->GetWindowWidth() - window_width, os->GetWindowHeight() - window_height));
 
@@ -44,22 +46,22 @@ void CameraController::PreUpdate() {
 	ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.5f);
 }
 
-void CameraController::Update(float sec) {
+void CameraControllerView::Update(float sec) {
 	if(!AvailableInMenu()) {
 		Hide();
 	}
-	FreeCameraScene* scene = dynamic_cast<FreeCameraScene*>(game->GetCurrentScene());
-	if(scene) {
-		bool lookAt = scene->IsLookAtCamera();
+	CameraController* cameraController = game->GetCurrentScene()->GetCamera()->GetEntity()->GetComponent<CameraController>();
+	if(cameraController) {
+		bool lookAt = cameraController->IsLookAtCamera();
 		const ImVec2 cursor = ImGui::GetCursorScreenPos(); //must sit exactly there, before any drawings started
 
 		float sliderValue = 0.f;
 		ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, SCALED(25.f));
 		if(ImGui::VSliderFloat("", ImVec2(SCALED(25.f), SCALED(150.f)), &sliderValue, -1.f, 1.f, "")) {
 			if(!lookAt) {
-				scene->MoveUp(sliderValue * sec);
+				cameraController->MoveUp(sliderValue * sec);
 			} else {
-				scene->MoveCloser(sliderValue * sec);
+				cameraController->MoveCloser(sliderValue * sec);
 			}
 		}
 
@@ -67,7 +69,7 @@ void CameraController::Update(float sec) {
 
 		ImGui::SetCursorPos(ImVec2(SCALED(37.f), SCALED(5.f)));
 		if(ImGui::Checkbox("Look At", &lookAt)) {
-			scene->LookAtCamera(lookAt);
+			cameraController->LookAtCamera(lookAt);
 		}
 
 		ImDrawList* drawList = ImGui::GetWindowDrawList();
@@ -96,11 +98,11 @@ void CameraController::Update(float sec) {
 
 				centerMouse /= radius;
 				if(!lookAt) {
-					scene->MoveForward(-centerMouse.y * sec);
-					scene->MoveRight(centerMouse.x * sec);
+					cameraController->MoveForward(-centerMouse.y * sec);
+					cameraController->MoveRight(centerMouse.x * sec);
 				} else {
-					scene->LookUp(-centerMouse.y * sec * 2.f);
-					scene->MoveRight(-centerMouse.x * sec * 2.f);
+					cameraController->LookUp(-centerMouse.y * sec * 2.f);
+					cameraController->MoveRight(-centerMouse.x * sec * 2.f);
 				}
 			}
 		}
@@ -108,14 +110,14 @@ void CameraController::Update(float sec) {
 	}
 }
 
-void CameraController::PostUpdate() {
+void CameraControllerView::PostUpdate() {
 	ImGui::PopStyleVar();
 }
 
-bool CameraController::VisibleInMenu() {
+bool CameraControllerView::VisibleInMenu() {
 	return os->IsMobile();
 }
 
-bool CameraController::AvailableInMenu() {
+bool CameraControllerView::AvailableInMenu() {
 	return game->GetCurrentScene() != nullptr;
 }

@@ -22,8 +22,8 @@
 #include "System.h"
 #include "Camera.h"
 #include "Transform.h"
-#include "Utils/FreeCameraScene.h"
 #include "Scenes/DemoScene.h"
+#include "CameraController.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -91,10 +91,11 @@ void SceneView::OnSceneChanged(Screen*) {
 }
 
 void SceneView::LookAtObject() {
-	FreeCameraScene* scene = static_cast<FreeCameraScene*>(game->GetCurrentScene());
-	if(!selected_entity->HasComponent<Camera>() && selected_entity->HasComponent<Transform>()) {
+	Camera* camera = game->GetCurrentScene()->GetCamera();
+	CameraController* cameraController = camera->GetEntity()->GetComponent<CameraController>();
+	if(cameraController && !selected_entity->HasComponent<Camera>() && selected_entity->HasComponent<Transform>()) {
 		Transform* transform = selected_entity->GetComponent<Transform>();
-		scene->LookAtTarget(transform->GetWorldPosition());
+		cameraController->LookAtTarget(transform->GetWorldPosition());
 	}
 }
 
