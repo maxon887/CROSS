@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5002023C2D3D00640065374D /* CameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5002023B2D3D00640065374D /* CameraController.cpp */; };
+		5002023F2D3D009A0065374D /* CameraControllerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5002023E2D3D009A0065374D /* CameraControllerView.cpp */; };
 		50051DE62D36441B00DC094B /* About.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DD22D36441B00DC094B /* About.cpp */; };
 		50051DE72D36441B00DC094B /* LaunchView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DDA2D36441B00DC094B /* LaunchView.cpp */; };
-		50051DE82D36441B00DC094B /* CameraController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DD42D36441B00DC094B /* CameraController.cpp */; };
 		50051DE92D36441B00DC094B /* PropertiesView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DDE2D36441B00DC094B /* PropertiesView.cpp */; };
 		50051DEA2D36441B00DC094B /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DDC2D36441B00DC094B /* Log.cpp */; };
 		50051DEB2D36441B00DC094B /* SceneView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50051DE02D36441B00DC094B /* SceneView.cpp */; };
@@ -78,7 +79,6 @@
 		9D32D13020B40E27004A4D7E /* SingleLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0D420B40E27004A4D7E /* SingleLightShader.cpp */; };
 		9D32D13120B40E27004A4D7E /* Cubemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0D720B40E27004A4D7E /* Cubemap.cpp */; };
 		9D32D13220B40E27004A4D7E /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0D920B40E27004A4D7E /* Debugger.cpp */; };
-		9D32D13320B40E27004A4D7E /* FreeCameraScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0DB20B40E27004A4D7E /* FreeCameraScene.cpp */; };
 		9D32D13420B40E27004A4D7E /* PrimitiveDrawer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0DD20B40E27004A4D7E /* PrimitiveDrawer.cpp */; };
 		9D32D13520B40E27004A4D7E /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D0DF20B40E27004A4D7E /* Skybox.cpp */; };
 		9D32D1CA20B40E47004A4D7E /* AudioScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D32D13720B40E47004A4D7E /* AudioScreen.cpp */; };
@@ -107,10 +107,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5002023A2D3D00640065374D /* CameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraController.h; sourceTree = "<group>"; };
+		5002023B2D3D00640065374D /* CameraController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CameraController.cpp; sourceTree = "<group>"; };
+		5002023D2D3D009A0065374D /* CameraControllerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraControllerView.h; sourceTree = "<group>"; };
+		5002023E2D3D009A0065374D /* CameraControllerView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CameraControllerView.cpp; sourceTree = "<group>"; };
 		50051DD12D36441B00DC094B /* About.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
 		50051DD22D36441B00DC094B /* About.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = About.cpp; sourceTree = "<group>"; };
-		50051DD32D36441B00DC094B /* CameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraController.h; sourceTree = "<group>"; };
-		50051DD42D36441B00DC094B /* CameraController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CameraController.cpp; sourceTree = "<group>"; };
 		50051DD52D36441B00DC094B /* ComponentsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComponentsView.h; sourceTree = "<group>"; };
 		50051DD62D36441B00DC094B /* ComponentsView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentsView.cpp; sourceTree = "<group>"; };
 		50051DD72D36441B00DC094B /* FilesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilesView.h; sourceTree = "<group>"; };
@@ -331,8 +333,6 @@
 		9D32D0D820B40E27004A4D7E /* Cubemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cubemap.h; sourceTree = "<group>"; };
 		9D32D0D920B40E27004A4D7E /* Debugger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debugger.cpp; sourceTree = "<group>"; };
 		9D32D0DA20B40E27004A4D7E /* Debugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debugger.h; sourceTree = "<group>"; };
-		9D32D0DB20B40E27004A4D7E /* FreeCameraScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FreeCameraScene.cpp; sourceTree = "<group>"; };
-		9D32D0DC20B40E27004A4D7E /* FreeCameraScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeCameraScene.h; sourceTree = "<group>"; };
 		9D32D0DD20B40E27004A4D7E /* PrimitiveDrawer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrimitiveDrawer.cpp; sourceTree = "<group>"; };
 		9D32D0DE20B40E27004A4D7E /* PrimitiveDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimitiveDrawer.h; sourceTree = "<group>"; };
 		9D32D0DF20B40E27004A4D7E /* Skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skybox.cpp; sourceTree = "<group>"; };
@@ -401,8 +401,6 @@
 			children = (
 				50051DD12D36441B00DC094B /* About.h */,
 				50051DD22D36441B00DC094B /* About.cpp */,
-				50051DD32D36441B00DC094B /* CameraController.h */,
-				50051DD42D36441B00DC094B /* CameraController.cpp */,
 				50051DD52D36441B00DC094B /* ComponentsView.h */,
 				50051DD62D36441B00DC094B /* ComponentsView.cpp */,
 				50051DD72D36441B00DC094B /* FilesView.h */,
@@ -419,6 +417,8 @@
 				50051DE22D36441B00DC094B /* Stats.cpp */,
 				50051DE32D36441B00DC094B /* View.h */,
 				50051DE42D36441B00DC094B /* View.cpp */,
+				5002023D2D3D009A0065374D /* CameraControllerView.h */,
+				5002023E2D3D009A0065374D /* CameraControllerView.cpp */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -778,8 +778,6 @@
 				9D32D0D820B40E27004A4D7E /* Cubemap.h */,
 				9D32D0D920B40E27004A4D7E /* Debugger.cpp */,
 				9D32D0DA20B40E27004A4D7E /* Debugger.h */,
-				9D32D0DB20B40E27004A4D7E /* FreeCameraScene.cpp */,
-				9D32D0DC20B40E27004A4D7E /* FreeCameraScene.h */,
 				9D32D0DD20B40E27004A4D7E /* PrimitiveDrawer.cpp */,
 				9D32D0DE20B40E27004A4D7E /* PrimitiveDrawer.h */,
 				9D32D0DF20B40E27004A4D7E /* Skybox.cpp */,
@@ -808,6 +806,8 @@
 				9D32D13A20B40E47004A4D7E /* Demo.h */,
 				50FF82A02C7E5C5D00C94BFB /* Tester.cpp */,
 				50FF829F2C7E5C5D00C94BFB /* Tester.h */,
+				5002023A2D3D00640065374D /* CameraController.h */,
+				5002023B2D3D00640065374D /* CameraController.cpp */,
 			);
 			name = Sources;
 			path = ../../../Sources;
@@ -1019,7 +1019,6 @@
 				9D32D0F420B40E27004A4D7E /* VertexBuffer.cpp in Sources */,
 				50051DE62D36441B00DC094B /* About.cpp in Sources */,
 				50051DE72D36441B00DC094B /* LaunchView.cpp in Sources */,
-				50051DE82D36441B00DC094B /* CameraController.cpp in Sources */,
 				50051DE92D36441B00DC094B /* PropertiesView.cpp in Sources */,
 				50051DEA2D36441B00DC094B /* Log.cpp in Sources */,
 				50051DEB2D36441B00DC094B /* SceneView.cpp in Sources */,
@@ -1037,7 +1036,6 @@
 				9D33C10C20D02985007EF97F /* SpecularScene.cpp in Sources */,
 				9D32D11920B40E27004A4D7E /* Vector2D.cpp in Sources */,
 				507332FC2C385F9200E5D13D /* TransformVisualBox.cpp in Sources */,
-				9D32D13320B40E27004A4D7E /* FreeCameraScene.cpp in Sources */,
 				9D33C11320D02985007EF97F /* DemoScene.cpp in Sources */,
 				9D32D11B20B40E27004A4D7E /* Vector4D.cpp in Sources */,
 				9D32D11A20B40E27004A4D7E /* Vector3D.cpp in Sources */,
@@ -1060,10 +1058,12 @@
 				9D32D0EB20B40E27004A4D7E /* Material.cpp in Sources */,
 				9D32D13420B40E27004A4D7E /* PrimitiveDrawer.cpp in Sources */,
 				9D32D12F20B40E27004A4D7E /* Shader.cpp in Sources */,
+				5002023F2D3D009A0065374D /* CameraControllerView.cpp in Sources */,
 				9D32D0E820B40E27004A4D7E /* Game.cpp in Sources */,
 				507332D82C385F2700E5D13D /* imgui_draw.cpp in Sources */,
 				9D33C11620D02985007EF97F /* MultiLightScene.cpp in Sources */,
 				507332DB2C385F2700E5D13D /* imgui.cpp in Sources */,
+				5002023C2D3D00640065374D /* CameraController.cpp in Sources */,
 				9D32D12820B40E27004A4D7E /* MacSystem.mm in Sources */,
 				9D33C10B20D02985007EF97F /* NormalScene.cpp in Sources */,
 				9D32D13220B40E27004A4D7E /* Debugger.cpp in Sources */,
