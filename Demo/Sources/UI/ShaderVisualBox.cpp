@@ -20,22 +20,23 @@
 #include "Demo.h"
 #include "System.h"
 #include "Graphics.h"
-#include "FileUtils.h"
-
+#include "FileSelector.h"
+ 
 #include "ThirdParty/ImGui/imgui.h"
 
 ShaderVisualBox::ShaderVisualBox() {
+	vertex_file_selector = CREATE FileSelector("Vertex File", "vert");
+	fragment_file_selector = CREATE FileSelector("Fragment File", "frag");
 	for(int i = 0; i < Shader::Property::Type::UNKNOWN; i++) {
 		Shader::Property::Type type = (Shader::Property::Type)i;
 		type_names.Add(Shader::Property::TypeToString(type));
 	}
-
-	all_available_vertex_files = FileUtils::GetAllFilesOfType("vert");
-	all_available_fragment_files = FileUtils::GetAllFilesOfType("frag");
 }
 
 ShaderVisualBox::~ShaderVisualBox() {
 	delete shader;
+	delete vertex_file_selector;
+	delete fragment_file_selector;
 }
 
 void ShaderVisualBox::Update() {
@@ -50,21 +51,8 @@ void ShaderVisualBox::Update() {
 		ImGui::Text("Shader File");
 		ImGui::PopFont();
 
-		//vertex file
-		char* selectableItems[256];
-		Array<String> shaderNames(all_available_vertex_files.Size(), "");
-		for(int i = 0; i < all_available_vertex_files.Size(); i++) {
-			shaderNames[i] = File::FileFromPath(all_available_vertex_files[i]);
-			selectableItems[i] = shaderNames[i].ToCStr();
-		}
-		ImGui::Combo("Vertex File:", &selected_vertex_file, selectableItems, all_available_vertex_files.Size());
-
-		//fragment file
-		for(int i = 0; i < all_available_vertex_files.Size(); i++) {
-			shaderNames[i] = File::FileFromPath(all_available_fragment_files[i]);
-			selectableItems[i] = shaderNames[i].ToCStr();
-		}
-		ImGui::Combo("Fragment File:", &selected_fragment_file, selectableItems, all_available_fragment_files.Size());
+		vertex_file_selector->Update();
+		fragment_file_selector->Update();
 
 		//Macrosies block
 		ImGui::NewLine();
@@ -167,14 +155,8 @@ void ShaderVisualBox::Update() {
 		}
 		ImGui::SameLine(availableWidth / 4 * 3);
 		if(ImGui::Button("Save", ImVec2(-1, 0))) {
-			if(all_available_vertex_files.IsInRange(selected_vertex_file)) {
-				String vertexFile = all_available_vertex_files[selected_vertex_file];
-				shader->SetVertexFilename(vertexFile);
-			}
-			if(all_available_fragment_files.IsInRange(selected_fragment_file)) {
-				String fragmentFile = all_available_fragment_files[selected_fragment_file];
-				shader->SetFragmentFilename(fragmentFile);
-			}
+			shader->SetVertexFilename(vertex_file_selector->GetSelectedFile());
+			shader->SetFragmentFilename(fragment_file_selector->GetSelectedFile());
 			shader->Save(os->AssetsPath() + shader_filename);
 		}
 
@@ -184,15 +166,11 @@ void ShaderVisualBox::Update() {
 
 void ShaderVisualBox::OnFileSelected(String filename) {
 	delete shader;
-	selected_vertex_file = 0;
-	selected_fragment_file = 0;
 	if(File::ExtensionFromFile(filename) == "sha") {
 		shader_filename = filename;
 		shader = gfx->LoadShader(filename);
-		String vertexFile = shader->GetVertexFilename();
-		String fragmentFile = shader->GetFragmentFilename();
-		selected_vertex_file = all_available_vertex_files.Find(vertexFile);
-		selected_fragment_file = all_available_fragment_files.Find(fragmentFile);
+		vertex_file_selector->SetSelectedFile(shader->GetVertexFilename());
+		fragment_file_selector->SetSelectedFile(shader->GetFragmentFilename());
 	} else {
 		shader = nullptr;
 	}

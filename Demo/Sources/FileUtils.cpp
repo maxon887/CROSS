@@ -2,9 +2,9 @@
 #include "System.h"
 #include "File.h"
 
-Array<String> FileUtils::GetAllFilesOfType(const String& fileExtention) {
+Array<String> FileUtils::GetAllFilesOfType(const String& fileExtension) {
 	Array<String> aggregator;
-	AssembleAllFilesOfType(fileExtention, os->AssetsPath(), aggregator);
+	AssembleAllFilesOfType(fileExtension, os->AssetsPath(), aggregator);
 	return aggregator;
 }
 

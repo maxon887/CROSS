@@ -143,10 +143,12 @@ void Mesh::Draw(const Matrix& globalModel, Material* material,
 
 		switch(prop.type) {
 		case Shader::Property::TEXTURE:
-			SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
-			SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop.value.texture->GetID()));
-			SAFE(glUniform1i(prop.glId, material->active_texture_slot));
-			material->active_texture_slot++;
+			if(prop.value.texture) {
+				SAFE(glActiveTexture(GL_TEXTURE0 + material->active_texture_slot));
+				SAFE(glBindTexture(GL_TEXTURE_2D, (GLuint)prop.value.texture->GetID()));
+				SAFE(glUniform1i(prop.glId, material->active_texture_slot));
+				material->active_texture_slot++;
+			}
 			break;
 		case Shader::Property::MAT4:
 			SAFE(glUniformMatrix4fv(prop.glId, 1, GL_FALSE, prop.value.mat.GetData()));

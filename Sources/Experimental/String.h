@@ -45,6 +45,8 @@ public:
 	S32 Length() const;
 	/* Return count of characters that can be placed without string memory allocation */
 	S32 Capacity() const;
+	/* Increase internal buffer size to match capacity argument */
+	void Reserve(S32 capacity);
 	/* Cleans all characters in this string without memory reallocation */
 	void Clear();
 	/* Returns true if string is empty */

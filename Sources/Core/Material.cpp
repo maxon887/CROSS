@@ -63,16 +63,18 @@ bool Material::Load(const String& filename, Scene* scene) {
 	SetName(filename);
 
 	XMLElement* materialXML = doc.FirstChildElement("Material");
-	const char* shaderfilename = materialXML->Attribute("shader");
+	String shaderfilename = materialXML->Attribute("shader");
 	CROSS_RETURN(shaderfilename, false, "Material file not contain 'shader' filename");
 
-	if(scene) {
-		shader = scene->GetShader(shaderfilename);
-	} else {
-		delete shader;
-		shader = gfx->LoadShader(shaderfilename);
+	if(!shaderfilename.IsEmpty()) {
+		if(scene) {
+			shader = scene->GetShader(shaderfilename);
+		} else {
+			delete shader;
+			shader = gfx->LoadShader(shaderfilename);
+		}
+		Reset();
 	}
-	Reset();
 
 	XMLElement* transparancyXML = materialXML->FirstChildElement("Transparent");
 	if(transparancyXML) {

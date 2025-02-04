@@ -5,7 +5,7 @@ using namespace cross;
 
 class FileUtils {
 public:
-	static Array<String> GetAllFilesOfType(const String& fileExtention);
+	static Array<String> GetAllFilesOfType(const String& fileExtension);
 	static Array<String> GetAllFilesOfTypeInDirectory(const String& fileExtention, const String& directory);
 
 private:

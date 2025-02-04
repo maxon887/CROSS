@@ -39,6 +39,7 @@ void FilesView::Shown() {
 		InitNode(file_tree);
 	}
 	current_path = os->AssetsPath();
+	game->ScreenChanged.Connect(this, &FilesView::OnScreenChanged);
 }
 
 void FilesView::Update(float sec) {
@@ -78,7 +79,7 @@ void FilesView::Refresh() {
 void FilesView::BuildNote(Node& node) {
 	static const ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	static const ImGuiTreeNodeFlags leaf_flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-
+	//folders
 	for(Node& child : node.folders) {
 		ImGuiTreeNodeFlags flags = child.full_path == current_path ? node_flags | ImGuiTreeNodeFlags_Selected : node_flags;
 
@@ -96,11 +97,17 @@ void FilesView::BuildNote(Node& node) {
 			ImGui::TreePop();
 		}
 	}
-
+	//files
 	for(const pair<String, String>& file : node.files) {
 		ImGuiTreeNodeFlags flags = file.second == current_path ? leaf_flags | ImGuiTreeNodeFlags_Selected : leaf_flags;
 		ImGui::TreeNodeEx(file.first, flags);
-		if((ImGui::IsMouseClicked(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
+		if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+			const String* filename = &file.second;
+			ImGui::SetDragDropPayload("FilesViewDRAG", &filename, sizeof(String*));
+			ImGui::TextUnformatted(file.first);
+			ImGui::EndDragDropSource();
+		}
+		if((ImGui::IsMouseReleased(0) || ImGui::IsMouseClicked(1)) && ImGui::IsItemHovered()) {
 			current_path = file.second;
 			String filepath = current_path;
 			filepath.Remove(os->AssetsPath());
@@ -211,7 +218,6 @@ void FilesView::ContextMenu() {
 	if(newMaterial) {
 		ImGui::OpenPopup("New Material");
 		newMaterial = false;
-		all_shader_files = FileUtils::GetAllFilesOfType("sha");
 	}
 	if(ImGui::BeginPopupModal("New Material", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
 		//Material name
@@ -219,30 +225,15 @@ void FilesView::ContextMenu() {
 		ImGui::Text("Enter Material name");
 		ImGui::InputText("##MaterialName", buffer, 256);
 
-		//Combo box
-		ImGui::Text("Select Shader");
-		char* selectableItems[256];
-		Array<String> shaderNames(all_shader_files.Size(), "");
-		for(int i = 0; i < all_shader_files.Size(); i++) {
-			shaderNames[i] = File::FileFromPath(all_shader_files[i]);
-			selectableItems[i] = shaderNames[i].ToCStr();
-		}
-		static int selectedShader = 0;
-		ImGui::Combo("ShaderFile", &selectedShader, selectableItems, shaderNames.Size());
-
 		if(ImGui::Button("Cancel", ImVec2(120, 0)) || input->IsPressed(Key::ESCAPE)) {
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SameLine();
 		if(ImGui::Button("Ok", ImVec2(120, 0)) || input->IsPressed(Key::ENTER)) {
-
-			Shader* shader = gfx->LoadShader(all_shader_files[selectedShader]);
-			shader->Compile();
-			Material* material = CREATE Material(shader);
+			Material* material = CREATE Material();
 			material->Save(current_path + "//" + String(buffer) + ".mat");
 
 			delete material;
-			delete shader;
 
 			Refresh();
 			ImGui::CloseCurrentPopup();
@@ -272,4 +263,9 @@ void FilesView::ContextMenu() {
 		}
 		ImGui::EndPopup();
 	}
+}
+
+void FilesView::OnScreenChanged(Screen* screen) {
+	current_path = os->AssetsPath();
+	FileSelected.Emit(current_path);
 }

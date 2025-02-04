@@ -106,6 +106,13 @@ S32 String::Capacity() const {
 	return capacity;
 }
 
+void String::Reserve(S32 cap) {
+	if(capacity < cap) {
+		capacity = cap;
+		data = (char*)CROSS_REALLOC(data, cap + 1);
+	}
+}
+
 void String::Clear() {
 	length = 0;
 	*data = '\0';

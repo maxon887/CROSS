@@ -19,18 +19,27 @@
 
 using namespace cross;
 
+class FileSelector;
+
 class MaterialVisualBox {
 public:
+	MaterialVisualBox();
 	~MaterialVisualBox();
 
 	void Update();
 
 	void OnFileSelected(String filename);
+	void OnShaderSelected(String filename);
 	void OnScreenChanged(Screen* newScreen);
 
 private:
 	Material* mat = nullptr;
+	FileSelector* shader_selector = nullptr;
 	bool loaded_from_scene = false;
+	
+	//key property name 
+	Dictionary<String, FileSelector*> texture_selectors;
 
 	void DeleteMaterialIfNeeded();
+	void CreateTextureSelectors();
 };

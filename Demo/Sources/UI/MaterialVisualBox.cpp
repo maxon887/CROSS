@@ -20,11 +20,22 @@
 #include "Demo.h"
 #include "System.h"
 #include "Scene.h"
+#include "FileSelector.h"
+#include "Graphics.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
+MaterialVisualBox::MaterialVisualBox() {
+	shader_selector = CREATE FileSelector("Shader", "sha");
+	shader_selector->FileSelected.Connect(this, &MaterialVisualBox::OnShaderSelected);
+}
+
 MaterialVisualBox::~MaterialVisualBox() {
+	delete shader_selector;
 	DeleteMaterialIfNeeded();
+	for(pair<String, FileSelector*> textureSelector : texture_selectors) {
+		delete textureSelector.second;
+	}
 }
 
 void MaterialVisualBox::Update() {
@@ -34,10 +45,7 @@ void MaterialVisualBox::Update() {
 		ImGui::Text("Material");
 		ImGui::PopFont();
 
-		ImGui::Text("Shader:");
-		ImGui::SameLine(SCALED(70.f));
-		String shaderFilename = mat->GetShader()->GetFilename();
-		ImGui::TextColored(ImVec4(0.5f, 1.0f, 0.5f, 1.0f), "%s", shaderFilename.ToCStr());
+		shader_selector->Update();
 
 		bool trans = mat->IsTransparent();
 		if(ImGui::Checkbox("Transparent", &trans)) {
@@ -49,44 +57,40 @@ void MaterialVisualBox::Update() {
 		ImGui::Separator();
 
 		for(Shader::Property& prop : mat->GetProperties()) {
-			ImGui::TextUnformatted(prop.name);
-			ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 			switch(prop.type) {
 			case Shader::Property::Type::INT: {
+				ImGui::TextUnformatted(prop.name);
+				ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 				ImGui::DragInt("##IntProperty", &prop.GetValue().s32);
 				break;
 			}
 			case Shader::Property::Type::FLOAT: {
+				ImGui::TextUnformatted(prop.name);
+				ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 				ImGui::DragFloat("##FloatProperty", &prop.GetValue().f, 0.1f);
 				break;
 			}
 			case Shader::Property::Type::COLOR: {
+				ImGui::TextUnformatted(prop.name);
+				ImGui::SameLine(ImGui::GetWindowWidth() / 3.f);
 				ImGui::ColorEdit4(prop.name, prop.GetValue().color.GetData(), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
 				break;
 			}
 			case Shader::Property::Type::TEXTURE: {
-				String textureFilename = "No Texture selected";
-				Texture* texture = prop.GetValue().texture;
-				if(texture) {
-					textureFilename = texture->GetName();
-				}
-				
-				static bool selected = false;
-				if(ImGui::Selectable(textureFilename.ToCStr(), &selected)) {
-					selected = false;
-					textureFilename = os->OpenFileDialog();
-					if(textureFilename) {
-						if(game->GetCurrentScene()) {
-							prop.GetValue().texture = game->GetCurrentScene()->GetTexture(textureFilename);
-						} else {
-							delete texture;
-							texture = CREATE Texture();
-							texture->Load(textureFilename);
-							prop.GetValue().texture = texture;
-						}
+				FileSelector* fileSelector = texture_selectors[prop.name];
+				if(fileSelector->Update()) {
+					String textureFilename = fileSelector->GetSelectedFile();
+					//textureFilename = File::FromAbsoluteToAssetPath(textureFilename);
+					if(game->GetCurrentScene()) {
+						prop.GetValue().texture = game->GetCurrentScene()->GetTexture(textureFilename);
+					} else {
+						Texture* texture = prop.GetValue().texture;
+						delete texture;
+						texture = CREATE Texture();
+						texture->Load(textureFilename);
+						prop.GetValue().texture = texture;
 					}
 				}
-
 				break;
 			}
 			default:
@@ -103,6 +107,9 @@ void MaterialVisualBox::Update() {
 				mat->Load(mat->GetFilename(), game->GetCurrentScene());
 			} else {
 				mat->Load(mat->GetFilename(), nullptr);
+			}
+			if(mat->GetShader()) {
+				shader_selector->SetSelectedFile(mat->GetShader()->GetFilename());
 			}
 		}
 		ImGui::SameLine(availableWidth / 4 * 3);
@@ -128,8 +135,29 @@ void MaterialVisualBox::OnFileSelected(String filename) {
 				mat = nullptr;
 			}
 		}
+		if(mat->GetShader()) {
+			shader_selector->SetSelectedFile(mat->GetShader()->GetFilename());
+		} else {
+			shader_selector->SetSelectedFile("");
+		}
+		CreateTextureSelectors();
 	} else {
 		mat = nullptr;
+	}
+}
+
+void MaterialVisualBox::OnShaderSelected(String filename) {
+	Shader* oldMaterialShader = mat->GetShader();
+	if(!filename.IsEmpty() && (!oldMaterialShader || filename != oldMaterialShader->GetFilename())) {
+		if(!loaded_from_scene) {
+			delete oldMaterialShader;
+		}
+		Shader* newShader = gfx->LoadShader(filename);
+		if(loaded_from_scene && !newShader->IsCompiled()) {
+			newShader->Compile();
+		}
+		mat->SetShader(newShader);
+		CreateTextureSelectors();
 	}
 }
 
@@ -148,5 +176,21 @@ void MaterialVisualBox::DeleteMaterialIfNeeded() {
 		}
 		delete mat->GetShader();
 		delete mat;
+	}
+}
+
+void MaterialVisualBox::CreateTextureSelectors() {
+	for(pair<String, FileSelector*> textureSelector : texture_selectors) {
+		delete textureSelector.second;
+	}
+	texture_selectors.clear();
+	for(Shader::Property& prop : mat->GetProperties()) {
+		if(prop.type == Shader::Property::Type::TEXTURE) {
+			FileSelector* textureSelector = CREATE FileSelector(prop.name, "png");
+			texture_selectors[prop.name] = textureSelector;
+			if(prop.GetValue().texture) {
+				textureSelector->SetSelectedFile(prop.GetValue().texture->GetName());
+			}
+		}
 	}
 }

@@ -16,25 +16,32 @@
 	along with Cross++.  If not, see <http://www.gnu.org/licenses/>			*/
 #pragma once
 #include "Cross.h"
+#include "Event.h"
 
 using namespace cross;
 
-class FileSelector;
-
-class ShaderVisualBox {
+class FileSelector {
 public:
-	ShaderVisualBox();
-	~ShaderVisualBox();
-
-	void Update();
-
-	void OnFileSelected(String filename);
-
+	Event<String> FileSelected;
+	
+	FileSelector(const String& label, const String& fileExtension);
+	
+	bool Update();
+	
+	String GetSelectedFile() const;
+	void SetSelectedFile(const String& filename);
+	
 private:
-	Shader* shader = nullptr;
-	String shader_filename;
-	Array<String> type_names;
-
-	FileSelector* vertex_file_selector;
-	FileSelector* fragment_file_selector;
+	Array<String> files_list;		//all potential raw file names that we are working with
+	Array<String> all_names;		//all potential files short names without a path
+	Array<String> suggested_names;	//selection from all_names that match our criteria
+	
+	Array<String> extensions;
+	String label;
+	String selected_file;
+	String current_input = String("", 0, 256);
+	int suggested_index = 0;
+	
+	void ValueChanged();
+	bool CheckFileExtension(const String& filename);
 };
