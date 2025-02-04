@@ -33,6 +33,7 @@
 		5073330F2C385FF600E5D13D /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 507333092C385FF600E5D13D /* StringTest.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		507333102C385FF600E5D13D /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330C2C385FF600E5D13D /* FileUtils.cpp */; };
 		507333112C385FF600E5D13D /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5073330E2C385FF600E5D13D /* ArrayTest.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		509F17362D51D8800040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17352D51D8800040378F /* FileSelector.cpp */; };
 		50AB1F432D2D291600121DAB /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50AB1F422D2D291600121DAB /* MultiLightShader.cpp */; };
 		50C9611A2C74CA6100764079 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961172C74CA5700764079 /* libfmod.dylib */; };
 		50C9611B2C74CA6900764079 /* libassimpMAC.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C961162C74CA5700764079 /* libassimpMAC.dylib */; };
@@ -161,6 +162,8 @@
 		5073330C2C385FF600E5D13D /* FileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtils.cpp; sourceTree = "<group>"; };
 		5073330D2C385FF600E5D13D /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		5073330E2C385FF600E5D13D /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
+		509F17342D51D8800040378F /* FileSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSelector.h; sourceTree = "<group>"; };
+		509F17352D51D8800040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
 		50AB1F412D2D291600121DAB /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
 		50AB1F422D2D291600121DAB /* MultiLightShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightShader.cpp; sourceTree = "<group>"; };
 		50AD22372C384FAB00F75C22 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
@@ -855,6 +858,8 @@
 				507332EE2C385F9200E5D13D /* ShaderVisualBox.h */,
 				507332E52C385F9200E5D13D /* TransformVisualBox.cpp */,
 				507332E22C385F9200E5D13D /* TransformVisualBox.h */,
+				509F17342D51D8800040378F /* FileSelector.h */,
+				509F17352D51D8800040378F /* FileSelector.cpp */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1094,6 +1099,7 @@
 				9D32D0E620B40E27004A4D7E /* Entity.cpp in Sources */,
 				9D32D0E920B40E27004A4D7E /* Input.cpp in Sources */,
 				9D32D0E220B40E27004A4D7E /* Color.cpp in Sources */,
+				509F17362D51D8800040378F /* FileSelector.cpp in Sources */,
 				9D32D0E720B40E27004A4D7E /* File.cpp in Sources */,
 				9D33C11020D02985007EF97F /* DepthScene.cpp in Sources */,
 				5066DC2F2C384DB200C73262 /* Graphics.cpp in Sources */,

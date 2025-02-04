@@ -32,6 +32,7 @@
 		50424D592C57BDC300CE0055 /* MaterialVisualBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D482C57BDC300CE0055 /* MaterialVisualBox.cpp */; };
 		50424D5D2C57BEBD00CE0055 /* FileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5B2C57BEBD00CE0055 /* FileUtils.cpp */; };
 		50424D602C57BEE500CE0055 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */; };
+		509F17392D51D8D80040378F /* FileSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 509F17382D51D8D80040378F /* FileSelector.cpp */; };
 		50CDC7BE2D2D266000E1A41D /* MultiLightShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */; };
 		50D4DB792C5A6615007E066E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D4DB782C5A6615007E066E /* AVFoundation.framework */; };
 		50F0BA7E2C56D0E0005832F5 /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0BA7C2C56D0E0005832F5 /* Graphics.cpp */; };
@@ -160,6 +161,8 @@
 		50424D5C2C57BEBD00CE0055 /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
 		50424D5E2C57BEE500CE0055 /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArrayTest.cpp; sourceTree = "<group>"; };
 		50424D5F2C57BEE500CE0055 /* ArrayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
+		509F17372D51D8D80040378F /* FileSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSelector.h; sourceTree = "<group>"; };
+		509F17382D51D8D80040378F /* FileSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSelector.cpp; sourceTree = "<group>"; };
 		50CDC7BC2D2D266000E1A41D /* MultiLightShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLightShader.h; sourceTree = "<group>"; };
 		50CDC7BD2D2D266000E1A41D /* MultiLightShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLightShader.cpp; sourceTree = "<group>"; };
 		50D4DB782C5A6615007E066E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -572,6 +575,8 @@
 				50424D2E2C57BDC300CE0055 /* ShaderVisualBox.h */,
 				50424D352C57BDC300CE0055 /* TransformVisualBox.cpp */,
 				50424D462C57BDC300CE0055 /* TransformVisualBox.h */,
+				509F17372D51D8D80040378F /* FileSelector.h */,
+				509F17382D51D8D80040378F /* FileSelector.cpp */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1100,6 +1105,7 @@
 				50051E0E2D36447800DC094B /* ComponentsView.cpp in Sources */,
 				9D9C8032215242B00071C0A3 /* StringTest.cpp in Sources */,
 				9D54BBBB1FBC433C009E8469 /* Texture.cpp in Sources */,
+				509F17392D51D8D80040378F /* FileSelector.cpp in Sources */,
 				9D54BBAE1FBC433C009E8469 /* Entity.cpp in Sources */,
 				50424D292C57BC9D00CE0055 /* imgui_demo.cpp in Sources */,
 				9DDFFF151F46EF1700A6E782 /* IOSSystem.mm in Sources */,
