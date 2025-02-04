@@ -52,10 +52,9 @@ bool FileSelector::Update() {
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("FilesViewDRAG")) {
 			const String* filename = nullptr;
 			memcpy(&filename, payload->Data, sizeof(String*));
-			os->LogIt(*filename);
 			String relativePath = File::FromAbsoluteToAssetPath(*filename);
-			if(CheckFileExtension(*relativePath)) {
-				SetSelectedFile(*relativePath);
+			if(CheckFileExtension(relativePath)) {
+				SetSelectedFile(relativePath);
 				fileSelected = true;
 			}
 		}

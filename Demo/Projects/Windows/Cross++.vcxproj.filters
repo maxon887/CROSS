@@ -183,9 +183,6 @@
     <ClCompile Include="..\..\..\Sources\Utils\Cubemap.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sources\Utils\FreeCameraScene.cpp">
-      <Filter>Cross\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Sources\Utils\Skybox.cpp">
       <Filter>Cross\Utils</Filter>
     </ClCompile>
@@ -321,9 +318,6 @@
     <ClCompile Include="..\..\Sources\UI\Views\About.cpp">
       <Filter>Demo\UI\Views</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\UI\Views\CameraController.cpp">
-      <Filter>Demo\UI\Views</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\UI\Views\ComponentsView.cpp">
       <Filter>Demo\UI\Views</Filter>
     </ClCompile>
@@ -346,6 +340,15 @@
       <Filter>Demo\UI\Views</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Sources\UI\Views\View.cpp">
+      <Filter>Demo\UI\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\CameraController.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\FileSelector.cpp">
+      <Filter>Demo\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\UI\Views\CameraControllerView.cpp">
       <Filter>Demo\UI\Views</Filter>
     </ClCompile>
   </ItemGroup>
@@ -478,9 +481,6 @@
       <Filter>Cross\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Cubemap.h">
-      <Filter>Cross\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Utils\FreeCameraScene.h">
       <Filter>Cross\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Sources\Utils\Skybox.h">
@@ -630,9 +630,6 @@
     <ClInclude Include="..\..\Sources\UI\Views\About.h">
       <Filter>Demo\UI\Views</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Sources\UI\Views\CameraController.h">
-      <Filter>Demo\UI\Views</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\UI\Views\ComponentsView.h">
       <Filter>Demo\UI\Views</Filter>
     </ClInclude>
@@ -655,6 +652,15 @@
       <Filter>Demo\UI\Views</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Sources\UI\Views\View.h">
+      <Filter>Demo\UI\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\CameraController.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\FileSelector.h">
+      <Filter>Demo\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Sources\UI\Views\CameraControllerView.h">
       <Filter>Demo\UI\Views</Filter>
     </ClInclude>
   </ItemGroup>
