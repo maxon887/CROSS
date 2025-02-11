@@ -282,29 +282,7 @@ void Demo::Start() {
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.IniFilename = imgui_filename;
-	//io.SetKeyEventNativeData(ImGuiKey_Backspace, (int)Key::BACKSPACE, (int)Key::BACKSPACE);
-	// Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
-	//io.KeyMap[ImGuiKey_Tab] = (int)Key::TAB;
-	//io.KeyMap[ImGuiKey_LeftArrow] = (int)Key::LEFT;
-	//io.KeyMap[ImGuiKey_RightArrow] = (int)Key::RIGHT;
-	//io.KeyMap[ImGuiKey_UpArrow] = (int)Key::UP;
-	//io.KeyMap[ImGuiKey_DownArrow] = (int)Key::DOWN;
-	//io.KeyMap[ImGuiKey_PageUp] = (int)Key::PAGE_UP;
-	//io.KeyMap[ImGuiKey_PageDown] = (int)Key::PAGE_DOWN;
-	//io.KeyMap[ImGuiKey_Home] = (int)Key::HOME;
-	//io.KeyMap[ImGuiKey_End] = (int)Key::END;
-	//io.KeyMap[ImGuiKey_Delete] = (int)Key::DEL;
-	//io.KeyMap[ImGuiKey_Backspace] = (int)Key::BACKSPACE;
-	//io.KeyMap[ImGuiKey_Escape] = (int)Key::ESCAPE;
-	//io.KeyMap[ImGuiKey_A] = (int)Key::A;
-	//io.KeyMap[ImGuiKey_C] = (int)Key::C;
-	//io.KeyMap[ImGuiKey_V] = (int)Key::V;
-	//io.KeyMap[ImGuiKey_X] = (int)Key::X;
-	//io.KeyMap[ImGuiKey_Y] = (int)Key::Y;
-	//io.KeyMap[ImGuiKey_Z] = (int)Key::Z;
-
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-
 	io.GetClipboardTextFn = GetClipboardString;
 
     CreateUIShaders();

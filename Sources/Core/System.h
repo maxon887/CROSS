@@ -115,7 +115,7 @@ public:
 	S32 GetWindowHeight() const;
 	/* Returns current device orientation */
 	Orientation GetDeviceOrientation() const;
-	/* Returns physical screen aspect ration */
+	/* Returns physical screen aspect ratio */
 	float GetAspectRatio() const;
 	/* Sets view target screen size */
 	void SetWindowSize(S32 width, S32 height);
