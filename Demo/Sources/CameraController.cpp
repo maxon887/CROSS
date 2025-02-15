@@ -19,6 +19,7 @@
 #include "Transform.h"
 #include "Game.h"
 #include "Scene.h"
+#include "Entity.h"
 
 #include "ThirdParty/ImGui/imgui.h"
 
@@ -33,6 +34,7 @@ void CameraController::Initialize(Scene *scene) {
 	input->KeyPressed.Connect(this, &CameraController::OnKeyPressed);
 	input->KeyReleased.Connect(this, &CameraController::OnKeyReleased);
 	input->Scroll.Connect(this, &CameraController::MouseWheelRoll);
+	destination = *GetEntity()->GetTransform();
 }
 
 void CameraController::Remove() {

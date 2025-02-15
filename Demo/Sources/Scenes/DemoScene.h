@@ -24,7 +24,7 @@ class CameraController;
 
 class DemoScene : public Scene {
 public:
-	//Service entities will not be shown on SceneView and will be remove before scene saving
+	//Service entities will not be shown on SceneView and will be removed before scene saving
 	Entity* service_root = nullptr;
 
 	virtual void Start() override;
