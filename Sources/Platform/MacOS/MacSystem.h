@@ -24,6 +24,8 @@ public:
 
     void SetScreenDPI(float dpi);
 	void SetAssetPath(const String& path);
+	
+	void SetAppIcon();
 
 private:
     float dpi = 96.f;

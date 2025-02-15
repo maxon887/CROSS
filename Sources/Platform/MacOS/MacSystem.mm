@@ -202,3 +202,10 @@ void MacSystem::SetScreenDPI(float newDPI) {
 void MacSystem::SetAssetPath(const String& path) {
 	assets_path = path;
 }
+
+void MacSystem::SetAppIcon() {
+	String iconPath = assets_path + "../../Logo.png";
+	NSString* nsIconPath = [NSString stringWithCString:iconPath.ToCStr() encoding:[NSString defaultCStringEncoding]];
+	NSImage* icon = [[NSImage alloc] initWithContentsOfFile: nsIconPath];
+	[NSApp setApplicationIconImage:icon];
+}

@@ -271,6 +271,9 @@ int main(int c, char **args) {
     float dpi = mode->width * frame_to_window_ratio / (widthMM / 25.4);
     MacSystem* macSystem = (MacSystem*)cross::os;
     macSystem->SetScreenDPI(dpi);
+#ifdef CROSS_CMAKE
+	macSystem->SetAppIcon();
+#endif
 
     game->Start();
 
