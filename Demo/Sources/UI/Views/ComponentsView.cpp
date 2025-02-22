@@ -137,13 +137,12 @@ void ComponentsView::ShowProperty(BaseProperty* baseProperty) {
 
 void ComponentsView::ContextMenu(Entity* selectedEntity) {
 	if(ImGui::BeginPopupContextWindow("ComponentsOptions")) {
-		bool enabled = selectedEntity != nullptr;
-		if(ImGui::BeginMenu("Add Component", enabled)) {
+		if(ImGui::BeginMenu("Add Component", selectedEntity != nullptr)) {
 			Factory<Component>* factory = game->GetComponentFactory();
 			for(const String& componentName : factory->GetRegisteredComponentsName()) {
+				ImGui::BeginDisabled(componentName == "Mesh");
 				if(ImGui::MenuItem(componentName.ToCStr(), "", false)) {
 					Component* newComponent = factory->Create(componentName);
-					Entity* selectedEntity = scene_view->GetSelectedEntity();
 					newComponent->Disable();
 					if(selectedEntity->GetComponent(typeid(*newComponent).hash_code())) {
 						os->Messagebox("Error", "Component already exists");
@@ -152,6 +151,7 @@ void ComponentsView::ContextMenu(Entity* selectedEntity) {
 						selectedEntity->AddComponent(newComponent);
 					}
 				}
+				ImGui::EndDisabled();
 			}
 
 			ImGui::EndMenu();

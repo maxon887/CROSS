@@ -246,9 +246,8 @@ void FilesView::ContextMenu() {
 		ImGui::OpenPopup("Delete?");
 		deleteFile = false;
 	}
-	if(ImGui::BeginPopupModal("Delete?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Are you shure you what to delete this file?");
+	if(ImGui::BeginPopupModal("Delete?", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+		ImGui::Text("Are you sure you what to delete this file?");
 		if(ImGui::Button("OK", ImVec2(120, 0))) {
 			ImGui::CloseCurrentPopup(); 
 			os->Delete(current_path);
